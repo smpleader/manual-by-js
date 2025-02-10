@@ -1,11 +1,21 @@
 [
     {"title": "Getting Starterd"},
+    {"slug": "overview", "title": "Overview"},
+    {"slug": "introduction", "title": "Introduction"},
+    {"slug": "installation", "title": "Installation"},
     {"slug": "home", "title": "Home" , "index": ["ullamcorper", "aliquam", "vivamus", "quisque", "elementum", "rhoncus"]},
-    {"slug": "test", "title": "Test"},
-    {"slug": "page1", "title": "Page1"},
-    {"slug": "page2", "title": "Page2"},
-    {"title": "Test second"},
-    {"slug": "test2", "alias": "test", "title": "Test"},
-    {"slug": "test2-1", "alias": "page1", "title": "Page1"},
-    {"slug": "test2-2", "alias": "page2", "title": "Page2"}
+    
+    {"title": "Details"},
+    {"slug": "configuration", "title": "Configuration"},
+    {"slug": "template", "title": "Template"},
+    {"slug": "credits", "title": "Credits"},
+
+    {"title": "Examples"},
+    {"slug": "example1", "alias": "introduction", "title": "Alias"},
+    {"slug": "example2", "alias": "page2", "title": "Index table"},
+
+    {"title": "Support"},
+    {"href": "#",  "title": "Buy me a coffe!"},
+    {"href": "#",  "title": "Proposal a feature <3"},
+    {"href": "#",  "title": "Found a bug ?"}
 ]

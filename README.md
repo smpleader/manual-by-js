@@ -1,6 +1,6 @@
 # manual-by-js
 
-This is a html manual powered by javascript.
+This is a html manual powered by javascript. For more details, run porject by open index.html in your web browser
 
 ## Advanced
 - Support alias page: many pages could have same content
@@ -20,3 +20,4 @@ This is a html manual powered by javascript.
 - Auto add menu
 - Add active for index table
 - Fix issue if hash not found
+- Support external link

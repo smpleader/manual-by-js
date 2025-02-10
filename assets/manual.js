@@ -125,7 +125,11 @@ ManualByJs.prototype = {
             var div = document.getElementById('mbj-menu')
             var line = item.slug ? 
                 '<a href="#'+ item.slug +'" class="'+ item.slug +'">'+ item.title +'</a>' :
-                '<h6><strong>'+ item.title+'</strong></h6>'
+                ( item.href ? 
+                    '<a href="'+ item.href +'" class="hover '+ item.slug +'">'+ item.title +'</a>' :
+                    '<h6><strong>'+ item.title+'</strong></h6>'
+                )
+                
             div.insertAdjacentHTML("beforeend", line)
         }
     },
