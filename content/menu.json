@@ -1,0 +1,11 @@
+[
+    {"title": "Getting Starterd"},
+    {"slug": "home", "title": "Home" , "index": ["ullamcorper", "aliquam", "vivamus", "quisque", "elementum", "rhoncus"]},
+    {"slug": "test", "title": "Test"},
+    {"slug": "page1", "title": "Page1"},
+    {"slug": "page2", "title": "Page2"},
+    {"title": "Test second"},
+    {"slug": "test2", "alias": "test", "title": "Test"},
+    {"slug": "test2-1", "alias": "page1", "title": "Page1"},
+    {"slug": "test2-2", "alias": "page2", "title": "Page2"}
+]

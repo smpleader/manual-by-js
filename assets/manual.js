@@ -1,6 +1,7 @@
 function ManualByJs(options = {}){
     this.flag = options.flag || ''
     this.folderContent = options.folderContent || 'content'
+    this.siteTitle = options.siteTitle || 'Manual By JS'
     this.index = options.index || 'home'
     this.current = {}
     this.next = {}
@@ -10,42 +11,75 @@ function ManualByJs(options = {}){
 
 ManualByJs.prototype = {
     read: function(page){
+        that = this
         fetch(this.folderContent + '/' + page + '.html')
         .then(response => response.text())
         .then(data => {
-            var div = document.getElementById('page') 
+            var div = document.getElementById('mbj-page') 
             div.innerHTML = ""
             div.insertAdjacentHTML("afterbegin", data) 
+            that.createIndex()
         })
         .catch(error => {
             alert('Can not get page content "'+ page + '"!')
             console.error('Error fetching the file  page', error);
         });
     },
+    findPage: function(idx, step)
+    {
+        finder = idx + step
+        if(finder < 0 || finder == this.menu.length ) return false
+        test = this.menu[finder]
+        return test.slug ?  test : this.findPage(finder, step)
+    },
     navigate: async function(hash){
         that = this
         for(var ind = 0; ind < that.menu.length; ind++)
         {
             item = that.menu[ind]
-            console.log('navigate', item, hash)
-            if(hash == item.slug)
+            if(item.slug && hash == item.slug)
             {   
-                that.current = item
-                await that.read(item.slug)
-                var div = document.getElementById('page-nav')
-                div.innerHTML = ""
-                if(ind - 1 > -1)
+                const menu =  document.getElementById("mbj-menu");
+                const anchors = menu.getElementsByTagName('a');
+                for(const m of anchors)
                 {
-                    that.prev = that.menu[ind - 1] 
+                    if(m.classList.contains(item.slug))
+                    {
+                        m.classList.add("active")
+                    }
+                    else
+                    {
+                        m.classList.remove("active")
+                    }
+                }
+                
+                that.current = item
+                if(item.alias) {
+                    await that.read(item.alias)
+                } else {
+                    await that.read(item.slug)
+                }
+                
+                var div = document.getElementById('mbj-page-nav')
+                div.innerHTML = ""
+                that.prev = that.findPage(ind, -1)
+                if(false == that.prev)
+                {
+                    div.insertAdjacentHTML("afterbegin", '<a class="invisible"><span>.</span></a>')
+                } 
+                else 
+                {
                     div.insertAdjacentHTML("afterbegin", 
                         '<a href="#'+that.prev.slug+'" class="">' +
                             '<span>Previous page</span>' +
                             that.prev.title +
                         '</a>');
                 }
-                if(ind + 1 < that.menu.length)
+
+                that.next = that.findPage(ind, 1)
+
+                if(false !==  that.next)
                 {
-                    that.next = that.menu[ind + 1]
                     div.insertAdjacentHTML("beforeend", 
                         '<a href="#'+that.next.slug+'" class="text-end">' +
                             '<span>Next page</span>' +
@@ -55,7 +89,7 @@ ManualByJs.prototype = {
                 break;
             }
         }
-    },
+    }, 
     init: async function(callable){
         that = this
 
@@ -68,14 +102,54 @@ ManualByJs.prototype = {
         .then(response => response.text())
         .then(data => {
             that.menu = JSON.parse(data)
-            //console.log('getMenu', that.menu)
+            that.createMenu()
+            
             if(typeof callable == 'function') callable()
-            that.navigate(that.index)
+                
+            let hash = window.location.hash.substring(1);
+            if(hash.length == 0) hash = that.index
+            
+            that.navigate( hash )
+
+            document.getElementById('mbj-site-title').innerText = that.siteTitle
         })
         .catch(error => {
             alert('Can not create menu!')
             console.error('Error fetching the file  menu', error);
         });
+    },
+    createMenu: function() {
+        for(const item of this.menu)
+        {
+            var div = document.getElementById('mbj-menu')
+            var line = item.slug ? 
+                '<a href="#'+ item.slug +'" class="'+ item.slug +'">'+ item.title +'</a>' :
+                '<h6><strong>'+ item.title+'</strong></h6>'
+            div.insertAdjacentHTML("beforeend", line)
+        }
+    },
+    createIndex: function()  {
+        var div = document.getElementById('mbj-index')
+        div.innerHTML = ""
+        if(this.current.index)
+        { 
+            div.insertAdjacentHTML("beforeend", '<li class="mt-3"><b>On this page</b></li>')
+            for(const item of this.current.index)
+            {
+                if(typeof item == "string")
+                {
+                    let name = item.charAt(0).toUpperCase() + item.slice(1);
+                    name = name.replace(/-_/g, ' ')
+                    div.insertAdjacentHTML("beforeend", '<li><a class="item" href="#'+item+'">'+name+'</a></li>')
+
+                }
+                else if( item.id && item.name)
+                {
+                    div.insertAdjacentHTML("beforeend", '<li><a class="item" href="#'+item.id+'">'+item.name+'</a></li>')
+                }
+            }
+        }
+        
     },
     test: function()
     {
