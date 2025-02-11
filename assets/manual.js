@@ -126,7 +126,7 @@ ManualByJs.prototype = {
             var line = item.slug ? 
                 '<a href="#'+ item.slug +'" class="'+ item.slug +'">'+ item.title +'</a>' :
                 ( item.href ? 
-                    '<a href="'+ item.href +'" class="hover '+ item.slug +'">'+ item.title +'</a>' :
+                    '<a href="'+ item.href +'" class="hover link" target="_blank">'+ item.title +'</a>' :
                     '<h6><strong>'+ item.title+'</strong></h6>'
                 )
                 

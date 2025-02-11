@@ -3,19 +3,20 @@
     {"slug": "overview", "title": "Overview"},
     {"slug": "introduction", "title": "Introduction"},
     {"slug": "installation", "title": "Installation"},
-    {"slug": "home", "title": "Home" , "index": ["ullamcorper", "aliquam", "vivamus", "quisque", "elementum", "rhoncus"]},
-    
     {"title": "Details"},
+    {"slug": "menu", "title": "Menu Sidebar"},
+    {"slug": "structure", "title": "Structure Folder"},
     {"slug": "configuration", "title": "Configuration"},
     {"slug": "template", "title": "Template"},
-    {"slug": "credits", "title": "Credits"},
+    {"slug": "alias-page", "title": "Alias page"},
 
     {"title": "Examples"},
-    {"slug": "example1", "alias": "introduction", "title": "Alias"},
-    {"slug": "example2", "alias": "page2", "title": "Index table"},
+    {"slug": "example-alias2", "alias": "alias-page", "title": "A page alias"},
+    {"slug": "example-index", "title": "Index table", "index": ["ullamcorper", "aliquam", "vivamus", "quisque", "elementum", "rhoncus"]},
 
     {"title": "Support"},
+    {"slug": "credits", "title": "Credits"},
     {"href": "#",  "title": "Buy me a coffe!"},
-    {"href": "#",  "title": "Proposal a feature <3"},
-    {"href": "#",  "title": "Found a bug ?"}
+    {"href": "https://github.com/smpleader/manual-by-js/pulls",  "title": "Proposal a feature <3"},
+    {"href": "https://github.com/smpleader/manual-by-js/issues",  "title": "Found a bug ?"}
 ]
