@@ -20,4 +20,5 @@ This is a html manual powered by javascript. For more details, run porject by op
 - Auto add menu
 - Add active for index table
 - Fix issue if hash not found
-- Support external link
+- Add project link 
+- Add footer

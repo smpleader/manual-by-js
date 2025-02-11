@@ -5,7 +5,7 @@
     {"slug": "installation", "title": "Installation"},
     {"title": "Details"},
     {"slug": "menu", "title": "Menu Sidebar"},
-    {"slug": "structure", "title": "Structure Folder"},
+    {"slug": "folder-structure", "title": "Structure Folder"},
     {"slug": "configuration", "title": "Configuration"},
     {"slug": "template", "title": "Template"},
     {"slug": "alias-page", "title": "Alias page"},

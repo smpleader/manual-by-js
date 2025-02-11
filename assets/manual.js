@@ -155,9 +155,5 @@ ManualByJs.prototype = {
             }
         }
         
-    },
-    test: function()
-    {
-        console.log('test', this.menu)
     }
 }
