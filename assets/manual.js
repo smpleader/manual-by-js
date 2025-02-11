@@ -89,6 +89,7 @@ ManualByJs.prototype = {
                 } 
                 break;
             }
+            // TODO: find page by index table
         }
     }, 
     init: async function(callable){
