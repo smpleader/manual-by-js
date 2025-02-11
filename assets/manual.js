@@ -38,7 +38,8 @@ ManualByJs.prototype = {
         for(var ind = 0; ind < that.menu.length; ind++)
         {
             item = that.menu[ind]
-            if(item.slug && hash == item.slug)
+            if( (item.slug && hash == item.slug) || 
+                (item.index && item.index.includes(hash)) )
             {   
                 const menu =  document.getElementById("mbj-menu");
                 const anchors = menu.getElementsByTagName('a');
@@ -89,7 +90,6 @@ ManualByJs.prototype = {
                 } 
                 break;
             }
-            // TODO: find page by index table
         }
     }, 
     init: async function(callable){
