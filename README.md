@@ -22,3 +22,5 @@ This is a html manual powered by javascript. For more details, run porject by op
 - Fix issue if hash not found
 - Add project link 
 - Add footer
+- Add milestone to the top ( sprint, version)
+- Support multilanguage
