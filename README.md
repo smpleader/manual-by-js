@@ -24,3 +24,10 @@ This is a html manual powered by javascript. For more details, run porject by op
 - Add footer
 - Add milestone to the top ( sprint, version)
 - Support multilanguage
+
+## Log
+
+### 0.1.3
+
+- Window title changes according to page
+- Support milestones ( sprint, version )
