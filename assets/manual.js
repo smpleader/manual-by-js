@@ -19,6 +19,7 @@ ManualByJs.prototype = {
             var div = document.getElementById('mbj-page') 
             div.innerHTML = ""
             div.insertAdjacentHTML("afterbegin", data) 
+            document.title = that.siteTitle + " - " + that.current.title
             that.createIndex()
         })
         .catch(error => {
