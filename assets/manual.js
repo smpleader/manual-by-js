@@ -3,7 +3,7 @@ function ManualByJs(options = {}){
     this.flag = options.flag || ''
     this.folderContent = options.folderContent || 'content'
     this.siteTitle = options.siteTitle || 'Manual By JS'
-    this.index = options.index || 'home'
+    this.homePage = options.homePage || 'home'
     this.current = {}
     this.next = {}
     this.prev = {}
@@ -208,7 +208,7 @@ ManualByJs.prototype = {
         }
             
         let hash = window.location.hash.substring(1);
-        if(hash.length == 0) hash = this.index
+        if(hash.length == 0) hash = this.homePage
         
         await this.navigate( hash )
 
