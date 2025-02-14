@@ -71,7 +71,7 @@ ManualByJs.prototype = {
                 if(typeof item == "string")
                 {
                     let name = item.charAt(0).toUpperCase() + item.slice(1);
-                    name = name.replace(/-_/g, ' ')
+                    name = name.replace(/-|_/g, " ")
                     div.insertAdjacentHTML("beforeend", '<li><a class="item" href="#'+item+'">'+name+'</a></li>')
 
                 }
