@@ -150,7 +150,6 @@ ManualByJs.prototype = {
             txt.innerHTML = 'Latest is ' + this.milestone[0].title
         }
     },
-
     navigate: async function(hash){
         let item = this.findPageByHash(hash)
         if(item)
@@ -158,25 +157,18 @@ ManualByJs.prototype = {
             this.current = item
 
             let content = ''
-
-            if(item.alias) 
+            
+            if(item.parts)
             {
-                content = await this.read(item.alias)
-            }
-            else 
-            {
-                if(item.parts)
+                for(const page of item.parts)
                 {
-                    for(const page of item.parts)
-                    {
-                        content += await this.read(page)
-                    }
-                }
-                else
-                {
-                    content = await this.read(item.slug)
+                    content += await this.read(page)
                 }
             }
+            else
+            {
+                content = await this.read(item.alias ?? item.slug)
+            } 
 
             var div = document.getElementById('mbj-page') 
             div.innerHTML = ""
