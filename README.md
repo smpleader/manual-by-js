@@ -25,8 +25,12 @@ This is a html manual powered by javascript. For more details, run porject by op
 - ~~Add milestone to the top ( sprint, version)~~
 - Support multilanguage
 - Define elements of a content ( id of html tags, require: sidebarMenu & mainLayout )
+- ~~ Support page parts so the content can be edited easier and share part of content ~~
 
 ## Log
+
+### 0.1.5
+- Support page parts so the content can be edited easier and share part of content
 
 ### 0.1.4
 - Support milestones menu ( sprint, version )

@@ -1,5 +1,5 @@
 function ManualByJs(options = {}){
-    this.version = '0.1.4'
+    this.version = '0.1.5'
     this.flag = options.flag || ''
     this.folderContent = options.folderContent || 'content'
     this.siteTitle = options.siteTitle || 'Manual By JS'
@@ -16,25 +16,21 @@ function ManualByJs(options = {}){
         const hash = window.location.hash.substring(1); // Remove the '#' character
         that.navigate(hash);
     });
+
+    this._init()
 }
 
 ManualByJs.prototype = {
-    read: function(page){
-        that = this
-        fetch(this.folderContent + '/' + page + '.html')
-        .then(response => response.text())
-        .then(data => {
-            var div = document.getElementById('mbj-page') 
-            div.innerHTML = ""
-            div.insertAdjacentHTML("afterbegin", data) 
-
-            that._updateWindowTitle(that.siteTitle + " - " + that.current.title)
-            that._createIndexTable()
-        })
+    read: async function(page){
+        
+        let content = await fetch(this.folderContent + '/' + page + '.html')
+        .then(response => response.text()) 
         .catch(error => {
             alert('Can not get page content "'+ page + '"!')
             console.error('Error fetching the file  page', error);
         });
+
+        return content
     },
     findPageByIndex: function(idx, step)
     {
@@ -167,16 +163,41 @@ ManualByJs.prototype = {
         if(item)
         {
             this.current = item
-            this._sidebarMenuActivate(item.slug)
-            if(item.alias) {
-                await this.read(item.alias)
-            } else {
-                await this.read(item.slug)
+
+            let content = ''
+
+            if(item.alias) 
+            {
+                content = await this.read(item.alias)
             }
+            else 
+            {
+                if(item.parts)
+                {
+                    for(const page of item.parts)
+                    {
+                        content += await this.read(page)
+                    }
+                }
+                else
+                {
+                    content = await this.read(item.slug)
+                }
+            }
+
+            var div = document.getElementById('mbj-page') 
+            div.innerHTML = ""
+            div.insertAdjacentHTML("afterbegin", content) 
+
+            this._sidebarMenuActivate(item.slug)
+            this._updateWindowTitle(this.siteTitle + " - " + this.current.title)
+            this._createIndexTable()
             this._footMenuActivate(item.ordering)
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
     }, 
-    init: async function(callable){ 
+    _init: async function(){ 
 
         if(this.menu.length == 0)
         {    
@@ -193,7 +214,7 @@ ManualByJs.prototype = {
         let hash = window.location.hash.substring(1);
         if(hash.length == 0) hash = this.index
         
-        this.navigate( hash )
+        await this.navigate( hash )
 
         this._createSidebarMenu() 
         this._setSiteTitle()
