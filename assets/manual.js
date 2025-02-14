@@ -187,7 +187,11 @@ ManualByJs.prototype = {
             this._createIndexTable()
             this._footMenuActivate(item.ordering)
 
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+            // if item found by index, we won't scroll it
+            if(item.slug === hash)
+            {
+                window.scrollTo({ top: 0, behavior: 'smooth' })
+            }
         }
     }, 
     _init: async function(){ 
