@@ -4,7 +4,7 @@
     {"slug": "introduction", "title": "Introduction"},
     {"slug": "installation", "title": "Installation"},
     {"title": "Details"},
-    {"slug": "menu", "title": "Menu Deepth"},
+    {"slug": "menu", "title": "Menu Deepth", "index": ["menu-deepth", "menu-types"]},
     {"slug": "folder-structure", "title": "Structure Folder"},
     {"slug": "configuration", "title": "Configuration"},
     {"slug": "template", "title": "Template"},
