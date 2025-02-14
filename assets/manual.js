@@ -10,13 +10,6 @@ function ManualByJs(options = {}){
     this.menu = options.menu || []
     this.milestone = options.milestone || []
 
-    that = this
-
-    window.addEventListener('hashchange', function() {
-        const hash = window.location.hash.substring(1); // Remove the '#' character
-        that.navigate(hash);
-    });
-
     this._init()
 }
 
@@ -140,7 +133,7 @@ ManualByJs.prototype = {
     },
     _setSiteTitle: function()
     {
-        document.getElementById('mbj-site-title').innerText = that.siteTitle
+        document.getElementById('mbj-site-title').innerText = this.siteTitle
     },
     _createMilestoneMenu: function()
     {
@@ -209,7 +202,6 @@ ManualByJs.prototype = {
                 console.error('Error fetching the file  menu', error);
             });
         }
-
             
         let hash = window.location.hash.substring(1);
         if(hash.length == 0) hash = this.index
@@ -219,5 +211,13 @@ ManualByJs.prototype = {
         this._createSidebarMenu() 
         this._setSiteTitle()
         this._createMilestoneMenu()
+
+        // global event
+        that = this
+    
+        window.addEventListener('hashchange', function() {
+            const hash = window.location.hash.substring(1); // Remove the '#' character
+            that.navigate(hash);
+        });
     }
 }
