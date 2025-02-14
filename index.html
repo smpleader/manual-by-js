@@ -20,6 +20,16 @@
         <!-- <img src="images/logo.png" alt=""> -->
         <h1 id="mbj-site-title"><span>.</span></h1>
       </a>
+      <div class="dropdown">
+        <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="mbj-milestone-menu" data-bs-toggle="dropdown" aria-expanded="false">
+          Milestone list
+        </a>
+        <ul class="dropdown-menu" aria-labelledby="mbj-milestone-menu" id="mbj-milestone">
+          <li><a class="dropdown-item" href="#">Action</a></li>
+          <li><a class="dropdown-item" href="#">Another action</a></li>
+          <li><a class="dropdown-item" href="#">Something else here</a></li>
+        </ul>
+      </div>
       <!--<i class="mobile-search-toggle mobile-search-show bi bi-search"></i>
       <form class="header-search-form">
         <i class="mobile-search-toggle mobile-search-hide bi bi-x"></i>
@@ -150,7 +160,13 @@
   <script src="assets/main.js.download"></script>
   <script src="assets/manual.js"></script>
   <script>
-  const app = new ManualByJs({index:"overview"})
+  const app = new ManualByJs({
+    index:"overview", 
+    milestone: [
+      {href: "#", title: "0.1.x"},
+      {href: "#", title: "0.0.x"}
+    ]
+  })
   app.init() 
 
     // Get all sections that have an ID defined

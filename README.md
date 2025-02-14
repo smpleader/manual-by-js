@@ -17,17 +17,22 @@ This is a html manual powered by javascript. For more details, run porject by op
 ## Todo
 
 - Support md file
-- Auto add menu
+- ~~Auto add menu~~
 - Add active for index table
-- Fix issue if hash not found
-- Add project link 
+- ~~Fix issue if hash not found~~
+- ~~Add menu link ~~
 - Add footer
-- Add milestone to the top ( sprint, version)
+- ~~Add milestone to the top ( sprint, version)~~
 - Support multilanguage
+- Define elements of a content ( id of html tags, require: sidebarMenu & mainLayout )
 
 ## Log
+
+### 0.1.4
+- Support milestones menu ( sprint, version )
 
 ### 0.1.3
 
 - Window title changes according to page
-- Support milestones ( sprint, version )
+- Improve APIs
+
