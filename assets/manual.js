@@ -147,7 +147,7 @@ ManualByJs.prototype = {
                     '<li><a class="dropdown-item" href="' + item.href + '">'+ item.title +'</a></li>' )
             }
             var txt = document.getElementById('mbj-milestone-menu')
-            txt.innerHTML = 'Latest is ' + this.milestone[0].title
+            txt.innerHTML =  this.milestone[0].title
         }
     },
     navigate: async function(hash){
