@@ -20,12 +20,12 @@ This is a html manual powered by javascript. For more details, run porject by op
 - ~~Auto add menu~~
 - Add active for index table
 - ~~Fix issue if hash not found~~
-- ~~Add menu link ~~
+- ~~Add menu link~~
 - Add footer
 - ~~Add milestone to the top ( sprint, version)~~
 - Support multilanguage
 - Define elements of a content ( id of html tags, require: sidebarMenu & mainLayout )
-- ~~ Support page parts so the content can be edited easier and share part of content ~~
+- ~~Support page parts so the content can be edited easier and share part of content~~
 - Create Manual preview script
 
 ## Log
