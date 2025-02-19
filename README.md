@@ -27,6 +27,7 @@ This is a html manual powered by javascript. For more details, run porject by op
 - Define elements of a content ( id of html tags, require: sidebarMenu & mainLayout )
 - ~~Support page parts so the content can be edited easier and share part of content~~
 - Create Manual preview script
+- Support link when get translated by translate tools ( google translate, microsoft translate.. )
 
 ## Log
 
