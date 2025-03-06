@@ -24,13 +24,19 @@ This is a html manual powered by javascript. For more details, run porject by op
 - Add footer
 - ~~Add milestone to the top ( sprint, version)~~
 - Support multilanguage
-- Define elements of a content ( id of html tags, require: sidebarMenu & mainLayout )
+- ~~Define elements of a content ( id of html tags, require: sidebarMenu & mainLayout )~~
 - ~~Support page parts so the content can be edited easier and share part of content~~
 - Create Manual preview script
 - Support link when get translated by translate tools ( google translate, microsoft translate.. )
 - Load content and convert to javascript widget
 
 ## Log
+
+### 0.1.7
+- Support md format
+
+### 0.1.6
+- Define elements of a content
 
 ### 0.1.5
 - Support page parts so the content can be edited easier and share part of content

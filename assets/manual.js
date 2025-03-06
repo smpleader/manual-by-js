@@ -1,5 +1,5 @@
 function ManualByJs(options = {}){
-    this.version = '0.1.6'
+    this.version = '0.1.7'
     this.flag = options.flag || ''
     this.folderContent = options.folderContent || 'content'
     this.siteTitle = options.siteTitle || 'Manual By JS'
@@ -9,6 +9,9 @@ function ManualByJs(options = {}){
     this.prev = {}
     this.menu = options.menu || []
     this.milestone = options.milestone || []
+
+    this.markdown = options.markdown || null
+    this.md = options.md || null
     
     this.ids = {
         siteTitle: "mbj-site-title",
@@ -34,13 +37,18 @@ function ManualByJs(options = {}){
 
 ManualByJs.prototype = {
     read: async function(page){
-        
+             
         let content = await fetch(this.folderContent + '/' + page + '.html')
         .then(response => response.text()) 
         .catch(error => {
             alert('Can not get page content "'+ page + '"!')
             console.error('Error fetching the file  page', error);
-        });
+        })
+
+        if(this.markdown)
+        {
+            content = this.md(content)
+        }
 
         return content
     },

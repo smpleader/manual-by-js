@@ -14,6 +14,7 @@
     {"slug": "example-parts", "parts": ["share/head", "example-parts", "share/foot"], "title": "Page parts"},
     {"slug": "example-alias2", "alias": "alias-page", "title": "A page alias"},
     {"slug": "example-index", "title": "Index table", "index": ["ullamcorper", "aliquam", "vivamus", "quisque", "elementum", "rhoncus"]},
+    {"slug": "example-md", "title": "Markdown format"},
 
     {"title": "Support"},
     {"slug": "credits", "title": "Credits"},
