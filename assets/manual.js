@@ -1,5 +1,5 @@
 function ManualByJs(options = {}){
-    this.version = '0.1.5'
+    this.version = '0.1.6'
     this.flag = options.flag || ''
     this.folderContent = options.folderContent || 'content'
     this.siteTitle = options.siteTitle || 'Manual By JS'
@@ -9,6 +9,25 @@ function ManualByJs(options = {}){
     this.prev = {}
     this.menu = options.menu || []
     this.milestone = options.milestone || []
+    
+    this.ids = {
+        siteTitle: "mbj-site-title",
+        milestone: "mbj-milestone",
+        milestoneMenu: "mbj-milestone-menu",
+        menu: "mbj-menu",
+        page: "mbj-page",
+        pageNav: "mbj-page-nav",
+        pageIndex: "mbj-page-index"
+    }
+
+    if(options.ids) this.ids = {...options.ids}
+
+    this.mbj = {}
+    
+    for (let [key, id] of Object.entries(this.ids)) 
+    {
+        this.mbj[key] = document.getElementById(id)
+    }
 
     this._init()
 }
@@ -47,40 +66,52 @@ ManualByJs.prototype = {
         return false
     },
     _createSidebarMenu: function() {
-        for(const item of this.menu)
+        if(this.mbj.menu)
         {
-            var div = document.getElementById('mbj-menu')
-            var line = item.slug ? 
-                '<a href="#'+ item.slug +'" class="'+ item.slug +'">'+ item.title +'</a>' :
-                ( item.href ? 
-                    '<a href="'+ item.href +'" class="hover link" target="_blank">'+ item.title +'</a>' :
-                    '<h6><strong>'+ item.title+'</strong></h6>'
-                )
-                
-            div.insertAdjacentHTML("beforeend", line)
+            for(const item of this.menu)
+            {
+                var line = item.slug ? 
+                    '<a href="#'+ item.slug +'" class="'+ item.slug +'">'+ item.title +'</a>' :
+                    ( item.href ? 
+                        '<a href="'+ item.href +'" class="hover link" target="_blank">'+ item.title +'</a>' :
+                        '<h6><strong>'+ item.title+'</strong></h6>'
+                    )
+                    
+                this.mbj.menu.insertAdjacentHTML("beforeend", line)
+            }
+        }
+        else 
+        {
+            console.log("No element to keep Sidebar menu!")
         }
     },
     _createIndexTable: function()  {
-        var div = document.getElementById('mbj-index')
-        div.innerHTML = ""
-        if(this.current.index)
-        { 
-            div.insertAdjacentHTML("beforeend", '<li class="mt-3"><b>On this page</b></li>')
-            for(const item of this.current.index)
-            {
-                if(typeof item == "string")
+        if(this.mbj.pageIndex)
+        {
+            this.mbj.pageIndex.innerHTML = ""
+            if(this.current.index)
+            { 
+                this.mbj.pageIndex.insertAdjacentHTML("beforeend", '<li class="mt-3"><b>On this page</b></li>')
+                for(const item of this.current.index)
                 {
-                    let name = item.charAt(0).toUpperCase() + item.slice(1);
-                    name = name.replace(/-|_/g, " ")
-                    div.insertAdjacentHTML("beforeend", '<li><a class="item" href="#'+item+'">'+name+'</a></li>')
+                    if(typeof item == "string")
+                    {
+                        let name = item.charAt(0).toUpperCase() + item.slice(1);
+                        name = name.replace(/-|_/g, " ")
+                        this.mbj.pageIndex.insertAdjacentHTML("beforeend", '<li><a class="item" href="#'+item+'">'+name+'</a></li>')
 
-                }
-                else if( item.id && item.name)
-                {
-                    div.insertAdjacentHTML("beforeend", '<li><a class="item" href="#'+item.id+'">'+item.name+'</a></li>')
+                    }
+                    else if( item.id && item.name)
+                    {
+                        this.mbj.pageIndex.insertAdjacentHTML("beforeend", '<li><a class="item" href="#'+item.id+'">'+item.name+'</a></li>')
+                    }
                 }
             }
         }
+        else
+        {
+            // this element is optional
+        } 
     },
     _updateWindowTitle: function(line)
     {
@@ -88,8 +119,7 @@ ManualByJs.prototype = {
     },
     _sidebarMenuActivate: function(slug)
     {   
-        const menu =  document.getElementById("mbj-menu");
-        const anchors = menu.getElementsByTagName('a');
+        const anchors = this.mbj.menu.getElementsByTagName('a');
         for(const m of anchors)
         {
             if(m.classList.contains(slug))
@@ -104,50 +134,55 @@ ManualByJs.prototype = {
     },
     _footMenuActivate: function(ordering)
     {
-        var div = document.getElementById('mbj-page-nav')
-        div.innerHTML = ""
-        this.prev = this.findPageByIndex(ordering, -1)
-        if(false == this.prev)
+        if(this.mbj.pageNav)
         {
-            div.insertAdjacentHTML("afterbegin", '<a class="invisible"><span>.</span></a>')
-        } 
-        else 
-        {
-            div.insertAdjacentHTML("afterbegin", 
-                '<a href="#'+this.prev.slug+'" class="">' +
-                    '<span>Previous page</span>' +
-                    this.prev.title +
-                '</a>');
+            this.mbj.pageNav.innerHTML = ""
+            this.prev = this.findPageByIndex(ordering, -1)
+            if(false == this.prev)
+            {
+                this.mbj.pageNav.insertAdjacentHTML("afterbegin", '<a class="invisible"><span>.</span></a>')
+            } 
+            else 
+            {
+                this.mbj.pageNav.insertAdjacentHTML("afterbegin", 
+                    '<a href="#'+this.prev.slug+'" class="">' +
+                        '<span>Previous page</span>' +
+                        this.prev.title +
+                    '</a>');
+            }
+    
+            this.next = this.findPageByIndex(ordering, 1)
+    
+            if(false !==  this.next)
+            {
+                this.mbj.pageNav.insertAdjacentHTML("beforeend", 
+                    '<a href="#'+this.next.slug+'" class="text-end">' +
+                        '<span>Next page</span>' +
+                        this.next.title +
+                    '</a>');
+            } 
         }
-
-        this.next = this.findPageByIndex(ordering, 1)
-
-        if(false !==  this.next)
+        else
         {
-            div.insertAdjacentHTML("beforeend", 
-                '<a href="#'+this.next.slug+'" class="text-end">' +
-                    '<span>Next page</span>' +
-                    this.next.title +
-                '</a>');
+            // this element is optional
         } 
     },
     _setSiteTitle: function()
     {
-        document.getElementById('mbj-site-title').innerText = this.siteTitle
+        this.mbj.siteTitle.innerText = this.siteTitle
     },
     _createMilestoneMenu: function()
     {
-        if(this.milestone.length > 0)
+        if(this.milestone.length > 0 && this.mbj.milestone)
         {
-            var div = document.getElementById('mbj-milestone')
-            div.innerHTML = ''
+            this.mbj.milestone.innerHTML = ''
             for(const item of this.milestone)
             {
-                div.insertAdjacentHTML("beforeend", 
+                this.mbj.milestone.insertAdjacentHTML("beforeend", 
                     '<li><a class="dropdown-item" href="' + item.href + '">'+ item.title +'</a></li>' )
             }
-            var txt = document.getElementById('mbj-milestone-menu')
-            txt.innerHTML =  this.milestone[0].title
+            
+            this.mbj.milestoneMenu.innerHTML =  this.milestone[0].title
         }
     },
     navigate: async function(hash){
@@ -170,9 +205,8 @@ ManualByJs.prototype = {
                 content = await this.read(item.alias ?? item.slug)
             } 
 
-            var div = document.getElementById('mbj-page') 
-            div.innerHTML = ""
-            div.insertAdjacentHTML("afterbegin", content) 
+            this.mbj.page.innerHTML = ""
+            this.mbj.page.insertAdjacentHTML("afterbegin", content) 
 
             this._sidebarMenuActivate(item.slug)
             this._updateWindowTitle(this.siteTitle + " - " + this.current.title)

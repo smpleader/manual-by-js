@@ -19,5 +19,5 @@
     {"slug": "credits", "title": "Credits"},
     {"href": "#",  "title": "Buy me a coffe!"},
     {"href": "https://github.com/smpleader/manual-by-js/pulls",  "title": "Proposal a feature <3"},
-    {"href": "https://github.com/smpleader/manual-by-js/issues",  "title": "Found a bug ?"}
+    {"href": "https://github.com/smpleader/manual-by-js/issues",  "title": "Found an issue ?"}
 ]
