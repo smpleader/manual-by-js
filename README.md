@@ -34,6 +34,7 @@ This is a html manual powered by javascript. For more details, run porject by op
 
 ### 0.1.7
 - Support md format
+- Support file extension
 
 ### 0.1.6
 - Define elements of a content

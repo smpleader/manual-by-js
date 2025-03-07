@@ -1,0 +1,24 @@
+[
+    {"title": "Getting Starterd"},
+    {"alias": "../overview", "slug": "overview",  "title": "Overview"},
+    {"href": "index.html#introduction", "title": "Introduction"},
+    {"href": "index.html#installation", "title": "Installation"},
+    {"title": "Details"},
+    {"href": "index.html#menu", "title": "Menu Deepth", "index": ["menu-deepth", "menu-types"]},
+    {"href": "index.html#folder-structure", "title": "Structure Folder"},
+    {"slug": "configuration", "title": "Configuration"},
+    {"slug": "template", "title": "Template"},
+    {"slug": "alias-page", "title": "Alias page"},
+
+    {"title": "Examples"},
+    {"slug": "example-parts", "parts": ["../share/head", "../example-parts", "../share/foot"], "title": "Page parts"},
+    {"slug": "example-alias2", "alias": "../alias-page", "title": "A page alias"},
+    {"slug": "example-index", "alias": "../example-index", "title": "Index table", "index": ["ullamcorper", "aliquam", "vivamus", "quisque", "elementum", "rhoncus"]},
+    {"slug": "example-markdown", "title": "Markdown format", "alias": "../example-markdown", "fileExt": "md"},
+
+    {"title": "Support"},
+    {"slug": "credits", "title": "Credits"},
+    {"href": "#", "target": "_blank", "title": "Buy me a coffe!"},
+    {"href": "https://github.com/smpleader/manual-by-js/pulls", "target": "_blank",  "title": "Proposal a feature <3"},
+    {"href": "https://github.com/smpleader/manual-by-js/issues", "target": "_blank",  "title": "Found an issue ?"}
+]
