@@ -9,6 +9,7 @@ function ManualByJs(options = {}){
     this.prev = {}
     this.menu = options.menu || []
     this.milestone = options.milestone || []
+    this.fileExt = options.fileExt ?? "html"
 
     this.markdown = options.markdown || null
     this.md = options.md || null
@@ -36,12 +37,12 @@ function ManualByJs(options = {}){
 }
 
 ManualByJs.prototype = {
-    read: async function(page){
-             
-        let content = await fetch(this.folderContent + '/' + page + '.html')
+    read: async function(page_link){
+        
+        let content = await fetch(page_link)
         .then(response => response.text()) 
         .catch(error => {
-            alert('Can not get page content "'+ page + '"!')
+            alert('Can not get page content '+ page_link )
             console.error('Error fetching the file  page', error);
         })
 
@@ -81,7 +82,7 @@ ManualByJs.prototype = {
                 var line = item.slug ? 
                     '<a href="#'+ item.slug +'" class="'+ item.slug +'">'+ item.title +'</a>' :
                     ( item.href ? 
-                        '<a href="'+ item.href +'" class="hover link" target="_blank">'+ item.title +'</a>' :
+                        '<a href="'+ item.href +'" class="hover link" '+ (item.target?'target="'+item.target+'">':'>') + item.title +'</a>' :
                         '<h6><strong>'+ item.title+'</strong></h6>'
                     )
                     
@@ -199,18 +200,21 @@ ManualByJs.prototype = {
         {
             this.current = item
 
-            let content = ''
-            
+            let content = '', ext = item.fileExt??this.fileExt
+
+           
             if(item.parts)
             {
-                for(const page of item.parts)
+                for(const part of item.parts)
                 {
-                    content += await this.read(page)
+                    link =  this.folderContent + '/' + part + '.' + ext
+                    content += await this.read(link)
                 }
             }
             else
             {
-                content = await this.read(item.alias ?? item.slug)
+                link =  this.folderContent + '/' + (item.alias ?? item.slug) + '.' + ext
+                content = await this.read(link)
             } 
 
             this.mbj.page.innerHTML = ""
