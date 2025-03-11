@@ -29,7 +29,6 @@ This is a html manual powered by javascript. For more details, run porject by op
 - Create Manual preview script
 - Support link when get translated by translate tools ( google translate, microsoft translate.. )
 - Load content and convert to javascript widget
-- Support markdown plugin, include bootstrap layout
 
 ## Log
 
