@@ -166,6 +166,7 @@
   <script src="assets/main.js.download"></script>
   <script src="assets/toastui-editor-all.min.js"></script>
   <script src="assets/manual.js"></script>
+  <script type="module" src="assets/toastmark.js"></script>
   <script>
     const editor = new toastui.Editor({
         el: document.querySelector('#editor'),
@@ -188,7 +189,7 @@
     md: function (content){ 
       document.getElementById("editor").innerHTML = ""
       document.getElementById("editor").insertAdjacentHTML("beforeend",   content)
-    console.log(this.markdown.getMarkdown() )
+    console.log( toastmark(content) )
     //console.log(this.markdown.preview.renderer.render()) // .parser.toHtml(content))
     
     return content  }
