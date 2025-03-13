@@ -11,7 +11,6 @@ function ManualByJs(options = {}){
     this.milestone = options.milestone || []
     this.fileExt = options.fileExt ?? "html"
 
-    this.markdown = options.markdown || null
     this.md = options.md || null
     
     this.ids = {
@@ -33,6 +32,8 @@ function ManualByJs(options = {}){
         this.mbj[key] = document.getElementById(id)
     }
 
+    this.markdown = options.markdown || null
+
     this._init()
 }
 
@@ -46,7 +47,7 @@ ManualByJs.prototype = {
             console.error('Error fetching the file  page', error);
         })
 
-        if(this.markdown)
+        if(this.markdown && this.current.fileExt == "md")
         {
             content = this.md(content)
         }
@@ -202,6 +203,8 @@ ManualByJs.prototype = {
 
             let content = '', ext = item.fileExt??this.fileExt
 
+            if(!this.current.fileExt) this.current.fileExt = ext
+
            
             if(item.parts)
             {
@@ -215,10 +218,13 @@ ManualByJs.prototype = {
             {
                 link =  this.folderContent + '/' + (item.alias ?? item.slug) + '.' + ext
                 content = await this.read(link)
-            } 
+            }
 
-            this.mbj.page.innerHTML = ""
-            this.mbj.page.insertAdjacentHTML("afterbegin", content) 
+            if( true !== content)
+            {
+                this.mbj.page.innerHTML = ""
+                this.mbj.page.insertAdjacentHTML("afterbegin", content)
+            }
 
             this._sidebarMenuActivate(item.slug)
             this._updateWindowTitle(this.siteTitle + " - " + this.current.title)
