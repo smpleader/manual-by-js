@@ -11,6 +11,7 @@
   <link href="assets/all.min.css" rel="stylesheet">
   <link href="assets/aos.css" rel="stylesheet">
   <!-- Template Main CSS File -->
+  <link href="assets/vditor@3.10.9.css" rel="stylesheet">
   <link href="assets/style.css" rel="stylesheet">
 </head>
 <body class="member-page guide-page" data-aos-easing="slide" data-aos-duration="800" data-aos-delay="0">
@@ -163,6 +164,7 @@
 
   <!-- Template Main JS File -->
   <script src="assets/main.js.download"></script>
+  <script src="assets/vditor@3.10.9.js"></script>
   <script src="assets/markdown-it.min.js"></script>
   <script src="assets/manual.js"></script>
   <script>
@@ -171,13 +173,29 @@
     milestone: [
       {href: "#", title: "0.1.x"}
     ],
-    markdown: markdownit({
+    /*markdown: markdownit({
                 html: true,
                 linkify: true,
                 typographer: true
             }),
     md: function (content){ return this.markdown.render(content) }
-
+*/
+    markdown: {},
+    md: function (content){ 
+        //return content
+        Vditor.preview(
+      document.getElementById('mbj-page'), 
+      content, {
+       // cdn: "", --> need to download more file or using cdn
+        speech: {
+          enable: true,
+        },
+        anchor: 1})
+        //(this.markdown);
+        
+        //this.markdown.renderPreview(content) 
+        return true
+      }
   })
 
     // Get all sections that have an ID defined
