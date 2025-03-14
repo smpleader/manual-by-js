@@ -49,7 +49,7 @@ ManualByJs.prototype = {
 
         if(this.markdown && this.current.fileExt == "md")
         {
-            content = this.md(content)
+            content = await this.md(content)
         }
 
         return content

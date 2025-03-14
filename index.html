@@ -181,19 +181,13 @@
     md: function (content){ return this.markdown.render(content) }
 */
     markdown: {},
-    md: function (content){ 
-        //return content
-        Vditor.preview(
-      document.getElementById('mbj-page'), 
-      content, {
-       // cdn: "", --> need to download more file or using cdn
+    md: async  function (content){ 
+        return Vditor.md2html(content,{
+       // cdn: "", //-- > need to download more file or using cdn
         speech: {
           enable: true,
         },
         anchor: 1})
-        //(this.markdown);
-        
-        //this.markdown.renderPreview(content) 
         return true
       }
   })
