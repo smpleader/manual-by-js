@@ -165,31 +165,23 @@
   <!-- Template Main JS File -->
   <script src="assets/main.js.download"></script>
   <script src="assets/vditor@3.10.9.js"></script>
-  <script src="assets/markdown-it.min.js"></script>
+  <script src="assets/lute.min.js" id="vditorLuteScript"></script> 
   <script src="assets/manual.js"></script>
   <script>
   const app = new ManualByJs({
     homePage: "overview", 
     milestone: [
       {href: "#", title: "0.1.x"}
-    ],
-    /*markdown: markdownit({
-                html: true,
-                linkify: true,
-                typographer: true
-            }),
-    md: function (content){ return this.markdown.render(content) }
-*/
+    ], 
     markdown: {},
     md: async  function (content){ 
-        return Vditor.md2html(content,{
-       // cdn: "", //-- > need to download more file or using cdn
-        speech: {
-          enable: true,
-        },
-        anchor: 1})
-        return true
-      }
+        return await Vditor.md2html(content, {
+          cdn: "", //-- >   using cdn
+          speech: {
+            enable: true,
+          },
+          anchor: 1} 
+      )}
   })
 
     // Get all sections that have an ID defined
