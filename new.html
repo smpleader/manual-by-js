@@ -1,12 +1,14 @@
 <!DOCTYPE html>
-<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  <meta content="width=device-width,initial-scale=1" name="viewport">
-  <meta http-equiv="Content-Language" content="en">
-  <title>Manual - project 001</title>
-  <meta content="" name="description">
-  <meta content="" name="keywords"> 
-  <link href="assets/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-  <link href="assets/docs.css" rel="stylesheet">
+<html lang="en" data-bs-theme="light"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="author" content="">
+<meta name="generator" content="">
+<title>Manual By Js</title>
+<link rel="canonical" href="">
+<link href="new2/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+<link href="new2/docs.css" rel="stylesheet">
+<meta name="theme-color" content="#712cf9"> 
 </head>
 <body data-bs-spy="scroll" data-bs-target="#TableOfContents">
 <header class="navbar navbar-expand-lg bd-navbar sticky-top">
@@ -21,7 +23,7 @@
       </button>
     </div> 
 
-    <a class="navbar-brand p-0 me-0 me-lg-2" href="https://getbootstrap.com/" aria-label="Bootstrap" id="mbj-site-title">
+    <a class="navbar-brand p-0 me-0 me-lg-2" href="https://getbootstrap.com/" aria-label="Bootstrap">
         MBJ
     </a>
 
@@ -73,21 +75,34 @@
             <div class="vr d-none d-lg-flex h-100 mx-lg-2 text-white"></div>
             <hr class="d-lg-none my-2 text-white-50">
           </li>
-
-          <!--<a class="btn btn-link px-2 nav-link dropdown-toggle" href="#" role="button"  data-bs-toggle="dropdown" aria-expanded="false">
-            Milestone list
-          </a>
-          <ul class="dropdown-menu" aria-labelledby="mbj-milestone-menu" >
-            <li><a class="dropdown-item" href="#">Action</a></li>
-            <li><a class="dropdown-item" href="#">Another action</a></li>
-            <li><a class="dropdown-item" href="#">Something else here</a></li>
-          </ul>-->
-
 <li class="nav-item dropdown">
-    <button type="button" class="btn btn-link nav-link py-2 px-0 px-lg-2 dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" data-bs-display="static" id="mbj-milestone-menu">
-         Milestone here  
+    <button type="button" class="btn btn-link nav-link py-2 px-0 px-lg-2 dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" data-bs-display="static">
+        <span class="d-lg-none" aria-hidden="true">Bootstrap</span><span class="visually-hidden">Bootstrap&nbsp;</span> v5.3 <span class="visually-hidden">(switch to other versions)</span>
     </button>
-    <ul class="dropdown-menu dropdown-menu-end" id="mbj-milestone">
+    <ul class="dropdown-menu dropdown-menu-end">
+        <li><h6 class="dropdown-header">v5 releases</h6></li>
+        <li>
+        <a class="dropdown-item d-flex align-items-center justify-content-between active" aria-current="true" href="">
+            Latest (5.3.x)
+            <svg class="bi"><use xlink:href="new2/icons.svg#check2"></use></svg>
+        </a>
+        </li>
+        <li>
+            <div class="dropdown-item disabled">v5.2.3</div>
+        </li>
+        <li>
+            <div class="dropdown-item disabled">v5.1.3</div>
+        </li>
+        <li>
+            <div class="dropdown-item disabled">v5.0.2</div>
+        </li>
+        <li><hr class="dropdown-divider"></li>
+        <li><h6 class="dropdown-header">Previous releases</h6></li>
+        <li><a class="dropdown-item" href="https://getbootstrap.com/docs/4.6/">v4.6.x</a></li>
+        <li><a class="dropdown-item" href="https://getbootstrap.com/docs/3.4/">v3.4.1</a></li>
+        <li><a class="dropdown-item" href="https://getbootstrap.com/2.3.2/">v2.3.2</a></li>
+        <li><hr class="dropdown-divider"></li>
+        <li><a class="dropdown-item" href="https://getbootstrap.com/docs/versions/">All versions</a></li>
     </ul>
 </li>
           <li class="nav-item py-2 py-lg-1 col-12 col-lg-auto">
@@ -141,8 +156,7 @@
         </div>
 
         <div class="offcanvas-body">
-          <nav class="bd-links w-100" id="bd-docs-nav" aria-label="Docs navigation">
-            <ul class="bd-links-nav list-unstyled mb-0 pb-3 pb-md-2 pe-lg-2" id="mbj-menu">
+          <nav class="bd-links w-100" id="bd-docs-nav" aria-label="Docs navigation"><ul class="bd-links-nav list-unstyled mb-0 pb-3 pb-md-2 pe-lg-2">
       <li class="bd-links-group py-2">
         <strong class="bd-links-heading d-flex w-100 align-items-center fw-semibold">
             <svg class="bi me-2" style="color: var(--bs-blue);" aria-hidden="true"><use xlink:href="new2/icons.svg#book-half"></use></svg>
@@ -214,7 +228,6 @@
                     </ul>
                 </li>
                 </ul>
-                <ul class="content-navigation" id="mbj-page-index">  </ul>
               </nav>
             </div>
 
@@ -222,25 +235,48 @@
         </div> 
         <div class="bd-content ps-lg-2">
 
-          
-          <div class="main-content-inner">
-            <div id="mbj-page"></div>
-            <hr class="mt-5">
-          </div>
-          <div class="main-content-navigation" id="mbj-page-nav">
-            <a href="#" class="">
-              <span>Previous page</span>
-              Introduction
-            </a>
-            <a href="#" class="text-end">
-              <span>Next page</span>
-              Customization
-            </a>
-          </div> 
+            <h2 id="e1">Example 1<a class="anchor-link" href="#example" aria-label="Link to this section: Example"></a></h2>
+<p>Use <code>z-index</code> utilities to stack elements on top of one another. Requires a <code>position</code> value other than <code>static</code>, which can be set with custom styles or using our <a href="https://getbootstrap.com/docs/5.3/utilities/position/">position utilities</a>.</p>
+<div class="bd-callout bd-callout-info">
+We call these “low-level” <code>z-index</code> utilities because of their default values of <code>-1</code> through <code>3</code>, which we use for the layout of overlapping components. High-level <code>z-index</code> values are used for overlay components like modals and tooltips.
+</div>
+
+<h2 id="e2">Example 2<a class="anchor-link" href="#example" aria-label="Link to this section: Example"></a></h2>
+<p>Use <code>z-index</code> utilities to stack elements on top of one another. Requires a <code>position</code> value other than <code>static</code>, which can be set with custom styles or using our <a href="https://getbootstrap.com/docs/5.3/utilities/position/">position utilities</a>.</p>
+<div class="bd-callout bd-callout-info">
+We call these “low-level” <code>z-index</code> utilities because of their default values of <code>-1</code> through <code>3</code>, which we use for the layout of overlapping components. High-level <code>z-index</code> values are used for overlay components like modals and tooltips.
+</div>
+
+<h2 id="e3">Example 3<a class="anchor-link" href="#example" aria-label="Link to this section: Example"></a></h2>
+<p>Use <code>z-index</code> utilities to stack elements on top of one another. Requires a <code>position</code> value other than <code>static</code>, which can be set with custom styles or using our <a href="https://getbootstrap.com/docs/5.3/utilities/position/">position utilities</a>.</p>
+<div class="bd-callout bd-callout-info">
+We call these “low-level” <code>z-index</code> utilities because of their default values of <code>-1</code> through <code>3</code>, which we use for the layout of overlapping components. High-level <code>z-index</code> values are used for overlay components like modals and tooltips.
+</div>
+
+<h2 id="e4">Example 4<a class="anchor-link" href="#example" aria-label="Link to this section: Example"></a></h2>
+<p>Use <code>z-index</code> utilities to stack elements on top of one another. Requires a <code>position</code> value other than <code>static</code>, which can be set with custom styles or using our <a href="https://getbootstrap.com/docs/5.3/utilities/position/">position utilities</a>.</p>
+<div class="bd-callout bd-callout-info">
+We call these “low-level” <code>z-index</code> utilities because of their default values of <code>-1</code> through <code>3</code>, which we use for the layout of overlapping components. High-level <code>z-index</code> values are used for overlay components like modals and tooltips.
+</div>
+
+<h2 id="e5">Example 5<a class="anchor-link" href="#example" aria-label="Link to this section: Example"></a></h2>
+<p>Use <code>z-index</code> utilities to stack elements on top of one another. Requires a <code>position</code> value other than <code>static</code>, which can be set with custom styles or using our <a href="https://getbootstrap.com/docs/5.3/utilities/position/">position utilities</a>.</p>
+<div class="bd-callout bd-callout-info">
+We call these “low-level” <code>z-index</code> utilities because of their default values of <code>-1</code> through <code>3</code>, which we use for the layout of overlapping components. High-level <code>z-index</code> values are used for overlay components like modals and tooltips.
+</div>
+
+<h2 id="e6">Example 6<a class="anchor-link" href="#example" aria-label="Link to this section: Example"></a></h2>
+<p>Use <code>z-index</code> utilities to stack elements on top of one another. Requires a <code>position</code> value other than <code>static</code>, which can be set with custom styles or using our <a href="https://getbootstrap.com/docs/5.3/utilities/position/">position utilities</a>.</p>
+<div class="bd-callout bd-callout-info">
+We call these “low-level” <code>z-index</code> utilities because of their default values of <code>-1</code> through <code>3</code>, which we use for the layout of overlapping components. High-level <code>z-index</code> values are used for overlay components like modals and tooltips.
+</div>
+
 
         </div>
     </main>
   </div>
+
+
 <footer class="bd-footer p-3  bg-body-tertiary">
   <div class="container   text-center  text-body-secondary">
     <div class="row">
@@ -248,20 +284,7 @@
     </div>
   </div>
 </footer>
-<script src="assets/markdown-it.min.js"></script>
-<script src="assets/manual.js"></script>
-<script>
-const app = new ManualByJs({
-  homePage: "overview", 
-  milestone: [
-    {href: "#", title: "0.1.x"}
-  ],
-  markdown: markdownit({
-              html: true,
-              linkify: true,
-              typographer: true
-          }),
-  md: function (content){ return this.markdown.render(content) }
-}) 
-</script>
-</body></html>
+
+<script src="new2/color-modes.js"></script>
+<script src="new2/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+ </body></html>

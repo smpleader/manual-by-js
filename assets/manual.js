@@ -87,7 +87,7 @@ ManualByJs.prototype = {
                         '<h6><strong>'+ item.title+'</strong></h6>'
                     )
                     
-                this.mbj.menu.insertAdjacentHTML("beforeend", line)
+                this.mbj.menu.insertAdjacentHTML("beforeend", '<li>' + line + '</li>')
             }
         }
         else 
