@@ -23,7 +23,7 @@ function ManualByJs(options = {}){
         pageIndex: "mbj-page-index"
     }
 
-    if(options.ids) this.ids = {...options.ids}
+    if(options.ids) this.ids = {...this.ids, ...options.ids}
 
     this.mbj = {}
     
@@ -33,6 +33,19 @@ function ManualByJs(options = {}){
     }
 
     this.markdown = options.markdown || null
+
+    this.hook = {
+        createSidebarMenuItem: null,
+        createPageNav: null,
+        createMilestoneMenuItem: null,
+        createIndexTableItem: null
+    }
+
+    if(options.hook) this.hook = {...options.hook}
+
+    // this support for loop in hooks
+    this.counter = 0
+    this.flag = 0
 
     this._init()
 }
@@ -78,17 +91,24 @@ ManualByJs.prototype = {
     _createSidebarMenu: function() {
         if(this.mbj.sidebarMenu)
         {
+            this.counter = 0
+            var lines = ''
             for(const item of this.menu)
             {
-                var line = item.slug ? 
-                    '<a href="#'+ item.slug +'" class="'+ item.slug +'">'+ item.title +'</a>' :
-                    ( item.href ? 
-                        '<a href="'+ item.href +'" class="hover link" '+ (item.target?'target="'+item.target+'">':'>') + item.title +'</a>' :
-                        '<h6><strong>'+ item.title+'</strong></h6>'
+                this.counter++
+                lines += this.hook.createSidebarMenuItem instanceof Function ? 
+                    this.hook.createSidebarMenuItem(item) : 
+                    (
+                        item.slug ? 
+                            '<a href="#'+ item.slug +'" class="'+ item.slug +'">'+ item.title +'</a>' :
+                            ( item.href ? 
+                                '<a href="'+ item.href +'" class="hover link" '+ (item.target?'target="'+item.target+'">':'>') + item.title +'</a>' :
+                                ( item.title == '---' ? '<hr />' : '<h6><strong>'+ item.title+'</strong></h6>' )
+                            )
                     )
-                    
-                this.mbj.sidebarMenu.insertAdjacentHTML("beforeend", '<li>' + line + '</li>')
             }
+                    
+            this.mbj.sidebarMenu.insertAdjacentHTML("beforeend", lines )
         }
         else 
         {
@@ -101,21 +121,25 @@ ManualByJs.prototype = {
             this.mbj.pageIndex.innerHTML = ""
             if(this.current.index)
             { 
-                this.mbj.pageIndex.insertAdjacentHTML("beforeend", '<li class="mt-3"><b>On this page</b></li>')
+                var str = ''
                 for(const item of this.current.index)
                 {
                     if(typeof item == "string")
                     {
                         let name = item.charAt(0).toUpperCase() + item.slice(1);
                         name = name.replace(/-|_/g, " ")
-                        this.mbj.pageIndex.insertAdjacentHTML("beforeend", '<li><a class="item" href="#'+item+'">'+name+'</a></li>')
+                        str += '<li><a href="#'+item+'">'+name+'</a></li>'
 
                     }
                     else if( item.id && item.name)
                     {
-                        this.mbj.pageIndex.insertAdjacentHTML("beforeend", '<li><a class="item" href="#'+item.id+'">'+item.name+'</a></li>')
-                    }
+                        str += '<li><a href="#'+item.id+'">'+item.name+'</a></li>'
+                    } 
                 }
+                this.mbj.pageIndex.insertAdjacentHTML("beforeend", '<ul>' + str + '</ul>')
+                 new bootstrap.ScrollSpy(document.body, {
+                    target: '#' + this.ids.pageIndex
+                  })
             }
         }
         else
@@ -129,7 +153,7 @@ ManualByJs.prototype = {
     },
     _sidebarMenuActivate: function(slug)
     {   
-        const anchors = this.mbj.sidebarMenu.getElementsByTagName('a');
+        const anchors = this.mbj.sidebarMenu.getElementsByTagName('a')
         for(const m of anchors)
         {
             if(m.classList.contains(slug))
@@ -142,7 +166,7 @@ ManualByJs.prototype = {
             }
         }
     },
-    _footMenuActivate: function(ordering)
+    _createPageNav: function(ordering)
     {
         if(this.mbj.pageNav)
         {
@@ -196,7 +220,7 @@ ManualByJs.prototype = {
         }
     },
     navigate: async function(hash){
-        let item = this.findPageByHash(hash) ;console.log(hash);
+        let item = this.findPageByHash(hash);
         
         if(item)
         {
@@ -230,7 +254,7 @@ ManualByJs.prototype = {
             this._sidebarMenuActivate(item.slug)
             this._updateWindowTitle(this.siteTitle + " - " + this.current.title)
             this._createIndexTable()
-            this._footMenuActivate(item.ordering)
+            this._createPageNav(item.ordering)
 
             // if item found by index, we won't scroll it
             if(item.slug === hash)

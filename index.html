@@ -21,17 +21,17 @@
       </button>
     </div> 
 
-    <a class="navbar-brand p-0 me-0 me-lg-2" href="https://getbootstrap.com/" aria-label="Bootstrap" id="mbj-site-title">
+    <a class="navbar-brand p-0 me-0 me-lg-2" href="https://github.com/smpleader/manual-by-js" aria-label="Bootstrap" id="mbj-site-title">
         MBJ
     </a>
 
     <div class="d-flex">
-      <div class="bd-search" id="docsearch" data-bd-docs-version="5.3">
+      <!--<div class="bd-search" id="docsearch" data-bd-docs-version="5.3">
         <button type="button"class="DocSearch DocSearch-Button"><span class="DocSearch-Button-Container">
             <svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true" class="DocSearch-Search-Icon"><path d="M14.386 14.386l4.0877 4.0877-4.0877-4.0877c-2.9418 2.9419-7.7115 2.9419-10.6533 0-2.9419-2.9418-2.9419-7.7115 0-10.6533 2.9418-2.9419 7.7115-2.9419 10.6533 0 2.9419 2.9418 2.9419 7.7115 0 10.6533z" stroke="currentColor" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"></path></svg>
             <span class="DocSearch-Button-Placeholder">Search</span></span>
         </button>
-      </div>
+      </div>-->
 
       <button class="navbar-toggler d-flex d-lg-none order-3 p-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#bdNavbar" aria-controls="bdNavbar" aria-label="Toggle navigation">
         <svg class="bi" aria-hidden="true"><use xlink:href="assets/icons.svg#three-dots"></use></svg>
@@ -72,24 +72,15 @@
           <li class="nav-item py-2 py-lg-1 col-12 col-lg-auto">
             <div class="vr d-none d-lg-flex h-100 mx-lg-2 text-white"></div>
             <hr class="d-lg-none my-2 text-white-50">
+          </li> 
+
+          <li class="nav-item dropdown">
+              <button type="button" class="btn btn-link nav-link py-2 px-0 px-lg-2 dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" data-bs-display="static" id="mbj-milestone-menu">
+                  Milestone here  
+              </button>
+              <ul class="dropdown-menu dropdown-menu-end" id="mbj-milestone">
+              </ul>
           </li>
-
-          <!--<a class="btn btn-link px-2 nav-link dropdown-toggle" href="#" role="button"  data-bs-toggle="dropdown" aria-expanded="false">
-            Milestone list
-          </a>
-          <ul class="dropdown-menu" aria-labelledby="mbj-milestone-menu" >
-            <li><a class="dropdown-item" href="#">Action</a></li>
-            <li><a class="dropdown-item" href="#">Another action</a></li>
-            <li><a class="dropdown-item" href="#">Something else here</a></li>
-          </ul>-->
-
-<li class="nav-item dropdown">
-    <button type="button" class="btn btn-link nav-link py-2 px-0 px-lg-2 dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" data-bs-display="static" id="mbj-milestone-menu">
-         Milestone here  
-    </button>
-    <ul class="dropdown-menu dropdown-menu-end" id="mbj-milestone">
-    </ul>
-</li>
           <li class="nav-item py-2 py-lg-1 col-12 col-lg-auto">
             <div class="vr d-none d-lg-flex h-100 mx-lg-2 text-white"></div>
             <hr class="d-lg-none my-2 text-white-50">
@@ -142,50 +133,8 @@
 
         <div class="offcanvas-body">
           <nav class="bd-links w-100" id="bd-docs-nav" aria-label="Docs navigation">
-            <ul class="bd-links-nav list-unstyled mb-0 pb-3 pb-md-2 pe-lg-2" id="mbj-sidebar-menu">
-      <li class="bd-links-group py-2">
-        <strong class="bd-links-heading d-flex w-100 align-items-center fw-semibold">
-            <svg class="bi me-2" style="color: var(--bs-blue);" aria-hidden="true"><use xlink:href="assets/icons.svg#book-half"></use></svg>
-          Getting started
-        </strong>
-
-        <ul class="list-unstyled fw-normal pb-2 small">
-            <li><a href="https://getbootstrap.com/docs/5.3/getting-started/introduction/" class="bd-links-link d-inline-block rounded">Introduction</a></li>
-            <li><a href="https://getbootstrap.com/docs/5.3/getting-started/download/" class="bd-links-link d-inline-block rounded">Download</a></li>
-            <li><a href="https://getbootstrap.com/docs/5.3/getting-started/contents/" class="bd-links-link d-inline-block rounded">Contents</a></li>
-            <li><a href="https://getbootstrap.com/docs/5.3/getting-started/browsers-devices/" class="bd-links-link d-inline-block rounded">Browsers &amp; devices</a></li>
-            <li><a href="https://getbootstrap.com/docs/5.3/getting-started/javascript/" class="bd-links-link d-inline-block rounded">JavaScript</a></li>
-            <li><a href="https://getbootstrap.com/docs/5.3/getting-started/webpack/" class="bd-links-link d-inline-block rounded">Webpack</a></li>
-            <li><a href="https://getbootstrap.com/docs/5.3/getting-started/parcel/" class="bd-links-link d-inline-block rounded">Parcel</a></li>
-            <li><a href="https://getbootstrap.com/docs/5.3/getting-started/vite/" class="bd-links-link d-inline-block rounded">Vite</a></li>
-            <li><a href="https://getbootstrap.com/docs/5.3/getting-started/accessibility/" class="bd-links-link d-inline-block rounded">Accessibility</a></li>
-            <li><a href="https://getbootstrap.com/docs/5.3/getting-started/rfs/" class="bd-links-link d-inline-block rounded">RFS</a></li>
-            <li><a href="https://getbootstrap.com/docs/5.3/getting-started/rtl/" class="bd-links-link d-inline-block rounded">RTL</a></li>
-            <li><a href="https://getbootstrap.com/docs/5.3/getting-started/contribute/" class="bd-links-link d-inline-block rounded">Contribute</a></li>
-        </ul>
-      </li> 
-      <li class="bd-links-group py-2">
-        <strong class="bd-links-heading d-flex w-100 align-items-center fw-semibold">
-            <svg class="bi me-2" style="color: var(--bs-blue);" aria-hidden="true"><use xlink:href="assets/icons.svg#globe2"></use></svg>
-          About
-        </strong>
-
-        <ul class="list-unstyled fw-normal pb-2 small">
-            <li><a href="https://getbootstrap.com/docs/5.3/about/overview/" class="bd-links-link d-inline-block rounded">Overview</a></li>
-            <li><a href="https://getbootstrap.com/docs/5.3/about/team/" class="bd-links-link d-inline-block rounded">Team</a></li>
-            <li><a href="https://getbootstrap.com/docs/5.3/about/brand/" class="bd-links-link d-inline-block rounded">Brand</a></li>
-            <li><a href="https://getbootstrap.com/docs/5.3/about/license/" class="bd-links-link d-inline-block rounded">License</a></li>
-            <li><a href="https://getbootstrap.com/docs/5.3/about/translations/" class="bd-links-link d-inline-block rounded">Translations</a></li>
-        </ul>
-      </li>
-      <li class="bd-links-span-all mt-1 mb-3 mx-4 border-top"></li>
-      <li class="bd-links-span-all">
-        <a href="https://getbootstrap.com/docs/5.3/migration/" class="bd-links-link d-inline-block rounded small ">
-          Migration
-        </a>
-      </li>
-  </ul>
-</nav>
+            <ul class="bd-links-nav list-unstyled mb-0 pb-3 pb-md-2 pe-lg-2" id="mbj-sidebar-menu"></ul>
+        </nav>
 
         </div>
       </div>
@@ -202,28 +151,14 @@
             <strong class="d-none d-md-block h6 my-2 ms-3">On this page</strong>
             <hr class="d-none d-md-block my-2 ms-3">
             <div class="collapse bd-toc-collapse" id="tocContents">
-              <nav id="TableOfContents">
-                <ul>
-                <li><a href="#e1" class="active">Example</a></li>
-                <li><a href="#e2" class="">Overlays</a></li>
-                <li><a href="#e3" class="">Component approach</a></li>
-                <li><a href="#" class="">CSS</a>
-                    <ul>
-                    <li><a href="#e4" class="">Sass maps</a></li>
-                    <li><a href="#e5" class="">Sass utilities API</a></li>
-                    </ul>
-                </li>
-                </ul>
-                <ul class="content-navigation" id="mbj-page-index">  </ul>
+              <nav id="TableOfContents"> 
               </nav>
             </div>
 
 
         </div> 
         <div class="bd-content ps-lg-2">
-
-          
-          <div class="main-content-inner">
+          <div class="main-content-inner" >
             <div id="mbj-page"></div>
             <hr class="mt-5">
           </div>
@@ -258,12 +193,53 @@ const app = new ManualByJs({
   milestone: [
     {href: "#", title: "0.1.x"}
   ],
+  ids: {pageIndex: "TableOfContents"},
   markdown: markdownit({
               html: true,
               linkify: true,
               typographer: true
           }),
-  md: function (content){ return this.markdown.render(content) }
+  md: function (content){ return this.markdown.render(content) },
+  hook: {
+    createSidebarMenuItem: function(item) { 
+
+      var str = ''
+      if(item.slug)
+      {
+        str = '<li><a href="#'+ item.slug +'" class="bd-links-link d-inline-block rounded">'+ item.title +'</a></li>'
+        if(app.flag && app.counter == app.menu.length)
+        {
+          str += '</ul></li>'
+        }
+      }
+      else if(item.href)
+      {
+        str = '<li><a href="'+ item.href +'" class="bd-links-link d-inline-block rounded" '+ (item.target?'target="'+item.target+'">':'>') + item.title +'</a></li>'
+        if(app.flag && app.counter == app.menu.length)
+        {
+          str += '</ul></li>'
+        }
+      }
+      else
+      {
+        if(app.flag)
+        {
+          str = '</ul></li>'
+        }
+        
+        str +=  item.title == '---' ? '<li class="bd-links-span-all mt-1 mb-3 mx-4 border-top"></li>' : ('<li class="bd-links-group py-2">'+
+          '<strong class="bd-links-heading d-flex w-100 align-items-center fw-semibold">' +
+            (item.svg ? '<svg class="bi me-2" style="color: var(--bs-blue);" aria-hidden="true"><use xlink:href="' + item.svg+ '"></use></svg>' : '' )
+            + item.title +
+          '</strong>'+
+          '<ul class="list-unstyled fw-normal pb-2 small">')
+
+        app.flag = 1
+      }
+      
+      return str
+    }
+  }
 })
 </script>
 </body></html>
