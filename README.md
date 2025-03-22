@@ -30,8 +30,12 @@ This is a html manual powered by javascript. For more details, run porject by op
 - Support link when get translated by translate tools ( google translate, microsoft translate.. )
 - Load content and convert to javascript widget
 - Support markdown plugin, include bootstrap layout
+- Support layout template for menu, milestone, indextable
 
 ## Log
+
+### 0.1.8
+- Support layout template for menu, milestone, indextable
 
 ### 0.1.7
 - Support md format
