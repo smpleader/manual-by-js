@@ -142,7 +142,7 @@
 
         <div class="offcanvas-body">
           <nav class="bd-links w-100" id="bd-docs-nav" aria-label="Docs navigation">
-            <ul class="bd-links-nav list-unstyled mb-0 pb-3 pb-md-2 pe-lg-2" id="mbj-menu">
+            <ul class="bd-links-nav list-unstyled mb-0 pb-3 pb-md-2 pe-lg-2" id="mbj-sidebar-menu">
       <li class="bd-links-group py-2">
         <strong class="bd-links-heading d-flex w-100 align-items-center fw-semibold">
             <svg class="bi me-2" style="color: var(--bs-blue);" aria-hidden="true"><use xlink:href="assets/icons.svg#book-half"></use></svg>
@@ -248,6 +248,8 @@
     </div>
   </div>
 </footer>
+<script src="assets/bootstrap.bundle.min.js"></script>
+<script src="assets/color-modes.js"></script>
 <script src="assets/markdown-it.min.js"></script>
 <script src="assets/manual.js"></script>
 <script>
@@ -262,6 +264,6 @@ const app = new ManualByJs({
               typographer: true
           }),
   md: function (content){ return this.markdown.render(content) }
-}) 
+})
 </script>
 </body></html>
