@@ -1,5 +1,5 @@
 function ManualByJs(options = {}){
-    this.version = '0.1.7'
+    this.version = '0.1.8'
     this.flag = options.flag || ''
     this.folderContent = options.folderContent || 'content'
     this.siteTitle = options.siteTitle || 'Manual By JS'
@@ -17,7 +17,7 @@ function ManualByJs(options = {}){
         siteTitle: "mbj-site-title",
         milestone: "mbj-milestone",
         milestoneMenu: "mbj-milestone-menu",
-        menu: "mbj-menu",
+        sidebarMenu: "mbj-sidebar-menu",
         page: "mbj-page",
         pageNav: "mbj-page-nav",
         pageIndex: "mbj-page-index"
@@ -76,7 +76,7 @@ ManualByJs.prototype = {
         return false
     },
     _createSidebarMenu: function() {
-        if(this.mbj.menu)
+        if(this.mbj.sidebarMenu)
         {
             for(const item of this.menu)
             {
@@ -87,7 +87,7 @@ ManualByJs.prototype = {
                         '<h6><strong>'+ item.title+'</strong></h6>'
                     )
                     
-                this.mbj.menu.insertAdjacentHTML("beforeend", '<li>' + line + '</li>')
+                this.mbj.sidebarMenu.insertAdjacentHTML("beforeend", '<li>' + line + '</li>')
             }
         }
         else 
@@ -129,7 +129,7 @@ ManualByJs.prototype = {
     },
     _sidebarMenuActivate: function(slug)
     {   
-        const anchors = this.mbj.menu.getElementsByTagName('a');
+        const anchors = this.mbj.sidebarMenu.getElementsByTagName('a');
         for(const m of anchors)
         {
             if(m.classList.contains(slug))
@@ -196,7 +196,8 @@ ManualByJs.prototype = {
         }
     },
     navigate: async function(hash){
-        let item = this.findPageByHash(hash)
+        let item = this.findPageByHash(hash) ;console.log(hash);
+        
         if(item)
         {
             this.current = item
