@@ -30,10 +30,12 @@ function ManualByJs(options = {}){
     this.markdown = options.markdown || null
 
     this.hook = {
+        createSidebarMenu: null,
         createSidebarMenuItem: null,
         createPageNav: null,
-        afterInit: null,
-        createIndexTableItem: null
+        createIndexTable: null,
+        createIndexTableItem: null,
+        afterInit: null
     }
 
     if(options.hook) this.hook = {...options.hook}
@@ -84,64 +86,89 @@ ManualByJs.prototype = {
         }
         return false
     },
-    _createSidebarMenu: function() {
+    _createDefaultSidebarMenu: function()
+    {
+        this.counter = 0
+        var lines = ''
+        for(const item of this.menu)
+        {
+            this.counter++
+            lines += this.hook.createSidebarMenuItem instanceof Function ? 
+                this.hook.createSidebarMenuItem(item) : 
+                (
+                    item.slug ? 
+                        '<a href="#'+ item.slug +'" class="'+ item.slug +'">'+ item.title +'</a>' :
+                        ( item.href ? 
+                            '<a href="'+ item.href +'" class="hover link" '+ (item.target?'target="'+item.target+'">':'>') + item.title +'</a>' :
+                            ( item.title == '---' ? '<hr />' : '<h6><strong>'+ item.title+'</strong></h6>' )
+                        )
+                )
+        }
+                    
+        this.mbj.sidebarMenu.insertAdjacentHTML("beforeend", lines )
+    },
+    _createSidebarMenu: function() 
+    {
         if(this.mbj.sidebarMenu)
         {
-            this.counter = 0
-            var lines = ''
-            for(const item of this.menu)
+            if(this.hook.createSidebarMenu instanceof Function)
             {
-                this.counter++
-                lines += this.hook.createSidebarMenuItem instanceof Function ? 
-                    this.hook.createSidebarMenuItem(item) : 
-                    (
-                        item.slug ? 
-                            '<a href="#'+ item.slug +'" class="'+ item.slug +'">'+ item.title +'</a>' :
-                            ( item.href ? 
-                                '<a href="'+ item.href +'" class="hover link" '+ (item.target?'target="'+item.target+'">':'>') + item.title +'</a>' :
-                                ( item.title == '---' ? '<hr />' : '<h6><strong>'+ item.title+'</strong></h6>' )
-                            )
-                    )
+                this.hook.createSidebarMenu()
             }
-                    
-            this.mbj.sidebarMenu.insertAdjacentHTML("beforeend", lines )
+            else
+            {
+                this._createDefaultSidebarMenu()
+            }
         }
         else 
         {
             console.log("No element to keep Sidebar menu!")
         }
     },
-    _createIndexTable: function()  {
-        if(this.mbj.pageIndex)
-        {
-            this.mbj.pageIndex.innerHTML = ""
-            if(this.current.index)
-            { 
-                var str = ''
-                for(const item of this.current.index)
+    _createDefaultIndexTable: function()  
+    {
+        if(this.current.index)
+        { 
+            var str = ''
+            this.counter = 0
+            for(const item of this.current.index)
+            {
+                this.counter++
+                if(this.hook.createIndexTableItem instanceof Function)
+                {
+                    str += this.hook.createIndexTableItem(item)
+                }
+                else
                 {
                     if(typeof item == "string")
                     {
                         let name = item.charAt(0).toUpperCase() + item.slice(1);
                         name = name.replace(/-|_/g, " ")
                         str += '<li><a href="#'+item+'">'+name+'</a></li>'
-
+    
                     }
                     else if( item.id && item.name)
                     {
                         str += '<li><a href="#'+item.id+'">'+item.name+'</a></li>'
                     } 
-                }
-                this.mbj.pageIndex.insertAdjacentHTML("beforeend", '<ul>' + str + '</ul>')
-                 new bootstrap.ScrollSpy(document.body, {
-                    target: '#' + this.ids.pageIndex
-                  })
+                } 
+            }
+            this.mbj.pageIndex.insertAdjacentHTML("beforeend", '<ul>' + str + '</ul>') 
+        }
+    },
+    _createIndexTable: function()  {
+        if(this.mbj.pageIndex) // this element is optional
+        {
+            this.mbj.pageIndex.innerHTML = ""
+            if(this.hook.createIndexTable instanceof Function)
+            {
+                this.hook.createIndexTable()
+            }
+            else
+            {
+                this._createDefaultIndexTable()
             }
         }
-        else
-        {
-            // this element is optional
-        } 
     },
     _updateWindowTitle: function()
     {
@@ -208,7 +235,8 @@ ManualByJs.prototype = {
             this.hook.afterInit()
         }
     },
-    navigate: async function(hash){
+    navigate: async function(hash)
+    {
         let item = this.findPageByHash(hash);
         
         if(item)
@@ -252,8 +280,8 @@ ManualByJs.prototype = {
             }
         }
     }, 
-    _init: async function(){ 
-
+    _init: async function()
+    {
         if(this.menu.length == 0)
         {    
             this.menu = await fetch(this.folderContent + '/menu.json')
