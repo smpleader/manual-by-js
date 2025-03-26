@@ -193,40 +193,46 @@ ManualByJs.prototype = {
             }
         }
     },
+    _createDefaultPageNav: function(ordering)
+    {
+        this.mbj.pageNav.innerHTML = ""
+        this.prev = this.findPageByIndex(ordering, -1)
+        if(false == this.prev)
+        {
+            this.mbj.pageNav.insertAdjacentHTML("afterbegin", '<a class="invisible"><span>.</span></a>')
+        } 
+        else 
+        {
+            this.mbj.pageNav.insertAdjacentHTML("afterbegin", 
+                '<a href="#'+this.prev.slug+'" class="">' +
+                    '<span>Previous page</span>' +
+                    this.prev.title +
+                '</a>');
+        }
+
+        this.next = this.findPageByIndex(ordering, 1)
+        if(false !==  this.next)
+        {
+            this.mbj.pageNav.insertAdjacentHTML("beforeend", 
+                '<a href="#'+this.next.slug+'" class="text-end">' +
+                    '<span>Next page</span>' +
+                    this.next.title +
+                '</a>');
+        }
+    },
     _createPageNav: function(ordering)
     {
-        if(this.mbj.pageNav)
+        if(this.mbj.pageNav) // this element is optional
         {
-            this.mbj.pageNav.innerHTML = ""
-            this.prev = this.findPageByIndex(ordering, -1)
-            if(false == this.prev)
+            if(this.hook.createPageNav instanceof Function)
             {
-                this.mbj.pageNav.insertAdjacentHTML("afterbegin", '<a class="invisible"><span>.</span></a>')
-            } 
-            else 
-            {
-                this.mbj.pageNav.insertAdjacentHTML("afterbegin", 
-                    '<a href="#'+this.prev.slug+'" class="">' +
-                        '<span>Previous page</span>' +
-                        this.prev.title +
-                    '</a>');
+                this.hook.createPageNav(ordering)
             }
-    
-            this.next = this.findPageByIndex(ordering, 1)
-    
-            if(false !==  this.next)
+            else
             {
-                this.mbj.pageNav.insertAdjacentHTML("beforeend", 
-                    '<a href="#'+this.next.slug+'" class="text-end">' +
-                        '<span>Next page</span>' +
-                        this.next.title +
-                    '</a>');
-            } 
+                this._createDefaultPageNav(ordering)
+            }
         }
-        else
-        {
-            // this element is optional
-        } 
     },
     _afterInit: function()
     {
