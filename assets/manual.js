@@ -8,15 +8,12 @@ function ManualByJs(options = {}){
     this.next = {}
     this.prev = {}
     this.menu = options.menu || []
-    this.milestone = options.milestone || []
     this.fileExt = options.fileExt ?? "html"
 
     this.md = options.md || null
     
     this.ids = {
         siteTitle: "mbj-site-title",
-        milestone: "mbj-milestone",
-        milestoneMenu: "mbj-milestone-menu",
         sidebarMenu: "mbj-sidebar-menu",
         page: "mbj-page",
         pageNav: "mbj-page-nav",
@@ -37,7 +34,7 @@ function ManualByJs(options = {}){
     this.hook = {
         createSidebarMenuItem: null,
         createPageNav: null,
-        createMilestoneMenuItem: null,
+        afterInit: null,
         createIndexTableItem: null
     }
 
@@ -205,18 +202,11 @@ ManualByJs.prototype = {
     {
         this.mbj.siteTitle.innerText = this.siteTitle
     },
-    _createMilestoneMenu: function()
+    _afterInit: function()
     {
-        if(this.milestone.length > 0 && this.mbj.milestone)
+        if( this.hook.afterInit instanceof Function ? )
         {
-            this.mbj.milestone.innerHTML = ''
-            for(const item of this.milestone)
-            {
-                this.mbj.milestone.insertAdjacentHTML("beforeend", 
-                    '<li><a class="dropdown-item" href="' + item.href + '">'+ item.title +'</a></li>' )
-            }
-            
-            this.mbj.milestoneMenu.innerHTML =  this.milestone[0].title
+            this.hook.afterInit()
         }
     },
     navigate: async function(hash){
@@ -283,7 +273,7 @@ ManualByJs.prototype = {
 
         this._createSidebarMenu() 
         this._setSiteTitle()
-        this._createMilestoneMenu()
+        this._afterInit()
 
         // global event
         that = this
