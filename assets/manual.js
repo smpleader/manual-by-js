@@ -2,7 +2,6 @@ function ManualByJs(options = {}){
     this.version = '0.1.8'
     this.flag = options.flag || ''
     this.folderContent = options.folderContent || 'content'
-    this.siteTitle = options.siteTitle || 'Manual By JS'
     this.homePage = options.homePage || 'home'
     this.current = {}
     this.next = {}
@@ -13,7 +12,6 @@ function ManualByJs(options = {}){
     this.md = options.md || null
     
     this.ids = {
-        siteTitle: "mbj-site-title",
         sidebarMenu: "mbj-sidebar-menu",
         page: "mbj-page",
         pageNav: "mbj-page-nav",
@@ -43,6 +41,7 @@ function ManualByJs(options = {}){
     // this support for loop in hooks
     this.counter = 0
     this.flag = 0
+    this.siteTitle = ""
 
     this._init()
 }
@@ -144,9 +143,13 @@ ManualByJs.prototype = {
             // this element is optional
         } 
     },
-    _updateWindowTitle: function(line)
+    _updateWindowTitle: function()
     {
-        document.title = line
+        if(this.siteTitle.length == 0)
+        {
+            this.siteTitle = document.title 
+        }
+        document.title = this.siteTitle  + " - " +  this.current.title
     },
     _sidebarMenuActivate: function(slug)
     {   
@@ -198,13 +201,9 @@ ManualByJs.prototype = {
             // this element is optional
         } 
     },
-    _setSiteTitle: function()
-    {
-        this.mbj.siteTitle.innerText = this.siteTitle
-    },
     _afterInit: function()
     {
-        if( this.hook.afterInit instanceof Function ? )
+        if( this.hook.afterInit instanceof Function )
         {
             this.hook.afterInit()
         }
@@ -242,7 +241,7 @@ ManualByJs.prototype = {
             }
 
             this._sidebarMenuActivate(item.slug)
-            this._updateWindowTitle(this.siteTitle + " - " + this.current.title)
+            this._updateWindowTitle()
             this._createIndexTable()
             this._createPageNav(item.ordering)
 
@@ -272,7 +271,6 @@ ManualByJs.prototype = {
         await this.navigate( hash )
 
         this._createSidebarMenu() 
-        this._setSiteTitle()
         this._afterInit()
 
         // global event
