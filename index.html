@@ -2,7 +2,7 @@
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <meta content="width=device-width,initial-scale=1" name="viewport">
   <meta http-equiv="Content-Language" content="en">
-  <title>Manual - project 001</title>
+  <title>ManualByJS</title>
   <meta content="" name="description">
   <meta content="" name="keywords"> 
   <link href="assets/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
@@ -40,7 +40,7 @@
 
     <div class="offcanvas-lg offcanvas-end flex-grow-1" tabindex="-1" id="bdNavbar" aria-labelledby="bdNavbarOffcanvasLabel" data-bs-scroll="true">
       <div class="offcanvas-header px-4 pb-0">
-        <h5 class="offcanvas-title text-white" id="bdNavbarOffcanvasLabel">Bootstrap</h5>
+        <h5 class="offcanvas-title text-white" id="bdNavbarOffcanvasLabel">MENU</h5>
         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close" data-bs-target="#bdNavbar"></button>
       </div>
 
@@ -75,10 +75,22 @@
           </li> 
 
           <li class="nav-item dropdown">
-              <button type="button" class="btn btn-link nav-link py-2 px-0 px-lg-2 dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" data-bs-display="static" id="mbj-milestone-menu">
-                  Milestone here  
+            <button type="button" class="btn btn-link nav-link py-2 px-0 px-lg-2 dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" data-bs-display="static" id="mbj-sprint-label">
+                Milestone here  
+            </button>
+            <ul class="dropdown-menu dropdown-menu-end" id="mbj-sprint">
+            </ul>
+          </li>
+          <li class="nav-item py-2 py-lg-1 col-12 col-lg-auto">
+            <div class="vr d-none d-lg-flex h-100 mx-lg-2 text-white"></div>
+            <hr class="d-lg-none my-2 text-white-50">
+          </li>
+          
+          <li class="nav-item dropdown">
+              <button type="button" class="btn btn-link nav-link py-2 px-0 px-lg-2 dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" data-bs-display="static" >
+                EN 
               </button>
-              <ul class="dropdown-menu dropdown-menu-end" id="mbj-milestone">
+              <ul class="dropdown-menu dropdown-menu-end" id="mbj-translator">
               </ul>
           </li>
           <li class="nav-item py-2 py-lg-1 col-12 col-lg-auto">
@@ -179,7 +191,7 @@
 <footer class="bd-footer p-3  bg-body-tertiary">
   <div class="container   text-center  text-body-secondary">
     <div class="row">
-        <p class="m-0">MBJ - Mannual By Js. Code licensed <a href="https://github.com/smpleader/manual-by-js/bootstrap/blob/main/LICENSE" target="_blank" rel="license noopener">MIT</a>, docs <a href="https://creativecommons.org/licenses/by/3.0/" target="_blank" rel="license noopener">CC BY 3.0</a>.</p>
+        <p class="m-0">MBJ - Mannual By Js. Code licensed <a href="https://github.com/smpleader/manual-by-js/blob/main/LICENSE" target="_blank" rel="license noopener">MIT</a>, docs <a href="https://creativecommons.org/licenses/by/3.0/" target="_blank" rel="license noopener">CC BY 3.0</a>.</p>
     </div>
   </div>
 </footer>
@@ -188,11 +200,18 @@
 <script src="assets/markdown-it.min.js"></script>
 <script src="assets/manual.js"></script>
 <script>
+const sprintMenu = [
+    {href: "#", title: "0.1.x"}
+  ]
+const langMenu = [
+    {href: "#", title: "EN"},
+    {href: "#", title: "CN"},
+    {href: "#", title: "JP"},
+    {href: "#", title: "FR"},
+    {href: "#", title: "VI"},
+  ]
 const app = new ManualByJs({
   homePage: "overview", 
-  milestone: [
-    {href: "#", title: "0.1.x"}
-  ],
   ids: {pageIndex: "TableOfContents"},
   markdown: markdownit({
               html: true,
@@ -238,6 +257,32 @@ const app = new ManualByJs({
       }
       
       return str
+    },
+    afterInit: function()
+    { 
+      // menu sprint
+      let milestoneMenu = document.getElementById("mbj-sprint")
+      milestoneMenu.innerHTML = ''
+      for(const item of sprintMenu)
+      {
+        milestoneMenu.insertAdjacentHTML("beforeend", 
+              '<li><a class="dropdown-item" href="' + item.href + '">'+ item.title +'</a></li>' )
+      }
+      document.getElementById("mbj-sprint-label").innerHTML =  sprintMenu[0].title
+
+      // menu translate
+      let translatorMenu = document.getElementById("mbj-translator")
+      for(const item of langMenu)
+      {
+        translatorMenu.insertAdjacentHTML("beforeend", 
+              '<li><a class="dropdown-item" href="' + item.href + '">'+ item.title +'</a></li>' )
+      }
+      document.getElementById("mbj-site-title").innerText =  "Manual By JS"
+    },
+    createIndexTable: function()
+    {
+      app._createDefaultIndexTable()
+      new bootstrap.ScrollSpy(document.body, { target: "#TableOfContents"})
     }
   }
 })
