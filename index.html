@@ -8,7 +8,7 @@
   <link href="assets/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
   <link href="assets/docs.css" rel="stylesheet">
 </head>
-<body data-bs-spy="scroll" data-bs-target="#TableOfContents">
+<body data-bs-spy="scroll" data-bs-target="#mbj-page-index">
 <header class="navbar navbar-expand-lg bd-navbar sticky-top">
   <nav class="container-xxl bd-gutter flex-wrap flex-lg-nowrap" aria-label="Main navigation">
     <div class="bd-navbar-toggle">
@@ -152,7 +152,7 @@
             <strong class="d-none d-md-block h6 my-2 ms-3">On this page</strong>
             <hr class="d-none d-md-block my-2 ms-3">
             <div class="collapse bd-toc-collapse" id="tocContents">
-              <nav id="TableOfContents"> 
+              <nav id="mbj-page-index"> 
               </nav>
             </div>
 
@@ -207,8 +207,7 @@ const langMenu = [
     {href: "#", title: "VI"},
   ]
 const app = new ManualByJs({
-  homePage: "overview", 
-  ids: {pageIndex: "TableOfContents"},
+  homePage: "overview",  
   markdown: markdownit({
               html: true,
               linkify: true,
@@ -221,7 +220,7 @@ const app = new ManualByJs({
       var str = ''
       if(item.slug)
       {
-        str = '<li><a href="#'+ item.slug +'" class="bd-links-link d-inline-block rounded">'+ item.title +'</a></li>'
+        str = '<li><a href="#'+ item.slug +'" class="bd-links-link d-inline-block rounded '+ item.slug +'">'+ item.title +'</a></li>'
         if(app.flag && app.counter == app.menu.length)
         {
           str += '</ul></li>'
@@ -277,8 +276,16 @@ const app = new ManualByJs({
     },
     createIndexTable: function()
     {
-      app._createDefaultIndexTable()
-      new bootstrap.ScrollSpy(document.body, { target: "#TableOfContents"})
+      if(app.current.index && app.current.index.length > 0)
+      {
+        document.getElementById("mbj-page-index").parentElement.parentElement.classList.remove('d-none')
+        app._createDefaultIndexTable()
+        new bootstrap.ScrollSpy(document.body, { target: "#mbj-page-index"})
+      }
+      else
+      {
+        document.getElementById("mbj-page-index").parentElement.parentElement.classList.add('d-none')
+      }
     }
   }
 })
