@@ -278,13 +278,13 @@ const app = new ManualByJs({
     {
       if(app.current.index && app.current.index.length > 0)
       {
-        document.getElementById("mbj-page-index").parentElement.parentElement.classList.remove('d-none')
+        document.getElementById("mbj-page-index").parentElement.parentElement.classList.remove('d-none', 'd-md-none', 'd-sm-none')
         app._createDefaultIndexTable()
         new bootstrap.ScrollSpy(document.body, { target: "#mbj-page-index"})
       }
       else
       {
-        document.getElementById("mbj-page-index").parentElement.parentElement.classList.add('d-none')
+        document.getElementById("mbj-page-index").parentElement.parentElement.classList.add('d-none', 'd-md-none', 'd-sm-none')
       }
     }
   }
