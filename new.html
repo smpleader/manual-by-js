@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
         <meta name="description" content="">
         <meta name="author" content="">
-        <title></title> 
+        <title>ManualByJS</title> 
         <link href="assets/customized_b5.css" rel="stylesheet">
     </head>
     <body>
@@ -13,17 +13,72 @@
             <!-- Responsive navbar-->
             <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom fixed-top">
                 <div class="container-xxl bd-gutter px-lg-5">
-                    <a class="navbar-brand bg-transparent fw-bold" href="index.html">C2B5</a>
-                    <button class="btn btn-link ms-auto" type="button" data-bs-toggle="modal" data-bs-target="#searchModal">
-                        <i class="bi bi-search"></i>
-                    </button>
                     <div class="bd-navbar-toggle">
-                        <button class="navbar-toggler p-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#bdSidebar" aria-controls="bdSidebar" aria-label="Toggle docs navigation">
+                        <button class="navbar-toggler me-2 p-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#bdSidebar" aria-controls="bdSidebar" aria-label="Toggle docs navigation">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" class="bi" fill="currentColor" viewBox="0 0 16 16">
                                 <path fill-rule="evenodd" d="M2.5 11.5A.5.5 0 0 1 3 11h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 7h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 3h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"></path>
                             </svg>
                             <span class="d-none fs-6 pe-1">Browse</span>
                         </button>
+                    </div>
+                    <a class="navbar-brand bg-transparent fw-bold" href="index.html">MBJ</a>
+                    <!-- SEARCH
+                     <button class="btn btn-link ms-auto" type="button" data-bs-toggle="modal" data-bs-target="#searchModal">
+                        <i class="bi bi-search"></i>
+                    </button>
+                    -->
+                    <button class="navbar-toggler d-lg-none order-3 p-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#bdNavbar" aria-controls="bdNavbar" aria-label="Toggle navigation">
+                      <svg class="bi" aria-hidden="true"><use xlink:href="assets/icons.svg#three-dots"></use></svg>
+                    </button>
+                    <div class="offcanvas-lg offcanvas-end flex-grow-1" tabindex="-1" id="bdNavbar" aria-labelledby="bdNavbarOffcanvasLabel" data-bs-scroll="true">
+                        <div class="offcanvas-header px-4 pb-0">
+                        <h5 class="offcanvas-title" id="bdNavbarOffcanvasLabel">MENU</h5>
+                        <button type="button" class="btn-close " data-bs-dismiss="offcanvas" aria-label="Close" data-bs-target="#bdNavbar"></button>
+                        </div>
+                
+                        <div class="offcanvas-body p-4 pt-0 p-lg-0">
+                        
+                        <!--menu1--> 
+                
+                        <hr class="d-lg-none ">
+                
+                        <ul class="navbar-nav flex-row flex-wrap ms-md-auto">
+                            <li class="nav-item col-6 col-lg-auto">
+                            <a class="nav-link py-2 px-0 px-lg-2" href="https://github.com/smpleader/manual-by-js" target="_blank" rel="noopener">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" class="navbar-nav-svg" viewBox="0 0 512 499.36" role="img"><title>GitHub</title><path fill="currentColor" fill-rule="evenodd" d="M256 0C114.64 0 0 114.61 0 256c0 113.09 73.34 209 175.08 242.9 12.8 2.35 17.47-5.56 17.47-12.34 0-6.08-.22-22.18-.35-43.54-71.2 15.49-86.2-34.34-86.2-34.34-11.64-29.57-28.42-37.45-28.42-37.45-23.27-15.84 1.73-15.55 1.73-15.55 25.69 1.81 39.21 26.38 39.21 26.38 22.84 39.12 59.92 27.82 74.5 21.27 2.33-16.54 8.94-27.82 16.25-34.22-56.84-6.43-116.6-28.43-116.6-126.49 0-27.95 10-50.8 26.35-68.69-2.63-6.48-11.42-32.5 2.51-67.75 0 0 21.49-6.88 70.4 26.24a242.65 242.65 0 0 1 128.18 0c48.87-33.13 70.33-26.24 70.33-26.24 14 35.25 5.18 61.27 2.55 67.75 16.41 17.9 26.31 40.75 26.31 68.69 0 98.35-59.85 120-116.88 126.32 9.19 7.9 17.38 23.53 17.38 47.41 0 34.22-.31 61.83-.31 70.23 0 6.85 4.61 14.81 17.6 12.31C438.72 464.97 512 369.08 512 256.02 512 114.62 397.37 0 256 0z"></path></svg>
+                                <small class="d-lg-none ms-2">GitHub</small>
+                            </a>
+                            </li>
+                            <li class="nav-item py-2 py-lg-1 col-12 col-lg-auto">
+                            <div class="vr d-none d-lg-flex h-100 mx-lg-2 text-white"></div>
+                            <hr class="d-lg-none my-2  ">
+                            </li> 
+                
+                            <li class="nav-item dropdown">
+                            <button type="button" class="btn btn-link nav-link py-2 px-0 px-lg-2 dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" data-bs-display="static" id="mbj-sprint-label">
+                                Milestone here  
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end" id="mbj-sprint">
+                            </ul>
+                            </li>
+                            <li class="nav-item py-2 py-lg-1 col-12 col-lg-auto">
+                            <div class="vr d-none d-lg-flex h-100 mx-lg-2 text-white"></div>
+                            <hr class="d-lg-none my-2 ">
+                            </li>
+                            
+                            <li class="nav-item dropdown">
+                                <button type="button" class="btn btn-link nav-link py-2 px-0 px-lg-2 dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" data-bs-display="static" >
+                                EN 
+                                </button>
+                                <ul class="dropdown-menu dropdown-menu-end" id="mbj-translator">
+                                </ul>
+                            </li>
+                            <li class="nav-item py-2 py-lg-1 col-12 col-lg-auto">
+                            <div class="vr d-none d-lg-flex h-100 mx-lg-2 text-white"></div>
+                            <hr class="d-lg-none my-2 ">
+                            </li> 
+                        </ul>
+                        </div>
                     </div>
                 </div>
             </nav>
@@ -80,7 +135,7 @@
                         </div>
                     </aside>
                     <div class="bd-main">
-                        <div class="bd-index-table bd-toc mb-5 my-lg-0 ps-xl-3 mb-lg-5 text-muted">
+                        <div class="bd-index-table bd-toc mb-2 my-lg-0 ps-xl-3 mb-lg-5 text-muted">
                             <button class="btn btn-link link-dark p-md-0 mb-2 mb-md-0 text-decoration-none bd-toc-toggle d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#tocContents" aria-expanded="false" aria-controls="tocContents">
                                 <span class="selected-section">On this page</span>
                                 <i class="bi bi-chevron-expand"></i>
@@ -135,6 +190,12 @@
                             <p>Fusce purus odio, luctus id augue nec, tristique semper odio. Ut dictum arcu arcu, sit amet efficitur justo laoreet et. Nunc vitae metus viverra, rutrum arcu ac, rutrum enim. Fusce vehicula laoreet ipsum, et pellentesque dui. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed eleifend venenatis massa at pulvinar. Aenean mollis, ex sed posuere mollis, magna enim consectetur neque, ut scelerisque mi tellus fringilla neque. Donec mattis risus eu tortor gravida, et dapibus turpis placerat. Vivamus tempus vitae nunc ac dictum. Interdum et malesuada fames ac ante ipsum primis in faucibus. Phasellus ligula mi, scelerisque sit amet aliquam ac, porttitor eu nunc.</p>
                             <p>Cras molestie cursus est. Vestibulum nec enim malesuada ligula malesuada posuere. Sed luctus ex quis vehicula eleifend. Nulla hendrerit condimentum purus dictum ornare. Nullam velit urna, efficitur sed elit eget, placerat scelerisque augue. Integer quis quam lacus. Nulla malesuada vitae odio eget feugiat. Aenean hendrerit vitae ex ut congue. Nam at pellentesque tellus. Pellentesque enim sapien, faucibus non tempor id, facilisis dapibus justo. Quisque placerat purus mauris, fringilla ullamcorper tortor facilisis id. Praesent nulla augue, iaculis in urna eget, dignissim congue nibh. Sed id est eget justo accumsan fringilla. Pellentesque vitae tristique justo. Pellentesque vestibulum erat vitae velit sodales cursus.</p>
                             <p>Suspendisse faucibus at lectus et auctor. Cras consequat at ante at posuere. Fusce luctus eros nibh, id gravida est maximus at. Mauris imperdiet urna non ligula mollis, a condimentum ipsum tristique. Vestibulum ac ante id quam euismod auctor. Fusce id sapien ac elit pellentesque lacinia. Nunc vulputate molestie libero, at dictum risus pretium viverra.</p>
+                            
+                        <hr class="mt-5"/>
+                        <div class="main-content-navigation">
+                            <a href="#" class=""><span>Previous page</span>Article 1</a>
+                            <a href="#" class="text-end"><span>Next page</span>Article 3</a>
+                        </div>
                         </div>
                     </div>
                 </div>
@@ -150,8 +211,6 @@
                 </div>
             </div>
         </div>
-        
-        <!-- Nút Go to Top -->
         <a href="#" id="go-to-top" class="btn btn-primary">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-up" viewBox="0 0 16 16">
                 <path fill-rule="evenodd" d="M8 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L7.5 2.707V14.5a.5.5 0 0 0 .5.5"/>
