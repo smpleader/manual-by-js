@@ -298,13 +298,14 @@ ManualByJs.prototype = {
                 console.error('Error fetching the file  menu', error);
             });
         }
+        
+        this._createSidebarMenu()
             
         let hash = window.location.hash.substring(1);
         if(hash.length == 0) hash = this.homePage
         
         await this.navigate( hash )
-
-        this._createSidebarMenu() 
+ 
         this._afterInit()
 
         // global event
