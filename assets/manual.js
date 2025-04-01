@@ -1,13 +1,14 @@
 function ManualByJs(options = {}){
-    this.version = '0.1.8'
+    this.version = '0.1.9'
     this.flag = options.flag || ''
     this.folderContent = options.folderContent || 'content'
-    this.homePage = options.homePage || 'home'
+    this.homePage = options.homePage || 'page-home'
     this.current = {}
     this.next = {}
     this.prev = {}
     this.menu = options.menu || []
     this.fileExt = options.fileExt ?? "html"
+    this.prefix = options.prefix ?? "page-"
 
     this.md = options.md || null
     
@@ -74,16 +75,23 @@ ManualByJs.prototype = {
     },
     findPageByHash: function(hash)
     {
-        for(var ind = 0; ind < this.menu.length; ind++)
+        pos = hash.indexOf(this.prefix)
+        if(this.prefix && pos === 0)
         {
-            item = this.menu[ind]
-            if( (item.slug && hash == item.slug) || 
-                (item.index && item.index.includes(hash)) )
-            { 
-                item.ordering = ind
-                return item
+            let finder = hash.substr(this.prefix.length) 
+            
+            for(var ind = 0; ind < this.menu.length; ind++)
+            {
+                item = this.menu[ind]
+                if( (item.slug && finder == item.slug) || 
+                    (item.index && item.index.includes(hash)) )
+                { 
+                    item.ordering = ind
+                    return item
+                }
             }
         }
+
         return false
     },
     _createDefaultSidebarMenu: function()
@@ -97,7 +105,7 @@ ManualByJs.prototype = {
                 this.hook.createSidebarMenuItem(item) : 
                 (
                     item.slug ? 
-                        '<a href="#'+ item.slug +'" class="'+ item.slug +'">'+ item.title +'</a>' :
+                        '<a href="#'+ this.prefix + item.slug +'" class="'+ item.slug +'">'+ item.title +'</a>' :
                         ( item.href ? 
                             '<a href="'+ item.href +'" class="hover link" '+ (item.target?'target="'+item.target+'">':'>') + item.title +'</a>' :
                             ( item.title == '---' ? '<hr />' : '<h6><strong>'+ item.title+'</strong></h6>' )

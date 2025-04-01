@@ -21,11 +21,12 @@ This is a html manual powered by javascript. For more details, run porject by op
 - Add active for index table
 - ~~Fix issue if hash not found~~
 - ~~Add menu link~~
-- Add footer
+- ~~Add footer~~
 - ~~Add milestone to the top ( sprint, version)~~
 - Support multilanguage
 - ~~Define elements of a content ( id of html tags, require: sidebarMenu & mainLayout )~~
 - ~~Support page parts so the content can be edited easier and share part of content~~
+- Use prefix to differ index table to page
 - Create Manual preview script
 - Support link when get translated by translate tools ( google translate, microsoft translate.. )
 - Load content and convert to javascript widget
@@ -33,6 +34,9 @@ This is a html manual powered by javascript. For more details, run porject by op
 - Support layout template for menu, milestone, indextable
 
 ## Log
+
+### 0.1.9
+- Use prefix to differ index table to page
 
 ### 0.1.8
 - Support layout template for menu, milestone, indextable

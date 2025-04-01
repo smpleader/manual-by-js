@@ -214,7 +214,7 @@ const langMenu = [
     {href: "#", title: "VI"},
   ]
 const app = new ManualByJs({
-  homePage: "overview",  
+  homePage: "page-overview",  
   markdown: markdownit({
               html: true,
               linkify: true,
@@ -227,7 +227,7 @@ const app = new ManualByJs({
       var str = ''
       if(item.slug)
       {
-        str = '<li><a href="#'+ item.slug +'" class="bd-links-link d-inline-block rounded '+ item.slug +'">'+ item.title +'</a></li>'
+        str = '<li><a href="#'+ app.prefix+ item.slug +'" class="bd-links-link d-inline-block rounded '+ item.slug +'">'+ item.title +'</a></li>'
         if(app.flag && app.counter == app.menu.length)
         {
           str += '</ul></li>'
