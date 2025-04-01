@@ -212,7 +212,7 @@ ManualByJs.prototype = {
         else 
         {
             this.mbj.pageNav.insertAdjacentHTML("afterbegin", 
-                '<a href="#'+this.prev.slug+'" class="">' +
+                '<a href="#'+ this.prefix + this.prev.slug+'" class="">' +
                     '<span>Previous page</span>' +
                     this.prev.title +
                 '</a>');
@@ -222,7 +222,7 @@ ManualByJs.prototype = {
         if(false !==  this.next)
         {
             this.mbj.pageNav.insertAdjacentHTML("beforeend", 
-                '<a href="#'+this.next.slug+'" class="text-end">' +
+                '<a href="#'+ this.prefix + this.next.slug+'" class="text-end">' +
                     '<span>Next page</span>' +
                     this.next.title +
                 '</a>');
