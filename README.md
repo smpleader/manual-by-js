@@ -32,6 +32,8 @@ This is a html manual powered by javascript. For more details, run porject by op
 - Support markdown plugin, to run well with bootstrap layout
 - ~~Support layout template for menu, milestone, indextable~~
 - Auto make index table 
+- Support search
+- Support tag filter
 
 ## Log
 
