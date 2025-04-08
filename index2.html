@@ -9,7 +9,7 @@
         <link href="assets/customized_b5.css" rel="stylesheet">
     </head>
     <body>
-        <div class="bd-manual">
+        <div class="">
             <!-- Responsive navbar-->
             <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom fixed-top">
                 <div class="container-xxl bd-gutter px-lg-5">
@@ -98,41 +98,7 @@
                             </div>
                             <div class="offcanvas-body">
                                 <nav class="bd-links w-100" id="bd-docs-nav" aria-label="Docs navigation">
-                                    <ul class="bd-links-nav list-unstyled mb-0 pb-3 pb-md-2 pe-lg-2" id="mbj-sidebar-menu">
-                                        <!--<li class="bd-links-group py-2">
-                                            <strong class="ps-4 bd-links-heading d-flex w-100 align-items-center fw-semibold">
-                                                Getting started
-                                            </strong>
-                                            <ul class="list-unstyled fw-normal pb-2 small">
-                                                <li><a href="#" class="bd-links-link d-inline-block rounded">Introduction</a></li>
-                                                <li><a href="#" class="bd-links-link d-inline-block rounded active">Download</a></li>
-                                                <li><a href="#" class="bd-links-link d-inline-block rounded">JavaScript</a></li>
-                                                <li><a href="#" class="bd-links-link d-inline-block rounded">Webpack</a></li>
-                                                <li><a href="#" class="bd-links-link d-inline-block rounded">Parcel</a></li>
-                                                <li><a href="#" class="bd-links-link d-inline-block rounded">Vite</a></li>
-                                                <li><a href="#" class="bd-links-link d-inline-block rounded">Accessibility</a></li>
-                                                <li><a href="#" class="bd-links-link d-inline-block rounded">RFS</a></li>
-                                                <li><a href="#" class="bd-links-link d-inline-block rounded">RTL</a></li>
-                                                <li><a href="#" class="bd-links-link d-inline-block rounded">Contribute</a></li>
-                                            </ul>
-                                        </li>
-                                        <li class="bd-links-group py-2">
-                                            <strong class="ps-4 bd-links-heading d-flex w-100 align-items-center fw-semibold">
-                                                Components
-                                            </strong>
-                                            <ul class="list-unstyled fw-normal pb-2 small">
-                                                <li><a href="#" class="bd-links-link d-inline-block rounded">Introduction</a></li>
-                                                <li><a href="#" class="bd-links-link d-inline-block rounded">Download</a></li>
-                                                <li><a href="#" class="bd-links-link d-inline-block rounded">JavaScript</a></li>
-                                                <li><a href="#" class="bd-links-link d-inline-block rounded">Webpack</a></li>
-                                                <li><a href="#" class="bd-links-link d-inline-block rounded">Parcel</a></li>
-                                                <li><a href="#" class="bd-links-link d-inline-block rounded">Vite</a></li>
-                                                <li><a href="#" class="bd-links-link d-inline-block rounded">Accessibility</a></li>
-                                                <li><a href="#" class="bd-links-link d-inline-block rounded">RFS</a></li>
-                                                <li><a href="#" class="bd-links-link d-inline-block rounded">RTL</a></li>
-                                                <li><a href="#" class="bd-links-link d-inline-block rounded">Contribute</a></li>
-                                            </ul>
-                                        </li>-->
+                                    <ul class="bd-links-nav list-unstyled mb-0 pb-3 pb-md-2 pe-lg-2" id="mbj-sidebar-menu"> 
                                     </ul>
                                 </nav>
                             </div>
@@ -252,24 +218,31 @@ const app = new ManualByJs({
             let translatorMenu = document.getElementById("mbj-translator")
             for(const item of langMenu)
             {
-            translatorMenu.insertAdjacentHTML("beforeend", 
+                translatorMenu.insertAdjacentHTML("beforeend", 
                     '<li><a class="dropdown-item" href="' + item.href + '">'+ item.title +'</a></li>' )
             }
         },
         createIndexTable: function()
         {   
-        if(app.current.index && app.current.index.length > 0)
-        {
-            document.getElementById("mbj-page").parentElement.classList.add('has-index-table')
-            document.getElementById("mbj-page-index").parentElement.parentElement.classList.remove('d-none', 'd-md-none', 'd-sm-none')
-            app._createDefaultIndexTable()
-            new bootstrap.ScrollSpy(document.body, { target: "#mbj-page-index"})
-        }
-        else
-        {
-            document.getElementById("mbj-page").parentElement.classList.remove('has-index-table')
-            document.getElementById("mbj-page-index").parentElement.parentElement.classList.add('d-none', 'd-md-none', 'd-sm-none')
-        }
+            if(app.current.index && app.current.index.length > 0)
+            {
+                document.getElementById("mbj-page").parentElement.parentElement.parentElement.classList.remove('no-index-table')
+                app._createDefaultIndexTable()
+                new bootstrap.ScrollSpy(document.body, { target: "#mbj-page-index"})
+                const textBtnToggle = bdTocToggle.querySelector('.selected-section');
+               // const iconBtnToggle = bdTocToggle.querySelector('.bi');
+                const firstScrollSpyEl = document.querySelector('[data-bs-spy="scroll"]');
+
+                window.addEventListener('activate.bs.scrollspy', () => {
+                    var activeLink = document.querySelector('.bd-toc-collapse a.active');
+                    if(window.pageYOffset === 0) textBtnToggle.innerHTML = 'On this page';
+                    else textBtnToggle.innerHTML = activeLink.innerHTML; 
+                }) 
+            }
+            else
+            {
+                document.getElementById("mbj-page").parentElement.parentElement.parentElement.classList.add('no-index-table')
+            }
         }
     }
 })
