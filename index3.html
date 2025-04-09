@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
         <meta name="description" content="">
         <meta name="author" content="">
-        <title>C2B5 - Manual 2</title> 
+        <title>ManualByJS</title> 
         <link href="assets/customized_b5.css" rel="stylesheet">
     </head>
     <body class="">
@@ -13,54 +13,12 @@
             <header id="header" class="header header-breadcrumbs d-flex align-items-center fixed-top bg-light border-bottom">
                 <div class="container-xxl bd-gutter position-relative d-flex align-items-center justify-content-between">
                     <a href="index.html" class="logo d-flex align-items-center">
-                        <h1 class="sitename">C2B5</h1> 
+                        <h1 class="sitename">Manual By JS</h1> 
                     </a>
                     <nav id="navmenu" class="navmenu ms-5 me-auto">
                         <div class="c2b5-offcanvas offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
                             <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-                            <ul class="navmenu-list">
-                                <li><a href="index.html">Home</a></li>
-                                <li><a href="components.html">Components</a></li>
-                                <li><a href="notes.html">Notes</a></li>
-                                <li><a href="manual.html">Manual</a></li>
-                                <li class="dropdown">
-                                    <a href="#"><span>Dropdown</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
-                                    <ul>
-                                        <li><a href="#">Dropdown 1</a></li>
-                                        <li class="dropdown">
-                                            <a href="#"><span>Deep Dropdown</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
-                                            <ul>
-                                                <li><a href="#">Deep Dropdown 1</a></li>
-                                                <li class="dropdown">
-                                                    <a href="#"><span>Deep lvl3 Dropdown</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
-                                                    <ul>
-                                                        <li><a href="#">Deep lvl3 Dropdown 1</a></li>
-                                                        <li><a href="#">Deep lvl3 Dropdown 2</a></li>
-                                                        <li><a href="#">Deep lvl3 Dropdown 3</a></li>
-                                                        <li class="dropdown">
-                                                            <a href="#"><span>Deep lvl4 Dropdown</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
-                                                            <ul>
-                                                                <li><a href="#">Deep lvl4 Dropdown 1</a></li>
-                                                                <li><a href="#">Deep lvl4 Dropdown 2</a></li>
-                                                                <li><a href="#">Deep lvl4 Dropdown 3</a></li>
-                                                                <li><a href="#">Deep lvl4 Dropdown 4</a></li>
-                                                                <li><a href="#">Deep lvl4 Dropdown 5</a></li>
-                                                            </ul>
-                                                        </li>
-                                                        <li><a href="#">Deep lvl3 Dropdown 5</a></li>
-                                                    </ul>
-                                                </li>
-                                                <li><a href="#">Deep Dropdown 3</a></li>
-                                                <li><a href="#">Deep Dropdown 4</a></li>
-                                                <li><a href="#">Deep Dropdown 5</a></li>
-                                            </ul>
-                                        </li>
-                                        <li><a href="#">Dropdown 2</a></li>
-                                        <li><a href="#">Dropdown 3</a></li>
-                                        <li><a href="#">Dropdown 4</a></li>
-                                    </ul>
-                                </li>
-                                <li><a href="manual2.html" class="active">Manual 2</a></li>
+                            <ul class="navmenu-list" id="mbj-menu"> 
                             </ul>
                         </div>
                     </nav>
@@ -98,7 +56,7 @@
                             <strong class="d-none d-md-block h6 hide-on-expanded my-2">On this page</strong>
                             <hr class="d-none d-md-block hide-on-expanded my-2">
                             <div class="collapse bd-toc-collapse" id="tocContents">
-                                <nav class="index-table" id="TableOfContents">
+                                <nav class="index-table" id="mbj-page-index">
                                     <ul>
                                         <li><a href="#title-1">Sed sodales</a>
                                             <ul>
@@ -118,8 +76,8 @@
                                 </nav>
                             </div>
                         </div>
-                        <div class="bd-content pe-lg-2" data-bs-spy="scroll" data-bs-target="#TableOfContents" data-bs-smooth-scroll="true" class="scrollspy-example-2" tabindex="0" id="restore-selectors">
-                            <div class="">
+                        <div class="bd-content pe-lg-2" data-bs-spy="scroll" data-bs-target="#mbj-page-index" data-bs-smooth-scroll="true" class="scrollspy-example-2" tabindex="0" id="restore-selectors">
+                            <div id="mbj-page">
                                 <h1 class="page-title">helloo</h1>
                                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam vitae lacus tempor, venenatis felis et, vehicula ligula. Proin lectus ligula, facilisis nec aliquam eget, elementum ac libero. Cras cursus sit amet urna ut finibus. Aliquam maximus turpis ut accumsan pretium. Fusce commodo sapien iaculis, commodo magna vitae, interdum ex. Mauris non ipsum eget ex bibendum molestie. In gravida ipsum ut tellus finibus, a pulvinar nisi varius. Pellentesque vitae dictum orci. Aenean placerat nulla in efficitur porttitor. Phasellus ultrices congue velit, vitae commodo orci tempus a. Pellentesque at ligula felis. Cras blandit nulla et eleifend aliquam. Sed massa lacus, elementum et metus id, tempus commodo arcu. Ut lectus nulla, varius vitae eros id, gravida feugiat risus.</p>
                                 <h2 id="title-1">Sed sodales</h2>
@@ -155,7 +113,7 @@
                 <div class="container px-5"><p class="m-0 text-center text-white">Copyright &copy; C2B5 2025</div>
             </div>
             
-            <div class="main-navigator">
+            <div class="main-navigator" id="mbj-page-nav">
                 <a href="#" class="navigator-item prev-item">
                     <i class="bi bi-caret-left"></i>
                     <span class="page-title-preview pe-2 d-none">Article 1</span>
@@ -179,6 +137,141 @@
                 <use href="assets/icons.svg#arrow-up"></use>
             </svg>
         </a>
-        <script src="assets/customized_b5.js"></script>
-    </body>
+<script src="assets/customized_b5.js"></script>
+<script src="assets/markdown-it.min.js"></script>
+<script src="assets/manual.js"></script>
+<script>
+    const sprintMenu = [
+        {href: "#", title: "0.1.x"}
+        ]
+    const langMenu = [
+        {href: "#", title: "EN"},
+        {href: "#", title: "CN"},
+        {href: "#", title: "JP"},
+        {href: "#", title: "FR"},
+        {href: "#", title: "VI"},
+        ]
+    const app = new ManualByJs({
+        homePage: "page-overview", 
+        markdown: markdownit({
+                    html: true,
+                    linkify: true,
+                    typographer: true
+                }),
+        md: function (content){ return this.markdown.render(content) },
+        hook: {
+            createMenuItem: function(item) { 
+    
+                var str = ''
+                if(item.slug)
+                {
+                    str = '<li><a href="#'+ app.prefix + item.slug +'" class=" '+ item.slug +'">'+ item.title +'</a></li>'
+                    if(app.flag && app.counter == app.menu.length)
+                    {
+                        str += '</ul></li>'
+                    }
+                }
+                else if(item.href)
+                {
+                    str = '<li><a href="'+ item.href +'" class="" '+ (item.target?'target="'+item.target+'">':'>') + item.title +'</a></li>'
+                    if(app.flag && app.counter == app.menu.length)
+                    {
+                        str += '</ul></li>'
+                    }
+                }
+                else
+                {
+                    if(app.flag)
+                    {
+                        str += '</ul></li>'
+                    }
+                    
+                    str +=  '<li class="dropdown">'+
+                        '<a href="#"><span>' + item.title + '</span><i class="bi bi-chevron-down toggle-dropdown"></i></a>'+
+                        '<ul class="">'
+    
+                    app.flag = 1
+                }
+                
+                return str
+            },
+            afterInit: function()
+            { 
+                /* menu sprint
+                let milestoneMenu = document.getElementById("mbj-sprint")
+                milestoneMenu.innerHTML = ''
+                for(const item of sprintMenu)
+                {
+                milestoneMenu.insertAdjacentHTML("beforeend", 
+                        '<li><a class="dropdown-item" href="' + item.href + '">'+ item.title +'</a></li>' )
+                }
+                document.getElementById("mbj-sprint-label").innerHTML =  sprintMenu[0].title
+    
+                // menu translate
+                let translatorMenu = document.getElementById("mbj-translator")
+                for(const item of langMenu)
+                {
+                    translatorMenu.insertAdjacentHTML("beforeend", 
+                        '<li><a class="dropdown-item" href="' + item.href + '">'+ item.title +'</a></li>' )
+                }*/
+                document.querySelectorAll('.navmenu .dropdown').forEach(navmenu => {
+                    navmenu.addEventListener('click', function(e) {
+                        //e.preventDefault();
+                        this.querySelector('a').classList.toggle('active');
+                        this.querySelector('ul').classList.toggle('dropdown-active');
+                        //e.stopImmediatePropagation();
+                    });
+                });
+            },
+            createIndexTable: function()
+            {   
+                if(app.current.index && app.current.index.length > 0)
+                {
+                    document.getElementById("mbj-page").parentElement.parentElement.parentElement.classList.remove('no-index-table')
+                    app._createDefaultIndexTable()
+                    new bootstrap.ScrollSpy(document.body, { target: "#mbj-page-index"})
+                    const textBtnToggle = bdTocToggle.querySelector('.selected-section');
+                    // const iconBtnToggle = bdTocToggle.querySelector('.bi');
+                    const firstScrollSpyEl = document.querySelector('[data-bs-spy="scroll"]');
+    
+                    window.addEventListener('activate.bs.scrollspy', () => {
+                        var activeLink = document.querySelector('.bd-toc-collapse a.active');
+                        if(window.pageYOffset === 0) textBtnToggle.innerHTML = 'On this page';
+                        else textBtnToggle.innerHTML = activeLink.innerHTML; 
+                    }) 
+                }
+                else
+                {
+                    document.getElementById("mbj-page").parentElement.parentElement.parentElement.classList.add('no-index-table')
+                }
+            },
+            createPageNav: function(ordering)
+            {
+                app.mbj.pageNav.innerHTML = ""
+                app.prev = app.findPageByIndex(ordering, -1)
+                if(false == app.prev)
+                {
+                    app.mbj.pageNav.insertAdjacentHTML("afterbegin", '<a class="invisible"><span>.</span></a>')
+                } 
+                else 
+                {
+                    app.mbj.pageNav.insertAdjacentHTML("afterbegin", 
+                        '<a href="#'+ app.prefix + app.prev.slug+'" class="navigator-item prev-item">' +
+                            '<i class="bi bi-caret-left"></i>'+
+                        '</a>');
+                }
+
+                app.next = app.findPageByIndex(ordering, 1)
+                if(false !==  app.next)
+                {
+                    app.mbj.pageNav.insertAdjacentHTML("beforeend", 
+                        '<a href="#'+ app.prefix + app.next.slug+'" class="navigator-item next-item">' +
+                            '<i class="bi bi-caret-right"></i>' + 
+                        '</a>');
+                }
+            }
+        }
+    })
+    </script>
+</body>
 </html>
