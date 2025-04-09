@@ -13,7 +13,7 @@ function ManualByJs(options = {}){
     this.md = options.md || null
     
     this.ids = {
-        sidebarMenu: "mbj-sidebar-menu",
+        menu: "mbj-menu",
         page: "mbj-page",
         pageNav: "mbj-page-nav",
         pageIndex: "mbj-page-index"
@@ -31,8 +31,8 @@ function ManualByJs(options = {}){
     this.markdown = options.markdown || null
 
     this.hook = {
-        createSidebarMenu: null,
-        createSidebarMenuItem: null,
+        createMenu: null,
+        createMenuItem: null,
         createPageNav: null,
         createIndexTable: null,
         createIndexTableItem: null,
@@ -94,15 +94,15 @@ ManualByJs.prototype = {
 
         return false
     },
-    _createDefaultSidebarMenu: function()
+    _createDefaultMenu: function()
     {
         this.counter = 0
         var lines = ''
         for(const item of this.menu)
         {
             this.counter++
-            lines += this.hook.createSidebarMenuItem instanceof Function ? 
-                this.hook.createSidebarMenuItem(item) : 
+            lines += this.hook.createMenuItem instanceof Function ? 
+                this.hook.createMenuItem(item) : 
                 (
                     item.slug ? 
                         '<a href="#'+ this.prefix + item.slug +'" class="'+ item.slug +'">'+ item.title +'</a>' :
@@ -113,24 +113,24 @@ ManualByJs.prototype = {
                 )
         }
                     
-        this.mbj.sidebarMenu.insertAdjacentHTML("beforeend", lines )
+        this.mbj.menu.insertAdjacentHTML("beforeend", lines )
     },
-    _createSidebarMenu: function() 
+    _createMenu: function() 
     {
-        if(this.mbj.sidebarMenu)
+        if(this.mbj.menu)
         {
-            if(this.hook.createSidebarMenu instanceof Function)
+            if(this.hook.createMenu instanceof Function)
             {
-                this.hook.createSidebarMenu()
+                this.hook.createMenu()
             }
             else
             {
-                this._createDefaultSidebarMenu()
+                this._createDefaultMenu()
             }
         }
         else 
         {
-            console.log("No element to keep Sidebar menu!")
+            console.log("No element to keep menu!")
         }
     },
     _createDefaultIndexTable: function()  
@@ -186,9 +186,9 @@ ManualByJs.prototype = {
         }
         document.title = this.siteTitle  + " - " +  this.current.title
     },
-    _sidebarMenuActivate: function(slug)
+    _menuActivate: function(slug)
     {   
-        const anchors = this.mbj.sidebarMenu.getElementsByTagName('a')
+        const anchors = this.mbj.menu.getElementsByTagName('a')
         for(const m of anchors)
         {
             if(m.classList.contains(slug))
@@ -282,7 +282,7 @@ ManualByJs.prototype = {
                 this.mbj.page.insertAdjacentHTML("afterbegin", content)
             }
 
-            this._sidebarMenuActivate(item.slug)
+            this._menuActivate(item.slug)
             this._updateWindowTitle()
             this._createIndexTable()
             this._createPageNav(item.ordering)
@@ -307,7 +307,7 @@ ManualByJs.prototype = {
             });
         }
         
-        this._createSidebarMenu()
+        this._createMenu()
             
         let hash = window.location.hash.substring(1);
         if(hash.length == 0) hash = this.homePage

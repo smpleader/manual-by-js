@@ -141,7 +141,7 @@
 
         <div class="offcanvas-body">
           <nav class="bd-links w-100" id="bd-docs-nav" aria-label="Docs navigation">
-            <ul class="bd-links-nav list-unstyled mb-0 pb-3 pb-md-2 pe-lg-2" id="mbj-sidebar-menu"></ul>
+            <ul class="bd-links-nav list-unstyled mb-0 pb-3 pb-md-2 pe-lg-2" id="mbj-menu"></ul>
         </nav>
 
         </div>
@@ -222,7 +222,7 @@ const app = new ManualByJs({
           }),
   md: function (content){ return this.markdown.render(content) },
   hook: {
-    createSidebarMenuItem: function(item) { 
+    createMenuItem: function(item) { 
 
       var str = ''
       if(item.slug)
