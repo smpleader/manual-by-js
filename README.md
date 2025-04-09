@@ -18,7 +18,7 @@ This is a html manual powered by javascript. For more details, run porject by op
 
 - ~~Support md file~~
 - ~~Auto add menu~~
-- Add active for index table
+- ~~Add active for index table~~
 - ~~Fix issue if hash not found~~
 - ~~Add menu link~~
 - ~~Add footer~~
@@ -31,7 +31,7 @@ This is a html manual powered by javascript. For more details, run porject by op
 - Load content and convert to javascript widget
 - Support markdown plugin, to run well with bootstrap layout
 - ~~Support layout template for menu, milestone, indextable~~
-- Auto make index table 
+- ~~Auto make index table ~~
 - Support search
 - Support tag filter
 
