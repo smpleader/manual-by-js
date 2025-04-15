@@ -1,29 +1,25 @@
 function ManualByJs(options = {}){
-    this.version = '0.1.7'
+    this.version = '0.1.9'
     this.flag = options.flag || ''
     this.folderContent = options.folderContent || 'content'
-    this.siteTitle = options.siteTitle || 'Manual By JS'
-    this.homePage = options.homePage || 'home'
+    this.homePage = options.homePage || 'page-home'
     this.current = {}
     this.next = {}
     this.prev = {}
     this.menu = options.menu || []
-    this.milestone = options.milestone || []
     this.fileExt = options.fileExt ?? "html"
+    this.prefix = options.prefix ?? "page-"
 
     this.md = options.md || null
     
     this.ids = {
-        siteTitle: "mbj-site-title",
-        milestone: "mbj-milestone",
-        milestoneMenu: "mbj-milestone-menu",
         menu: "mbj-menu",
         page: "mbj-page",
         pageNav: "mbj-page-nav",
         pageIndex: "mbj-page-index"
     }
 
-    if(options.ids) this.ids = {...options.ids}
+    if(options.ids) this.ids = {...this.ids, ...options.ids}
 
     this.mbj = {}
     
@@ -33,6 +29,22 @@ function ManualByJs(options = {}){
     }
 
     this.markdown = options.markdown || null
+
+    this.hook = {
+        createMenu: null,
+        createMenuItem: null,
+        createPageNav: null,
+        createIndexTable: null,
+        createIndexTableItem: null,
+        afterInit: null
+    }
+
+    if(options.hook) this.hook = {...options.hook}
+
+    // this support for loop in hooks
+    this.counter = 0
+    this.flag = 0
+    this.siteTitle = ""
 
     this._init()
 }
@@ -63,73 +75,120 @@ ManualByJs.prototype = {
     },
     findPageByHash: function(hash)
     {
-        for(var ind = 0; ind < this.menu.length; ind++)
+        pos = hash.indexOf(this.prefix)
+        if(this.prefix && pos === 0)
         {
-            item = this.menu[ind]
-            if( (item.slug && hash == item.slug) || 
-                (item.index && item.index.includes(hash)) )
-            { 
-                item.ordering = ind
-                return item
+            let finder = hash.substr(this.prefix.length) 
+            
+            for(var ind = 0; ind < this.menu.length; ind++)
+            {
+                item = this.menu[ind]
+                if( (item.slug && finder == item.slug) || 
+                    (item.index && item.index.includes(hash)) )
+                { 
+                    item.ordering = ind
+                    return item
+                }
             }
         }
+
         return false
     },
-    _createSidebarMenu: function() {
+    _createDefaultMenu: function()
+    {
+        this.counter = 0
+        var lines = ''
+        for(const item of this.menu)
+        {
+            this.counter++
+            lines += this.hook.createMenuItem instanceof Function ? 
+                this.hook.createMenuItem(item) : 
+                (
+                    item.slug ? 
+                        '<a href="#'+ this.prefix + item.slug +'" class="'+ item.slug +'">'+ item.title +'</a>' :
+                        ( item.href ? 
+                            '<a href="'+ item.href +'" class="hover link" '+ (item.target?'target="'+item.target+'">':'>') + item.title +'</a>' :
+                            ( item.title == '---' ? '<hr />' : '<h6><strong>'+ item.title+'</strong></h6>' )
+                        )
+                )
+        }
+                    
+        this.mbj.menu.insertAdjacentHTML("beforeend", lines )
+    },
+    _createMenu: function() 
+    {
         if(this.mbj.menu)
         {
-            for(const item of this.menu)
+            if(this.hook.createMenu instanceof Function)
             {
-                var line = item.slug ? 
-                    '<a href="#'+ item.slug +'" class="'+ item.slug +'">'+ item.title +'</a>' :
-                    ( item.href ? 
-                        '<a href="'+ item.href +'" class="hover link" '+ (item.target?'target="'+item.target+'">':'>') + item.title +'</a>' :
-                        '<h6><strong>'+ item.title+'</strong></h6>'
-                    )
-                    
-                this.mbj.menu.insertAdjacentHTML("beforeend", line)
+                this.hook.createMenu()
+            }
+            else
+            {
+                this._createDefaultMenu()
             }
         }
         else 
         {
-            console.log("No element to keep Sidebar menu!")
+            console.log("No element to keep menu!")
         }
     },
-    _createIndexTable: function()  {
-        if(this.mbj.pageIndex)
-        {
-            this.mbj.pageIndex.innerHTML = ""
-            if(this.current.index)
-            { 
-                this.mbj.pageIndex.insertAdjacentHTML("beforeend", '<li class="mt-3"><b>On this page</b></li>')
-                for(const item of this.current.index)
+    _createDefaultIndexTable: function()  
+    {
+        if(this.current.index)
+        { 
+            var str = ''
+            this.counter = 0
+            for(const item of this.current.index)
+            {
+                this.counter++
+                if(this.hook.createIndexTableItem instanceof Function)
+                {
+                    str += this.hook.createIndexTableItem(item)
+                }
+                else
                 {
                     if(typeof item == "string")
                     {
                         let name = item.charAt(0).toUpperCase() + item.slice(1);
                         name = name.replace(/-|_/g, " ")
-                        this.mbj.pageIndex.insertAdjacentHTML("beforeend", '<li><a class="item" href="#'+item+'">'+name+'</a></li>')
-
+                        str += '<li><a href="#'+item+'">'+name+'</a></li>'
+    
                     }
                     else if( item.id && item.name)
                     {
-                        this.mbj.pageIndex.insertAdjacentHTML("beforeend", '<li><a class="item" href="#'+item.id+'">'+item.name+'</a></li>')
-                    }
-                }
+                        str += '<li><a href="#'+item.id+'">'+item.name+'</a></li>'
+                    } 
+                } 
+            }
+            this.mbj.pageIndex.insertAdjacentHTML("beforeend", '<ul>' + str + '</ul>') 
+        }
+    },
+    _createIndexTable: function()  {
+        if(this.mbj.pageIndex) // this element is optional
+        {
+            this.mbj.pageIndex.innerHTML = ""
+            if(this.hook.createIndexTable instanceof Function)
+            {
+                this.hook.createIndexTable()
+            }
+            else
+            {
+                this._createDefaultIndexTable()
             }
         }
-        else
-        {
-            // this element is optional
-        } 
     },
-    _updateWindowTitle: function(line)
+    _updateWindowTitle: function()
     {
-        document.title = line
+        if(this.siteTitle.length == 0)
+        {
+            this.siteTitle = document.title 
+        }
+        document.title = this.siteTitle  + " - " +  this.current.title
     },
-    _sidebarMenuActivate: function(slug)
+    _menuActivate: function(slug)
     {   
-        const anchors = this.mbj.menu.getElementsByTagName('a');
+        const anchors = this.mbj.menu.getElementsByTagName('a')
         for(const m of anchors)
         {
             if(m.classList.contains(slug))
@@ -142,61 +201,58 @@ ManualByJs.prototype = {
             }
         }
     },
-    _footMenuActivate: function(ordering)
+    _createDefaultPageNav: function(ordering)
     {
-        if(this.mbj.pageNav)
+        this.mbj.pageNav.innerHTML = ""
+        this.prev = this.findPageByIndex(ordering, -1)
+        if(false == this.prev)
         {
-            this.mbj.pageNav.innerHTML = ""
-            this.prev = this.findPageByIndex(ordering, -1)
-            if(false == this.prev)
-            {
-                this.mbj.pageNav.insertAdjacentHTML("afterbegin", '<a class="invisible"><span>.</span></a>')
-            } 
-            else 
-            {
-                this.mbj.pageNav.insertAdjacentHTML("afterbegin", 
-                    '<a href="#'+this.prev.slug+'" class="">' +
-                        '<span>Previous page</span>' +
-                        this.prev.title +
-                    '</a>');
-            }
-    
-            this.next = this.findPageByIndex(ordering, 1)
-    
-            if(false !==  this.next)
-            {
-                this.mbj.pageNav.insertAdjacentHTML("beforeend", 
-                    '<a href="#'+this.next.slug+'" class="text-end">' +
-                        '<span>Next page</span>' +
-                        this.next.title +
-                    '</a>');
-            } 
-        }
-        else
-        {
-            // this element is optional
+            this.mbj.pageNav.insertAdjacentHTML("afterbegin", '<a class="invisible"><span>.</span></a>')
         } 
-    },
-    _setSiteTitle: function()
-    {
-        this.mbj.siteTitle.innerText = this.siteTitle
-    },
-    _createMilestoneMenu: function()
-    {
-        if(this.milestone.length > 0 && this.mbj.milestone)
+        else 
         {
-            this.mbj.milestone.innerHTML = ''
-            for(const item of this.milestone)
-            {
-                this.mbj.milestone.insertAdjacentHTML("beforeend", 
-                    '<li><a class="dropdown-item" href="' + item.href + '">'+ item.title +'</a></li>' )
-            }
-            
-            this.mbj.milestoneMenu.innerHTML =  this.milestone[0].title
+            this.mbj.pageNav.insertAdjacentHTML("afterbegin", 
+                '<a href="#'+ this.prefix + this.prev.slug+'" class="">' +
+                    '<span>Previous page</span>' +
+                    this.prev.title +
+                '</a>');
+        }
+
+        this.next = this.findPageByIndex(ordering, 1)
+        if(false !==  this.next)
+        {
+            this.mbj.pageNav.insertAdjacentHTML("beforeend", 
+                '<a href="#'+ this.prefix + this.next.slug+'" class="text-end">' +
+                    '<span>Next page</span>' +
+                    this.next.title +
+                '</a>');
         }
     },
-    navigate: async function(hash){
-        let item = this.findPageByHash(hash)
+    _createPageNav: function(ordering)
+    {
+        if(this.mbj.pageNav) // this element is optional
+        {
+            if(this.hook.createPageNav instanceof Function)
+            {
+                this.hook.createPageNav(ordering)
+            }
+            else
+            {
+                this._createDefaultPageNav(ordering)
+            }
+        }
+    },
+    _afterInit: function()
+    {
+        if( this.hook.afterInit instanceof Function )
+        {
+            this.hook.afterInit()
+        }
+    },
+    navigate: async function(hash)
+    {
+        let item = this.findPageByHash(hash);
+        
         if(item)
         {
             this.current = item
@@ -226,10 +282,10 @@ ManualByJs.prototype = {
                 this.mbj.page.insertAdjacentHTML("afterbegin", content)
             }
 
-            this._sidebarMenuActivate(item.slug)
-            this._updateWindowTitle(this.siteTitle + " - " + this.current.title)
+            this._menuActivate(item.slug)
+            this._updateWindowTitle()
             this._createIndexTable()
-            this._footMenuActivate(item.ordering)
+            this._createPageNav(item.ordering)
 
             // if item found by index, we won't scroll it
             if(item.slug === hash)
@@ -238,8 +294,8 @@ ManualByJs.prototype = {
             }
         }
     }, 
-    _init: async function(){ 
-
+    _init: async function()
+    {
         if(this.menu.length == 0)
         {    
             this.menu = await fetch(this.folderContent + '/menu.json')
@@ -250,15 +306,15 @@ ManualByJs.prototype = {
                 console.error('Error fetching the file  menu', error);
             });
         }
+        
+        this._createMenu()
             
         let hash = window.location.hash.substring(1);
         if(hash.length == 0) hash = this.homePage
         
         await this.navigate( hash )
-
-        this._createSidebarMenu() 
-        this._setSiteTitle()
-        this._createMilestoneMenu()
+ 
+        this._afterInit()
 
         // global event
         that = this

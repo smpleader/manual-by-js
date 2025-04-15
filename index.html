@@ -2,241 +2,299 @@
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <meta content="width=device-width,initial-scale=1" name="viewport">
   <meta http-equiv="Content-Language" content="en">
-  <title>Manual - project 001</title>
+  <title>ManualByJS</title>
   <meta content="" name="description">
   <meta content="" name="keywords"> 
-  <!-- Vendor CSS Files -->
-  <link href="assets/bootstrap.css" rel="stylesheet">
-  <link href="assets/bootstrap-icons.css" rel="stylesheet">
-  <link href="assets/all.min.css" rel="stylesheet">
-  <link href="assets/aos.css" rel="stylesheet">
-  <!-- Template Main CSS File -->
-  <link href="assets/style.css" rel="stylesheet">
+  <link href="assets/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <link href="assets/docs.css" rel="stylesheet">
 </head>
-<body class="member-page guide-page" data-aos-easing="slide" data-aos-duration="800" data-aos-delay="0">
-  <!-- ======= Header ======= -->
-  <header id="header" class="header d-flex align-items-center fixed-top">
-    <div class="container-fluid container-xl d-flex align-items-center justify-content-between px-sm-4">
-      <a href="index.html" class="logo d-flex align-items-center">
-        <!-- <img src="images/logo.png" alt=""> -->
-        <h1 id="mbj-site-title"><span>.</span></h1>
-      </a>
-      <div class="navbar-nav flex-row flex-wrap">
-        <a class="nav-link px-2" href="https://github.com/smpleader/manual-by-js" target="_blank" rel="noopener">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" class="navbar-nav-svg" viewBox="0 0 512 499.36" role="img"><title>GitHub</title><path fill="currentColor" fill-rule="evenodd" d="M256 0C114.64 0 0 114.61 0 256c0 113.09 73.34 209 175.08 242.9 12.8 2.35 17.47-5.56 17.47-12.34 0-6.08-.22-22.18-.35-43.54-71.2 15.49-86.2-34.34-86.2-34.34-11.64-29.57-28.42-37.45-28.42-37.45-23.27-15.84 1.73-15.55 1.73-15.55 25.69 1.81 39.21 26.38 39.21 26.38 22.84 39.12 59.92 27.82 74.5 21.27 2.33-16.54 8.94-27.82 16.25-34.22-56.84-6.43-116.6-28.43-116.6-126.49 0-27.95 10-50.8 26.35-68.69-2.63-6.48-11.42-32.5 2.51-67.75 0 0 21.49-6.88 70.4 26.24a242.65 242.65 0 0 1 128.18 0c48.87-33.13 70.33-26.24 70.33-26.24 14 35.25 5.18 61.27 2.55 67.75 16.41 17.9 26.31 40.75 26.31 68.69 0 98.35-59.85 120-116.88 126.32 9.19 7.9 17.38 23.53 17.38 47.41 0 34.22-.31 61.83-.31 70.23 0 6.85 4.61 14.81 17.6 12.31C438.72 464.97 512 369.08 512 256.02 512 114.62 397.37 0 256 0z"></path></svg>
-          <small class="d-lg-none ms-2">GitHub</small>
-        </a>
-        <a class="btn btn-link px-2 nav-link dropdown-toggle" href="#" role="button" id="mbj-milestone-menu" data-bs-toggle="dropdown" aria-expanded="false">
-          Milestone list
-        </a>
-        <ul class="dropdown-menu" aria-labelledby="mbj-milestone-menu" id="mbj-milestone">
-          <li><a class="dropdown-item" href="#">Action</a></li>
-          <li><a class="dropdown-item" href="#">Another action</a></li>
-          <li><a class="dropdown-item" href="#">Something else here</a></li>
+<body data-bs-spy="scroll" data-bs-target="#mbj-page-index">
+<header class="navbar navbar-expand-lg bd-navbar sticky-top">
+  <nav class="container-xxl bd-gutter flex-wrap flex-lg-nowrap" aria-label="Main navigation">
+    <div class="bd-navbar-toggle">
+      <button class="navbar-toggler p-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#bdSidebar" aria-controls="bdSidebar" aria-label="Toggle docs navigation">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" class="bi" >
+          <use href="assets/icons.svg#browse"></use>
+        </svg>
+
+        <span class="d-none fs-6 pe-1">Browse</span>
+      </button>
+    </div> 
+
+    <a class="navbar-brand p-0 me-0 me-lg-2" href="https://github.com/smpleader/manual-by-js" aria-label="Bootstrap" id="mbj-site-title">
+        MBJ
+    </a>
+
+    <div class="d-flex">
+      <!-- SEARCH
+      <div class="bd-search" id="docsearch" data-bd-docs-version="5.3">
+        <button type="button"class="DocSearch DocSearch-Button" data-bs-toggle="modal" data-bs-target="#searchModal"><span class="DocSearch-Button-Container">
+            <svg width="20" height="20"  aria-hidden="true" class="DocSearch-Search-Icon"><use href="assets/icons.svg#search"></use></svg>
+            <span class="DocSearch-Button-Placeholder">Search</span></span>
+        </button>
+      </div>-->
+
+      <button class="navbar-toggler d-flex d-lg-none order-3 p-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#bdNavbar" aria-controls="bdNavbar" aria-label="Toggle navigation">
+        <svg class="bi" aria-hidden="true"><use xlink:href="assets/icons.svg#three-dots"></use></svg>
+      </button>
+    </div>
+
+    <div class="offcanvas-lg offcanvas-end flex-grow-1" tabindex="-1" id="bdNavbar" aria-labelledby="bdNavbarOffcanvasLabel" data-bs-scroll="true">
+      <div class="offcanvas-header px-4 pb-0">
+        <h5 class="offcanvas-title text-white" id="bdNavbarOffcanvasLabel">MENU</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close" data-bs-target="#bdNavbar"></button>
+      </div>
+
+      <div class="offcanvas-body p-4 pt-0 p-lg-0">
+        
+        <!--menu1--> 
+
+        <hr class="d-lg-none text-white-50">
+
+        <ul class="navbar-nav flex-row flex-wrap ms-md-auto">
+          <li class="nav-item col-6 col-lg-auto">
+            <a class="nav-link py-2 px-0 px-lg-2" href="https://github.com/smpleader/manual-by-js" target="_blank" rel="noopener">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" class="navbar-nav-svg" viewBox="0 0 512 499.36" role="img">
+                <title>GitHub</title><use href="assets/icons.svg#github"></use>
+              </svg>
+              <small class="d-lg-none ms-2">GitHub</small>
+            </a>
+          </li> 
+          <li class="nav-item py-2 py-lg-1 col-12 col-lg-auto">
+            <div class="vr d-none d-lg-flex h-100 mx-lg-2 text-white"></div>
+            <hr class="d-lg-none my-2 text-white-50">
+          </li> 
+
+          <li class="nav-item dropdown">
+            <button type="button" class="btn btn-link nav-link py-2 px-0 px-lg-2 dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" data-bs-display="static" id="mbj-sprint-label">
+                Milestone here  
+            </button>
+            <ul class="dropdown-menu dropdown-menu-end" id="mbj-sprint">
+            </ul>
+          </li>
+          <li class="nav-item py-2 py-lg-1 col-12 col-lg-auto">
+            <div class="vr d-none d-lg-flex h-100 mx-lg-2 text-white"></div>
+            <hr class="d-lg-none my-2 text-white-50">
+          </li>
+          
+          <li class="nav-item dropdown">
+              <button type="button" class="btn btn-link nav-link py-2 px-0 px-lg-2 dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" data-bs-display="static" >
+                EN 
+              </button>
+              <ul class="dropdown-menu dropdown-menu-end" id="mbj-translator">
+              </ul>
+          </li>
+          <li class="nav-item py-2 py-lg-1 col-12 col-lg-auto">
+            <div class="vr d-none d-lg-flex h-100 mx-lg-2 text-white"></div>
+            <hr class="d-lg-none my-2 text-white-50">
+          </li>
+
+          <li class="nav-item dropdown">
+            <button class="btn btn-link nav-link py-2 px-0 px-lg-2 dropdown-toggle d-flex align-items-center" id="bd-theme" type="button" aria-expanded="false" data-bs-toggle="dropdown" data-bs-display="static" aria-label="Toggle theme (light)">
+              <svg class="bi my-1 theme-icon-active"><use href="assets/icons.svg#sun-fill"></use></svg>
+              <span class="d-lg-none ms-2" id="bd-theme-text">Toggle theme</span>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="bd-theme-text">
+              <li>
+                <button type="button" class="dropdown-item d-flex align-items-center active" data-bs-theme-value="light" aria-pressed="true">
+                  <svg class="bi me-2 opacity-50"><use href="assets/icons.svg#sun-fill"></use></svg>
+                  Light
+                  <svg class="bi ms-auto d-none"><use href="assets/icons.svg#check2"></use></svg>
+                </button>
+              </li>
+              <li>
+                <button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="dark" aria-pressed="false">
+                  <svg class="bi me-2 opacity-50"><use href="assets/icons.svg#moon-stars-fill"></use></svg>
+                  Dark
+                  <svg class="bi ms-auto d-none"><use href="assets/icons.svg#check2"></use></svg>
+                </button>
+              </li>
+              <li>
+                <button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="auto" aria-pressed="false">
+                  <svg class="bi me-2 opacity-50"><use href="assets/icons.svg#circle-half"></use></svg>
+                  Auto
+                  <svg class="bi ms-auto d-none"><use href="assets/icons.svg#check2"></use></svg>
+                </button>
+              </li>
+              <li>
+                <button type="button" class="dropdown-item d-flex align-items-center" onclick="document.location.href='index2.html'" >
+                  Second template
+                </button>
+              </li>
+            </ul>
+          </li>
         </ul>
       </div>
-      <!--<i class="mobile-search-toggle mobile-search-show bi bi-search"></i>
-      <form class="header-search-form">
-        <i class="mobile-search-toggle mobile-search-hide bi bi-x"></i>
-        <input type="search" class="form-control" placeholder="Search..." aria-label="Search">
-      </form>-->
     </div>
-  </header><!-- End Header -->
-  <main id="main">
-    <!-- ======= Content Section ======= -->
-    <section class="section-guide section-bg">
-      <div class="main-block bg-white">
-        <aside class="sidebar fixed-sm-sidebar" id="mbj-menu">
-          <i class="mobile-sidebar-toggle mobile-sidebar-hide bi bi-x d-none"></i>
-        </aside>
-        <div class="main-content">
-          <div class="container-fluid">
-            <div class="row">
-              <div class="mobile-show-nav col-12 d-lg-none">
-                <span class="mobile-sidebar-toggle mobile-sidebar-show"><i class="bi bi-list"></i> Menu</span>
-                <span class="d-md-none">On this page <i class="bi bi-chevron-right"></i></span>
-              </div>
-              <div class="col-12 col-md-9">
-                <div class="main-content-inner">
-                  <div id="mbj-page"></div>
-                  <hr class="mt-5">
-                </div>
-                <div class="main-content-navigation" id="mbj-page-nav">
-                  <a href="#" class="">
-                    <span>Previous page</span>
-                    Introduction
-                  </a>
-                  <a href="#" class="text-end">
-                    <span>Next page</span>
-                    Customization
-                  </a>
-                </div>
-              </div>
-              <div class="col-12 col-md-3">
-                <ul class="content-navigation" id="mbj-page-index">
-                  
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-    <!-- End Content Section -->
+  </nav>
+</header>
 
-  </main><!-- End #main -->
 
-  <!-- ======= Footer ======= -->
-  <footer id="footer" class="footer d-none" style="background: url(&#39;images/footer-bg-2.jpg&#39;) top center no-repeat;">
-
-    <div class="footer-content position-relative">
-      <div class="container">
-        <div class="row">
-
-          <div class="col-lg-4 col-md-6">
-            <div class="footer-info">
-              <h3>Customized Bootstrap5</h3>
-              <p>
-                A218 Phasellus efficitur <br>
-                HVN 123456, HCN<br><br>
-                <strong>Phone:</strong> +0 123 456789 10<br>
-                <strong>Email:</strong> info@example.com<br>
-              </p>
-              <div class="social-links d-flex mt-3">
-                <a href="#" class="d-flex align-items-center justify-content-center"><i class="bi bi-twitter"></i></a>
-                <a href="#" class="d-flex align-items-center justify-content-center"><i class="bi bi-facebook"></i></a>
-                <a href="#" class="d-flex align-items-center justify-content-center"><i class="bi bi-instagram"></i></a>
-                <a href="#" class="d-flex align-items-center justify-content-center"><i class="bi bi-linkedin"></i></a>
-              </div>
-            </div>
-          </div><!-- End footer info column-->
-
-          <div class="col-lg-2 col-6 col-md-3 footer-links">
-            <h4>Useful Links</h4>
-            <ul>
-              <li><a href="#">Home</a></li>
-              <li><a href="#">About us</a></li>
-              <li><a href="#">Projects</a></li>
-              <li><a href="#">Terms of service</a></li>
-              <li><a href="#">Privacy policy</a></li>
-            </ul>
-          </div><!-- End footer links column-->
-
-          <div class="col-lg-2 col-6 col-md-3 footer-links">
-            <h4>Our Services</h4>
-            <ul>
-              <li><a href="#">Euismod</a></li>
-              <li><a href="#">Quisque</a></li>
-              <li><a href="#">Scelerisque</a></li>
-              <li><a href="#">Bibendum</a></li>
-              <li><a href="#">Aliquam</a></li>
-            </ul>
-          </div><!-- End footer links column-->
-
-          <div class="col-lg-4 col-md-12 footer-newsletter">
-            <h4>Our Newsletter</h4>
-            <p>Subscribe to our newsletter and receive the latest news about our products and services!</p>
-            <form action="#" method="post" class="php-email-form">
-              <div class="newsletter-form"><input type="email" name="email"><input type="submit" value="Subscribe"></div>
-            </form>
-          </div><!-- End footer links column-->
-
-        </div>
-      </div>
-    </div>
-
-    <div class="footer-legal text-center position-relative">
-      <div class="container">
-        <div class="copyright">
-          © Copyright <strong><span>Customized Bootstrap5</span></strong>. All Rights Reserved
-        </div>
-      </div>
-    </div>
-
-  </footer>
-  <!-- End Footer -->
-
-  <a href="#" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
-  <!-- Vendor JS Files -->
-  <script src="assets/bootstrap.bundle.min.js.download"></script>
-  <script src="assets/aos.js.download"></script>
-
-  <!-- Template Main JS File -->
-  <script src="assets/main.js.download"></script>
-  <script src="assets/markdown-it.min.js"></script>
-  <script src="assets/manual.js"></script>
-  <script>
-  const app = new ManualByJs({
-    homePage: "overview", 
-    milestone: [
-      {href: "#", title: "0.1.x"}
-    ],
-    markdown: markdownit({
-                html: true,
-                linkify: true,
-                typographer: true
-            }),
-    md: function (content){ return this.markdown.render(content) }
-
-  })
-
-    // Get all sections that have an ID defined
-    const sections = document.querySelectorAll(".paragraph-heading[id]");
-
-    // Add an event listener listening for scroll
-    window.addEventListener("scroll", navHighlighter);
-
-    function navHighlighter() {
-      
-      // Get current scroll position
-      let scrollY = window.pageYOffset;
-      
-      // Now we loop through sections to get height, top and ID values for each
-      sections.forEach(current => {
-        const sectionHeight = current.offsetHeight;
-        const sectionTop = current.offsetTop - 50;
-        sectionId = current.getAttribute("id");
-        
-        /*
-        - If our current scroll position enters the space where current section on screen is, add .active class to corresponding navigation link, else remove it
-        - To know which link needs an active class, we use sectionId variable we are getting while looping through sections as an selector
-        */
-        if (
-          scrollY > sectionTop &&
-          scrollY <= sectionTop + sectionHeight
-        ){
-          document.querySelector(".content-navigation a[href*=" + sectionId + "]").classList.add("active");
-        } else {
-          document.querySelector(".content-navigation a[href*=" + sectionId + "]").classList.remove("active");
-        }
-      });
-    }
-    /**
-     * Sidebar toggle
-     */
-    const mobileSidebarShow = document.querySelector('.mobile-sidebar-show');
-    const mobileSidebarHide = document.querySelector('.mobile-sidebar-hide');
-
-    document.querySelectorAll('.mobile-sidebar-toggle').forEach(el => {
-      el.addEventListener('click', function(event) {
-        event.preventDefault();
-        mobileNavToogle();
-      })
-    });
-
-    function mobileNavToogle() {
-      document.querySelector('body').classList.toggle('mobile-sidebar-active');
-      mobileSidebarHide.classList.toggle('d-none');
-    }
-
-    const mobileSearchShow = document.querySelector('.mobile-search-show');
-    const mobileSearchHide = document.querySelector('.mobile-search-hide');
     
-    document.querySelectorAll('.mobile-search-toggle').forEach(el => {
-      el.addEventListener('click', function(event) {
-        event.preventDefault();
-        document.querySelector('body').classList.toggle('mobile-search-active');
-      })
-    });
-  </script>
+  <div class="container-xxl bd-gutter mt-3 my-md-4 bd-layout">
+    <aside class="bd-sidebar">
+      <div class="offcanvas-lg offcanvas-start" tabindex="-1" id="bdSidebar" aria-labelledby="bdSidebarOffcanvasLabel">
+        <div class="offcanvas-header border-bottom">
+          <h5 class="offcanvas-title" id="bdSidebarOffcanvasLabel">Browse docs</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close" data-bs-target="#bdSidebar"></button>
+        </div>
+
+        <div class="offcanvas-body">
+          <nav class="bd-links w-100" id="bd-docs-nav" aria-label="Docs navigation">
+            <ul class="bd-links-nav list-unstyled mb-0 pb-3 pb-md-2 pe-lg-2" id="mbj-menu"></ul>
+        </nav>
+
+        </div>
+      </div>
+    </aside>
+
+    <main class="bd-main order-1">
+        <div class="bd-toc mt-3 mb-5 my-lg-0 mb-lg-5 px-sm-1 text-body-secondary">
+           <!--indextable-->
+           
+            <button class="btn btn-link p-md-0 mb-2 mb-md-0 text-decoration-none bd-toc-toggle d-md-none" type="button" data-bs-toggle="collapse" data-bs-target="#tocContents" aria-expanded="false" aria-controls="tocContents">
+              On this page
+              <svg class="bi d-md-none ms-2" aria-hidden="true"><use xlink:href="#chevron-expand"></use></svg>
+            </button>
+            <strong class="d-none d-md-block h6 my-2 ms-3">On this page</strong>
+            <hr class="d-none d-md-block my-2 ms-3">
+            <div class="collapse bd-toc-collapse" id="tocContents">
+              <nav id="mbj-page-index"> 
+              </nav>
+            </div>
+
+
+        </div> 
+        <div class="bd-content ps-lg-2">
+          <div class="main-content-inner" >
+            <div id="mbj-page"></div>
+            <hr class="mt-5">
+          </div>
+          <div class="main-content-navigation" id="mbj-page-nav">
+            <a href="#" class="">
+              <span>Previous page</span>
+              Introduction
+            </a>
+            <a href="#" class="text-end">
+              <span>Next page</span>
+              Customization
+            </a>
+          </div> 
+
+        </div>
+    </main>
+  </div>
+  <div class="modal fade search-modal" id="searchModal" tabindex="-1" aria-labelledby="searchModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+          <div class="modal-content mt-5">
+              <input type="text" class="form-control" id="searchModalLabel" placeholder="Type and hit enter..." aria-label="Type and hit enter...">
+          </div>
+      </div>
+  </div>
+<footer class="bd-footer p-3  bg-body-tertiary">
+  <div class="container   text-center  text-body-secondary">
+    <div class="row">
+        <p class="m-0">MBJ - Mannual By Js. Code licensed <a href="https://github.com/smpleader/manual-by-js/blob/main/LICENSE" target="_blank" rel="license noopener">MIT</a>, docs <a href="https://creativecommons.org/licenses/by/3.0/" target="_blank" rel="license noopener">CC BY 3.0</a>.</p>
+    </div>
+  </div>
+</footer>
+<script src="assets/bootstrap.bundle.min.js"></script>
+<script src="assets/color-modes.js"></script>
+<script src="assets/markdown-it.min.js"></script>
+<script src="assets/manual.js"></script>
+<script>
+const sprintMenu = [
+    {href: "#", title: "0.1.x"}
+  ]
+const langMenu = [
+    {href: "#", title: "EN"},
+    {href: "#", title: "CN"},
+    {href: "#", title: "JP"},
+    {href: "#", title: "FR"},
+    {href: "#", title: "VI"},
+  ]
+const app = new ManualByJs({
+  homePage: "page-overview",  
+  markdown: markdownit({
+              html: true,
+              linkify: true,
+              typographer: true
+          }),
+  md: function (content){ return this.markdown.render(content) },
+  hook: {
+    createMenuItem: function(item) { 
+
+      var str = ''
+      if(item.slug)
+      {
+        str = '<li><a href="#'+ app.prefix+ item.slug +'" class="bd-links-link d-inline-block rounded '+ item.slug +'">'+ item.title +'</a></li>'
+        if(app.flag && app.counter == app.menu.length)
+        {
+          str += '</ul></li>'
+        }
+      }
+      else if(item.href)
+      {
+        str = '<li><a href="'+ item.href +'" class="bd-links-link d-inline-block rounded" '+ (item.target?'target="'+item.target+'">':'>') + item.title +'</a></li>'
+        if(app.flag && app.counter == app.menu.length)
+        {
+          str += '</ul></li>'
+        }
+      }
+      else
+      {
+        if(app.flag)
+        {
+          str = '</ul></li>'
+        }
+        
+        str +=  item.title == '---' ? '<li class="bd-links-span-all mt-1 mb-3 mx-4 border-top"></li>' : ('<li class="bd-links-group py-2">'+
+          '<strong class="bd-links-heading d-flex w-100 align-items-center fw-semibold">' +
+            (item.svg ? '<svg class="bi me-2" style="color: var(--bs-blue);" aria-hidden="true"><use xlink:href="' + item.svg+ '"></use></svg>' : '' )
+            + item.title +
+          '</strong>'+
+          '<ul class="list-unstyled fw-normal pb-2 small">')
+
+        app.flag = 1
+      }
+      
+      return str
+    },
+    afterInit: function()
+    { 
+      // menu sprint
+      let milestoneMenu = document.getElementById("mbj-sprint")
+      milestoneMenu.innerHTML = ''
+      for(const item of sprintMenu)
+      {
+        milestoneMenu.insertAdjacentHTML("beforeend", 
+              '<li><a class="dropdown-item" href="' + item.href + '">'+ item.title +'</a></li>' )
+      }
+      document.getElementById("mbj-sprint-label").innerHTML =  sprintMenu[0].title
+
+      // menu translate
+      let translatorMenu = document.getElementById("mbj-translator")
+      for(const item of langMenu)
+      {
+        translatorMenu.insertAdjacentHTML("beforeend", 
+              '<li><a class="dropdown-item" href="' + item.href + '">'+ item.title +'</a></li>' )
+      }
+      document.getElementById("mbj-site-title").innerText =  "Manual By JS"
+    },
+    createIndexTable: function()
+    {
+      if(app.current.index && app.current.index.length > 0)
+      {
+        document.getElementById("mbj-page-index").parentElement.parentElement.classList.remove('d-none', 'd-md-none', 'd-sm-none')
+        app._createDefaultIndexTable()
+        new bootstrap.ScrollSpy(document.body, { target: "#mbj-page-index"})
+      }
+      else
+      {
+        document.getElementById("mbj-page-index").parentElement.parentElement.classList.add('d-none', 'd-md-none', 'd-sm-none')
+      }
+    }
+  }
+})
+</script>
 </body></html>

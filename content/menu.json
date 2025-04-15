@@ -1,5 +1,5 @@
 [
-    {"title": "Getting Starterd"},
+    {"title": "Start", "svg": "assets/icons.svg#book-half"},
     {"slug": "overview", "title": "Overview"},
     {"slug": "introduction", "title": "Introduction"},
     {"slug": "installation", "title": "Installation"},
