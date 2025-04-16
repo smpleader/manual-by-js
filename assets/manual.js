@@ -187,19 +187,22 @@ ManualByJs.prototype = {
         document.title = this.siteTitle  + " - " +  this.current.title
     },
     _menuActivate: function(slug)
-    {   
-        const anchors = this.mbj.menu.getElementsByTagName('a')
-        for(const m of anchors)
-        {
-            if(m.classList.contains(slug))
+    {
+        if(this.mbj.menu)
+        {  
+            const anchors = this.mbj.menu.getElementsByTagName('a')
+            for(const m of anchors)
             {
-                m.classList.add("active")
+                if(m.classList.contains(slug))
+                {
+                    m.classList.add("active")
+                }
+                else
+                {
+                    m.classList.remove("active")
+                }
             }
-            else
-            {
-                m.classList.remove("active")
-            }
-        }
+        } 
     },
     _createDefaultPageNav: function(ordering)
     {
