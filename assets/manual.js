@@ -3,6 +3,7 @@ function ManualByJs(options = {}){
     this.flag = options.flag || ''
     this.folderContent = options.folderContent || 'content'
     this.homePage = options.homePage || 'page-home'
+    this.searchInTableIndex = options.searchInTableIndex || true
     this.current = {}
     this.next = {}
     this.prev = {}
@@ -84,7 +85,7 @@ ManualByJs.prototype = {
             {
                 item = this.menu[ind]
                 if( (item.slug && finder == item.slug) || 
-                    (item.index && item.index.includes(hash)) )
+                    (this.searchInTableIndex && item.index && item.index.includes(hash)) )
                 { 
                     item.ordering = ind
                     return item
