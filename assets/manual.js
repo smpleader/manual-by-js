@@ -1,5 +1,5 @@
 function ManualByJs(options = {}){
-    this.version = '0.1.9'
+    this.version = '0.2.0'
     this.flag = options.flag || ''
     this.folderContent = options.folderContent || 'content'
     this.homePage = options.homePage || 'page-home'
@@ -66,12 +66,12 @@ ManualByJs.prototype = {
 
         return content
     },
-    findPageByIndex: function(idx, step)
+    findPageByOrder: function(idx, step)
     {
         finder = idx + step
         if(finder < 0 || finder == this.menu.length ) return false
         test = this.menu[finder]
-        return test.slug ?  test : this.findPageByIndex(finder, step)
+        return test.slug ?  test : this.findPageByOrder(finder, step)
     },
     findPageByHash: function(hash)
     {
@@ -207,7 +207,7 @@ ManualByJs.prototype = {
     _createDefaultPageNav: function(ordering)
     {
         this.mbj.pageNav.innerHTML = ""
-        this.prev = this.findPageByIndex(ordering, -1)
+        this.prev = this.findPageByOrder(ordering, -1)
         if(false == this.prev)
         {
             this.mbj.pageNav.insertAdjacentHTML("afterbegin", '<a class="invisible"><span>.</span></a>')
@@ -221,7 +221,7 @@ ManualByJs.prototype = {
                 '</a>');
         }
 
-        this.next = this.findPageByIndex(ordering, 1)
+        this.next = this.findPageByOrder(ordering, 1)
         if(false !==  this.next)
         {
             this.mbj.pageNav.insertAdjacentHTML("beforeend", 
