@@ -13,14 +13,6 @@
             <!-- Responsive navbar-->
             <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom fixed-top">
                 <div class="container-xxl bd-gutter px-lg-5">
-                    <!--<div class="bd-navbar-toggle">
-                        <button class="navbar-toggler me-2 p-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#bdSidebar" aria-controls="bdSidebar" aria-label="Toggle docs navigation">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" class="bi" fill="currentColor" viewBox="0 0 16 16">
-                                <use href="assets/icons.svg#browse"></use>
-                            </svg>
-                            <span class="d-none fs-6 pe-1">Browse</span>
-                        </button>
-                    </div>-->
                     <a class="navbar-brand bg-transparent fw-bold" href="index2.html">Manual By JS</a>
                     <!-- SEARCH -->
                     <button class="btn btn-link " type="button" data-bs-toggle="modal" data-bs-target="#searchModal">
@@ -81,21 +73,7 @@
             <!-- Header-->
             <!-- Features section-->
             <section class=" py-4 border-bottom">
-                <div class="container-xxl bd-gutter bd-layout  no-sidebar">
-                    <!--<aside class="bd-sidebar">
-                        <div class="offcanvas-lg offcanvas-start" tabindex="-1" id="bdSidebar" aria-labelledby="bdSidebarOffcanvasLabel">
-                            <div class="offcanvas-header border-bottom">
-                                <h5 class="offcanvas-title" id="bdSidebarOffcanvasLabel">Browse docs</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close" data-bs-target="#bdSidebar"></button>
-                            </div>
-                            <div class="offcanvas-body">
-                                <nav class="bd-links w-100" id="bd-docs-nav" aria-label="Docs navigation">
-                                    <ul class="bd-links-nav list-unstyled mb-0 pb-3 pb-md-2 pe-lg-2" id="mbj-menu"> 
-                                    </ul>
-                                </nav>
-                            </div>
-                        </div>
-                    </aside>-->
+                <div class="container-xxl bd-gutter bd-layout  no-sidebar"> 
                     <div class="row">
                         <div class="bd-content pe-lg-2">
                             <button class="btn btn-link " type="button" data-bs-toggle="modal" data-bs-target="#pageModal">
@@ -103,6 +81,7 @@
                             </button> 
                         </div>
                     </div>
+                    <div id="mbj-menu" class="row"> </div>
                 </div>
             </section> 
             <div class="py-3 bg-secondary copyright">
@@ -181,40 +160,47 @@ const app = new ManualByJs({
             }),
     md: function (content){ return this.markdown.render(content) },
     hook: {
-        createMenuItem: function(item) { 
+        createMenu: function() { 
 
-            var str = ''
-            if(item.slug)
+            let counter = 0
+            var lines = '', _flag = 0
+            for(const item of app.menu)
             {
-                str = '<li><a href="#'+ app.prefix + item.slug +'" class="bd-links-link d-inline-block rounded '+ item.slug +'">'+ item.title +'</a></li>'
-                if(app.flag && app.counter == app.menu.length)
+                counter++
+                if(item.slug)
                 {
-                    str += '</ul></li>'
+                    lines += '<li><a href="#'+ app.prefix + item.slug +'" class="openModal '+ item.slug +'" >'+ item.title +'</a></li>'
+                    if(_flag && app.counter == app.menu.length)
+                    {
+                        lines += '</ul></div></div></div>'
+                        _flag = 0
+                    }
                 }
-            }
-            else if(item.href)
-            {
-                str = '<li><a href="'+ item.href +'" class="bd-links-link d-inline-block rounded" '+ (item.target?'target="'+item.target+'">':'>') + item.title +'</a></li>'
-                if(app.flag && app.counter == app.menu.length)
+                else if(item.href)
                 {
-                    str += '</ul></li>'
+                    lines += '<li><a href="'+ item.href +'" class="" '+ (item.target?'target="'+item.target+'">':'>') + item.title +'</a></li>'
+                    if(_flag && app.counter == app.menu.length)
+                    {
+                        lines += '</ul></div></div></div>'
+                        _flag = 0
+                    }
                 }
-            }
-            else
-            {
-                if(app.flag)
+                else
                 {
-                    str += '</ul></li>'
-                }
-                
-                str +=  item.title == '---' ? '<li class="bd-links-span-all mt-1 mb-3 mx-4 border-top"></li>' : ('<li class="bd-links-group py-2">'+
-                    '<strong class="ps-4 bd-links-heading d-flex w-100 align-items-center fw-semibold">' + item.title + '</strong>'+
-                    '<ul class="list-unstyled fw-normal pb-2 small">')
+                    if(_flag)
+                    {
+                        lines += '</ul></div></div></div>'
+                    }
+                    
+                    lines +=  '<div class="col"><div class="card"><div class="card-header">' +  item.title +
+                            '</div><div class="card-body">' 
 
-                app.flag = 1
+                    _flag = 1
+                }   
             }
-            
-            return str
+                    
+            app.mbj.menu.insertAdjacentHTML("beforeend", lines )
+
         },
         afterInit: function()
         { 
@@ -235,6 +221,13 @@ const app = new ManualByJs({
                 translatorMenu.insertAdjacentHTML("beforeend", 
                     '<li><a class="dropdown-item" href="' + item.href + '">'+ item.title +'</a></li>' )
             }
+            
+            document.querySelectorAll("a.openModal").forEach((item) => {
+                item.addEventListener('click', () => {
+                    let a = new  bootstrap.Modal( document.getElementById("pageModal"))
+                    a.show()
+                })
+            })
         },
         createIndexTable: function()
         {   
