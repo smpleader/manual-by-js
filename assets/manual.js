@@ -1,5 +1,5 @@
 function ManualByJs(options = {}){
-    this.version = '0.2.0'
+    this.version = '0.2.1'
     this.flag = options.flag || ''
     this.folderContent = options.folderContent || 'content'
     this.homePage = options.homePage || 'page-home'
@@ -10,8 +10,6 @@ function ManualByJs(options = {}){
     this.menu = options.menu || []
     this.fileExt = options.fileExt ?? "html"
     this.prefix = options.prefix ?? "page-"
-
-    this.md = options.md || null
     
     this.ids = {
         menu: "mbj-menu",
@@ -29,15 +27,15 @@ function ManualByJs(options = {}){
         this.mbj[key] = document.getElementById(id)
     }
 
-    this.markdown = options.markdown || null
-
     this.hook = {
         createMenu: null,
         createMenuItem: null,
         createPageNav: null,
         createIndexTable: null,
         createIndexTableItem: null,
-        afterInit: null
+        afterInit: null,
+        afterRead: null,
+        afterNavigate: null
     }
 
     if(options.hook) this.hook = {...options.hook}
@@ -60,9 +58,10 @@ ManualByJs.prototype = {
             console.error('Error fetching the file  page', error);
         })
 
-        if(this.markdown && this.current.fileExt == "md")
+        if(this.hook.afterRead instanceof Function)
         {
-            content = this.md(content)
+            str = this.hook.afterRead(content)
+            if(null !== str) content = str
         }
 
         return content
@@ -187,14 +186,14 @@ ManualByJs.prototype = {
         }
         document.title = this.siteTitle  + " - " +  this.current.title
     },
-    _menuActivate: function(slug)
+    _menuActivate: function()
     {
         if(this.mbj.menu)
         {  
             const anchors = this.mbj.menu.getElementsByTagName('a')
             for(const m of anchors)
             {
-                if(m.classList.contains(slug))
+                if(m.classList.contains(this.current.slug))
                 {
                     m.classList.add("active")
                 }
@@ -232,17 +231,17 @@ ManualByJs.prototype = {
                 '</a>');
         }
     },
-    _createPageNav: function(ordering)
+    _createPageNav: function()
     {
         if(this.mbj.pageNav) // this element is optional
         {
             if(this.hook.createPageNav instanceof Function)
             {
-                this.hook.createPageNav(ordering)
+                this.hook.createPageNav(this.current.ordering)
             }
             else
             {
-                this._createDefaultPageNav(ordering)
+                this._createDefaultPageNav(this.current.ordering)
             }
         }
     },
@@ -286,18 +285,29 @@ ManualByJs.prototype = {
                 this.mbj.page.insertAdjacentHTML("afterbegin", content)
             }
 
-            this._menuActivate(item.slug)
-            this._updateWindowTitle()
-            this._createIndexTable()
-            this._createPageNav(item.ordering)
-
-            // if item found by index, we won't scroll it
-            if(item.slug === hash)
+            if( this.hook.afterNavigate instanceof Function )
             {
-                window.scrollTo({ top: 0, behavior: 'smooth' })
+                this.hook.afterNavigate()
             }
+            else
+            {
+                this._afterNavigate()
+            }
+
         }
     }, 
+    _afterNavigate: function(){
+        this._menuActivate()
+        this._updateWindowTitle()
+        this._createIndexTable()
+        this._createPageNav()
+
+        // if item found by index, we won't scroll it
+        if(this.current.slug === hash)
+        {
+            window.scrollTo({ top: 0, behavior: 'smooth' })
+        }
+    },
     _init: async function()
     {
         if(this.menu.length == 0)
