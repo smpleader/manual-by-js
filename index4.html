@@ -75,10 +75,7 @@
             <section class=" py-4 border-bottom">
                 <div class="container-xxl bd-gutter bd-layout  no-sidebar"> 
                     <div class="row">
-                        <div class="bd-content pe-lg-2">
-                            <button class="btn btn-link " type="button" data-bs-toggle="modal" data-bs-target="#pageModal">
-                                OPEN
-                            </button> 
+                        <div class="bd-content pe-lg-2"><!-- content here -->
                         </div>
                     </div>
                     <div id="mbj-menu" class="row"> </div>
@@ -92,7 +89,7 @@
             <div class="modal-dialog modal-fullscreen">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h1 class="modal-title fs-4" id="exampleModalFullscreenLabel">Full screen modal</h1>
+                        <h1 class="modal-title fs-4" id="page-title">Full screen modal</h1>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
@@ -109,17 +106,16 @@
                                     </nav>
                                 </div>
                             </div>
-                            <div class="bd-content pe-lg-2" data-bs-spy="scroll" data-bs-target="#mbj-page-index" data-bs-smooth-scroll="true" class="scrollspy-example-2" tabindex="0" id="restore-selectors">
-                                <div id="mbj-page"></div> 
-                                <hr class="mt-5"/>
-                                <div class="main-content-navigation" id="mbj-page-nav">
-                                    <a href="#" class=""><span>Previous page</span>Article 1</a>
-                                    <a href="#" class="text-end"><span>Next page</span>Article 3</a>
-                                </div>
+                            <div class="bd-content- pe-lg-2" data-bs-spy="scroll" data-bs-target="#mbj-page-index" data-bs-smooth-scroll="true" class="scrollspy-example-2" tabindex="0" id="restore-selectors">
+                                <div id="mbj-page"></div>
                             </div>
                         </div>
                     </div>
-                    <div class="modal-footer ">
+                    <div class="modal-footer  ">
+                        <div class=" flex-grow-1" id="mbj-page-nav">
+                            <a href="#" class=""><span>Previous page</span>Article 1</a>
+                            <a href="#" class="text-end"><span>Next page</span>Article 3</a>
+                        </div>
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     </div>
                 </div>
@@ -141,6 +137,11 @@
 <script src="assets/markdown-it.min.js"></script>
 <script src="assets/manual.js"></script>
 <script>
+const mkd = markdownit({
+                html: true,
+                linkify: true,
+                typographer: true
+            })
 const sprintMenu = [
     {href: "#", title: "0.1.x"}
     ]
@@ -152,14 +153,11 @@ const langMenu = [
     {href: "#", title: "VI"},
     ]
 const app = new ManualByJs({
-    homePage: "page-overview", 
-    markdown: markdownit({
-                html: true,
-                linkify: true,
-                typographer: true
-            }),
-    md: function (content){ return this.markdown.render(content) },
+    homePage: "page-overview",
     hook: {
+        afterRead: function (content){
+            return app.current.fileExt == "md" ? mkd.render(content) : null
+        },
         createMenu: function() { 
 
             let counter = 0
@@ -229,6 +227,27 @@ const app = new ManualByJs({
                 })
             })
         },
+        createPageNav: function(ordering)
+        {
+            app.mbj.pageNav.innerHTML = ""
+            app.prev = app.findPageByOrder(ordering, -1)
+            if(false !== app.prev)
+            {
+                app.mbj.pageNav.insertAdjacentHTML("afterbegin", 
+                    '<a href="#'+ app.prefix + app.prev.slug+'" class="btn btn-outline-primary me-2"><< ' +
+                        app.prev.title +
+                    '</a>');
+            }
+
+            app.next = app.findPageByOrder(ordering, 1)
+            if(false !==  app.next)
+            {
+                app.mbj.pageNav.insertAdjacentHTML("beforeend", 
+                    '<a href="#'+ app.prefix + app.next.slug+'" class="btn btn-outline-primary">' +
+                        app.next.title +
+                    ' >></a>');
+            }
+        },
         createIndexTable: function()
         {   
             if(app.current.index && app.current.index.length > 0)
@@ -249,6 +268,12 @@ const app = new ManualByJs({
             {
                 document.getElementById("mbj-page").parentElement.parentElement.parentElement.classList.add('no-index-table')
             }
+        },
+        afterNavigate: function()
+        {
+            app._createIndexTable()
+            app._createPageNav()
+            document.getElementById("page-title").innerText = app.current.title
         }
     }
 })
