@@ -248,7 +248,7 @@
             createPageNav: function(ordering)
             {
                 app.mbj.pageNav.innerHTML = ""
-                app.prev = app.findPageByIndex(ordering, -1)
+                app.prev = app.findPageByOrder(ordering, -1)
                 if(false == app.prev)
                 {
                     app.mbj.pageNav.insertAdjacentHTML("afterbegin", '<a class="invisible"><span>.</span></a>')
@@ -261,7 +261,7 @@
                         '</a>');
                 }
 
-                app.next = app.findPageByIndex(ordering, 1)
+                app.next = app.findPageByOrder(ordering, 1)
                 if(false !==  app.next)
                 {
                     app.mbj.pageNav.insertAdjacentHTML("beforeend", 
