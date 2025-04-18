@@ -83,10 +83,16 @@ ManualByJs.prototype = {
             for(var ind = 0; ind < this.menu.length; ind++)
             {
                 item = this.menu[ind]
-                if( (item.slug && finder == item.slug) || 
-                    (this.searchInTableIndex && item.index && item.index.includes(hash)) )
+                if( item.slug && finder == item.slug )
                 { 
                     item.ordering = ind
+                    item.foundByIndex = 0
+                    return item
+                }
+                else if(this.searchInTableIndex && item.index && item.index.includes(hash))
+                {
+                    item.ordering = ind
+                    item.foundByIndex = 1
                     return item
                 }
             }
@@ -303,7 +309,7 @@ ManualByJs.prototype = {
         this._createPageNav()
 
         // if item found by index, we won't scroll it
-        if(this.current.slug === hash)
+        if(!this.current.foundByIndex)
         {
             window.scrollTo({ top: 0, behavior: 'smooth' })
         }
