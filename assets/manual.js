@@ -258,6 +258,23 @@ ManualByJs.prototype = {
             this.hook.afterInit()
         }
     },
+    digContent: async function(item, ext = item.fileExt??this.fileExt)
+    {
+        let content = ''
+        
+        if(!item.parts)
+        {
+            item.parts = [] 
+            item.parts.push(item.alias ?? item.slug)
+        }
+
+        for(const part of item.parts)
+        {
+            link =  this.folderContent + '/' + part + '.' + ext
+            content += await this.read(link)
+        }
+        return content
+    },
     navigate: async function(hash)
     {
         let item = this.findPageByHash(hash);
@@ -266,24 +283,11 @@ ManualByJs.prototype = {
         {
             this.current = item
 
-            let content = '', ext = item.fileExt??this.fileExt
+            let content = ''//, ext = item.fileExt??
 
-            if(!this.current.fileExt) this.current.fileExt = ext
+            if(!this.current.fileExt) this.current.fileExt = this.fileExt
 
-           
-            if(item.parts)
-            {
-                for(const part of item.parts)
-                {
-                    link =  this.folderContent + '/' + part + '.' + ext
-                    content += await this.read(link)
-                }
-            }
-            else
-            {
-                link =  this.folderContent + '/' + (item.alias ?? item.slug) + '.' + ext
-                content = await this.read(link)
-            }
+           content = await this.digContent(item)
 
             if( true !== content)
             {
@@ -299,7 +303,6 @@ ManualByJs.prototype = {
             {
                 this._afterNavigate()
             }
-
         }
     }, 
     _afterNavigate: function(){

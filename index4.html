@@ -85,7 +85,7 @@
                 <div class="container px-5"><p class="m-0 text-center text-white">Copyright &copy; C2B5 2025</div>
             </div>
         </div>
-        <div class="modal fade" id="pageModal" tabindex="-1" aria-labelledby="pageModalLabel" aria-hidden="true">
+        <div class="modal" id="pageModal" tabindex="-1" aria-labelledby="pageModalLabel" >
             <div class="modal-dialog modal-fullscreen">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -121,10 +121,13 @@
                 </div>
             </div>
         </div>
-        <div class="modal fade search-modal" id="searchModal" tabindex="-1" aria-labelledby="searchModalLabel" aria-hidden="true">
+        <div class="modal search-modal" id="searchModal" tabindex="-1" aria-labelledby="searcher-input" >
             <div class="modal-dialog">
                 <div class="modal-content mt-5">
-                    <input type="text" class="form-control" id="searchModalLabel" placeholder="Type and hit enter..." aria-label="Type and hit enter...">
+                    <input type="text" class="form-control" id="searcher-input" placeholder="Type and hit enter..." aria-label="Type and hit enter...">
+                    <div class="searcher-options"></div>
+                    <div class="" id="searcher-progress"></div>
+                    <div class="" id="searcher-result"></div>
                 </div>
             </div>
         </div>
@@ -136,6 +139,7 @@
 <script src="assets/customized_b5.js"></script>
 <script src="assets/markdown-it.min.js"></script>
 <script src="assets/manual.js"></script>
+<script src="assets/search.js"></script>
 <script>
 const mkd = markdownit({
                 html: true,
@@ -277,7 +281,11 @@ const app = new ManualByJs({
         }
     }
 })
-window.addEventListener('shown.bs.modal', () => {
+const searcher = new SearchForManual(app)
+document.getElementById("searchModal").addEventListener('shown.bs.modal', () => {
+    document.getElementById("searcher-input").focus()
+})
+document.getElementById("pageModal").addEventListener('shown.bs.modal', () => {
     const scrollElem = document.querySelector(`[data-bs-spy="scroll"]`)
     bootstrap.ScrollSpy.getOrCreateInstance(scrollElem).refresh()
 })
