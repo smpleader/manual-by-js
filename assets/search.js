@@ -83,7 +83,7 @@ SearchForManual.prototype = {
         }
 
         this.schr.res.innerHTML = ""
-        this.schr.prg.innerHTML = i ? "<i>searching " + i + "/" + this.manual.menu.length + "</i>" : "" 
+        this.schr.prg.innerHTML = i ? "<i>searching " + i + "/" + this.manual.menu.length + "</i>" : "<i>wait for your input</i>" 
         
     },
     _init: async function()

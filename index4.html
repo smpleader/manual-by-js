@@ -285,6 +285,9 @@ const searcher = new SearchForManual(app)
 document.getElementById("searchModal").addEventListener('shown.bs.modal', () => {
     document.getElementById("searcher-input").focus()
 })
+document.getElementById("searchModal").addEventListener('hidden.bs.modal', () => {
+    document.getElementById("searcher-input").value = ""
+})
 document.getElementById("pageModal").addEventListener('shown.bs.modal', () => {
     const scrollElem = document.querySelector(`[data-bs-spy="scroll"]`)
     bootstrap.ScrollSpy.getOrCreateInstance(scrollElem).refresh()
