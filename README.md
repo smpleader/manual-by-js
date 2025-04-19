@@ -37,6 +37,16 @@ This is a html manual powered by javascript. For more details, run porject by op
 
 ## Log
 
+
+### 0.2.2
+- Search pages
+
+### 0.2.1
+- Improve template
+
+### 0.2.0
+- Change hooks to support more place
+
 ### 0.1.9
 - Use prefix to differ index table to page
 
