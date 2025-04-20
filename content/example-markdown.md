@@ -1,6 +1,6 @@
 # what are document types of a software system design ?
 
-## Codepilot
+## Codepilot {#codepilot}
 
 In software system design, various document types are used to outline different aspects of the system. These documents help ensure clarity, collaboration, and proper implementation throughout the development process. Here are some common document types:
 
@@ -17,7 +17,7 @@ In software system design, various document types are used to outline different 
 
 Each document plays a vital role in different stages of the software development lifecycle. Let me know if you'd like a deeper dive into any of these!
 
-## gemini {#gemeni}
+## Gemini {#gemeni}
 
 When designing a software system, various document types are created to capture different aspects of the design process. These documents serve as blueprints, communication tools, and references throughout the software development lifecycle. Here are some key document types:
 
