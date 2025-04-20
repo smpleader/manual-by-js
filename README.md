@@ -38,6 +38,9 @@ This is a html manual powered by javascript. For more details, run porject by op
 ## Log
 
 
+### 0.2.3
+- Apply markdown attributes plugin to support ID, class in markdown content
+
 ### 0.2.2
 - Search pages
 

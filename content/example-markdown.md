@@ -17,109 +17,109 @@ In software system design, various document types are used to outline different 
 
 Each document plays a vital role in different stages of the software development lifecycle. Let me know if you'd like a deeper dive into any of these!
 
-## Gemini {#gemeni}
+## Gemini {#gemini}
 
 When designing a software system, various document types are created to capture different aspects of the design process. These documents serve as blueprints, communication tools, and references throughout the software development lifecycle. Here are some key document types:
 
 **1. Requirements Documents:**
 
-* **Software Requirements Specification (SRS):**
+**Software Requirements Specification (SRS):**
   * This document details the functional and non-functional requirements of the software system.
   * It outlines what the system should do, its performance expectations, and any constraints.
   * It is crucial for establishing a clear understanding of the project's scope.
-* **Use Case Documents:**
+**Use Case Documents:**
   * These documents describe how users interact with the system to achieve specific goals.
   * They provide a user-centric view of the system's functionality.
-* **User Stories:**
+**User Stories:**
   * Often used in agile development, user stories are short, informal descriptions of features from the user's perspective.
   * They focus on the "who," "what," and "why" of a feature.
 
 **2. Architectural Design Documents:**
 
-* **Software Architecture Document (SAD):**
+**Software Architecture Document (SAD):**
   * This document outlines the high-level structure of the system, including its components, their relationships, and the overall design principles.
   * It addresses key architectural decisions and trade-offs.
-* **Architectural Diagrams:**
+**Architectural Diagrams:**
   * These diagrams visually represent the system's architecture. Common types include:
-    * **Component Diagrams:** Show the system's components and their dependencies.
-    * **Deployment Diagrams:** Illustrate how the system will be deployed in a production environment.
-    * **Sequence Diagrams:** Describe the interactions between components over time.
-    * **Class Diagrams:** Show the classes in the system and their relationships.
-    * **Data Flow Diagrams:** Illustrate the flow of data through the system.
-* **Technology Stack Document:**
+    **Component Diagrams:** Show the system's components and their dependencies.
+    **Deployment Diagrams:** Illustrate how the system will be deployed in a production environment.
+    **Sequence Diagrams:** Describe the interactions between components over time.
+    **Class Diagrams:** Show the classes in the system and their relationships.
+    **Data Flow Diagrams:** Illustrate the flow of data through the system.
+**Technology Stack Document:**
   * This document specifies the programming languages, frameworks, databases, and other technologies that will be used in the system.
 
 **3. Detailed Design Documents:**
 
-* **Detailed Design Specification (DDS):**
+**Detailed Design Specification (DDS):**
   * This document provides a more granular view of the system's design, including details about data structures, algorithms, and interfaces.
   * It serves as a guide for developers during the implementation phase.
-* **Interface Design Documents:**
+**Interface Design Documents:**
   * These documents specify the interfaces between different components or systems.
   * They define the data formats, protocols, and communication mechanisms.
-* **Database Design Documents:**
+**Database Design Documents:**
   * These documents describe the database schema, including tables, relationships, and constraints.
   * They also address database performance and security considerations.
-* **API Documentation:**
+**API Documentation:**
   * If the software system has an API, this documentation explains how other software programs can interact with it.
 
 **4. Testing and Deployment Documents:**
 
-* **Test Plans:**
+**Test Plans:**
   * These documents outline the testing strategy, including test cases, test environments, and acceptance criteria.
-* **Deployment Plans:**
+**Deployment Plans:**
   * These documents describe the steps involved in deploying the software system to a production environment.
-* **Operational Manuals:**
+**Operational Manuals:**
   * These documents explain how to operate and maintain the software system.
 
 **5. Other Important Documents:**
 
-* **Project Plan:**
+**Project Plan:**
   * This document outlines the project's scope, schedule, budget, and resources.
-* **Risk Assessment:**
+**Risk Assessment:**
   * This document identifies potential risks and outlines mitigation strategies.
-* **Change Management Plan:**
+**Change Management Plan:**
   * This document describes the process for managing changes to the software system.
-* **Security Documentation:**
+**Security Documentation:**
   * This document outlines the security measures that will be implemented to protect the system.
 
 These document types help to ensure that the software system is designed, developed, and deployed in a structured and organized manner.
 
-## chatgpt
+## Chatgpt {#chatgpt}
 
 Software system design involves various types of documentation to ensure clear communication, maintainability, and effective implementation. Here are the key document types:
 
-### **1. Requirements Documentation**
+#### 1. Requirements Documentation
 
 - **Software Requirements Specification (SRS)** – Defines functional and non-functional requirements.
 - **Business Requirements Document (BRD)** – Outlines business objectives and needs.
 - **User Stories / Use Case Document** – Describes interactions between users and the system.
 
-### **2. Architecture & Design Documentation**
+#### 2. Architecture & Design Documentation
 
 - **System Architecture Document** – High-level system structure, components, and relationships.
 - **High-Level Design (HLD)** – Overview of modules, data flow, and interactions.
 - **Low-Level Design (LLD)** – Detailed specifications for each module, including algorithms, database schemas, and APIs.
 
-### **3. Development Documentation**
+#### 3. Development Documentation
 
 - **Code Documentation** – Inline comments, API docs, and developer guides.
 - **Data Dictionary** – Defines data structures, relationships, and constraints.
 - **Configuration Management Document** – Details software versions, dependencies, and environment setup.
 
-### **4. Testing Documentation**
+#### 4. Testing Documentation
 
 - **Test Plan** – Strategy for testing the software system.
 - **Test Cases & Test Scripts** – Step-by-step scenarios to verify functionality.
 - **Bug/Defect Report** – Logs and tracks software issues.
 
-### **5. Deployment & Operations Documentation**
+#### 5. Deployment & Operations Documentation
 
 - **Deployment Guide** – Instructions for installing and configuring the system.
 - **System Administration Guide** – Information on maintenance, security, and performance tuning.
 - **Disaster Recovery Plan** – Steps for restoring system functionality after failures.
 
-### **6. User Documentation**
+#### 6. User Documentation
 
 - **User Manual** – Guides end users on system usage.
 - **FAQs & Troubleshooting Guide** – Common issues and solutions.
@@ -127,13 +127,13 @@ Software system design involves various types of documentation to ensure clear c
 
 Would you like templates or examples for any of these?
 
-## Deepseek
+## Deepseek {#deepseek}
 
 In software system design, various types of documents are created to capture different aspects of the system. These documents serve as a blueprint for development, communication, and maintenance. Here are the key document types typically used in software system design:
 
 ---
 
-### **1. Requirements Documents**
+#### 1. Requirements Documents
 
 - **Software Requirements Specification (SRS):**
   Describes the functional and non-functional requirements of the system.
@@ -145,7 +145,7 @@ In software system design, various types of documents are created to capture dif
 
 ---
 
-### **2. Design Documents**
+#### 2. Design Documents
 
 - **System Design Document (SDD):**
   Provides an overview of the system architecture, components, and interactions.
@@ -163,7 +163,7 @@ In software system design, various types of documents are created to capture dif
 
 ---
 
-### **3. Technical Specifications**
+#### 3. Technical Specifications
 
 - **Technical Design Document (TDD):**
   Details the technical aspects of the system, including technologies, frameworks, and tools.
@@ -176,7 +176,7 @@ In software system design, various types of documents are created to capture dif
 
 ---
 
-### **4. Process and Workflow Documents**
+#### 4. Process and Workflow Documents
 
 - **Workflow Diagrams:**
   Illustrates the sequence of tasks or processes in the system.
@@ -187,7 +187,7 @@ In software system design, various types of documents are created to capture dif
 
 ---
 
-### **5. Testing Documents**
+#### 5. Testing Documents
 
 - **Test Plan:**
   Outlines the testing strategy, scope, resources, and schedule.
@@ -198,7 +198,7 @@ In software system design, various types of documents are created to capture dif
 
 ---
 
-### **6. Deployment and Operations Documents**
+#### 6. Deployment and Operations Documents
 
 - **Deployment Plan:**
   Describes the steps and procedures for deploying the system.
@@ -209,7 +209,7 @@ In software system design, various types of documents are created to capture dif
 
 ---
 
-### **7. User Documentation**
+#### 7. User Documentation
 
 - **User Manual:**
   Provides end-users with instructions on how to use the system.
@@ -220,7 +220,7 @@ In software system design, various types of documents are created to capture dif
 
 ---
 
-### **8. Maintenance and Support Documents**
+#### 8. Maintenance and Support Documents
 
 - **Maintenance Guide:**
   Provides guidelines for troubleshooting, updating, and maintaining the system.
@@ -229,7 +229,7 @@ In software system design, various types of documents are created to capture dif
 
 ---
 
-### **9. Compliance and Standards Documents**
+#### 9. Compliance and Standards Documents
 
 - **Compliance Document:**
   Ensures the system adheres to legal, regulatory, or industry standards.
@@ -238,7 +238,7 @@ In software system design, various types of documents are created to capture dif
 
 ---
 
-### **10. Project Management Documents**
+#### 10. Project Management Documents
 
 - **Project Charter:**
   Defines the project scope, objectives, and stakeholders.
