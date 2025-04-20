@@ -139,8 +139,15 @@
         </a>
 <script src="assets/customized_b5.js"></script>
 <script src="assets/markdown-it.min.js"></script>
+<script src="assets/markdown-it-attrs.min.js"></script>
 <script src="assets/manual.js"></script>
-<script>
+<script>console.log(window.markdownItAttrs)
+    const mkd = markdownit({
+                    html: true,
+                    linkify: true,
+                    typographer: true
+                })
+    mkd.use(window.markdownItAttrs)
     const sprintMenu = [
         {href: "#", title: "0.1.x"}
         ]
@@ -152,14 +159,11 @@
         {href: "#", title: "VI"},
         ]
     const app = new ManualByJs({
-        homePage: "page-overview", 
-        markdown: markdownit({
-                    html: true,
-                    linkify: true,
-                    typographer: true
-                }),
-        md: function (content){ return this.markdown.render(content) },
+        homePage: "page-overview",  
         hook: {
+            afterRead: function (content){
+                return app.current.fileExt == "md" ? mkd.render(content) : null
+            },
             createMenuItem: function(item) { 
     
                 var str = ''
