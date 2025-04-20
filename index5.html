@@ -7,6 +7,7 @@
         <meta name="author" content="">
         <title>ManualByJS</title> 
         <link href="assets/customized_b5.css" rel="stylesheet">
+        <link href="assets/driver.css" rel="stylesheet">
     </head>
     <body class="">
         <div class="">
@@ -139,15 +140,17 @@
         </a>
 <script src="assets/customized_b5.js"></script>
 <script src="assets/markdown-it.min.js"></script>
-<script src="assets/markdown-it-attrs.min.js"></script>
+<script src="assets/bundle.min.js"></script>
+<script src="assets/driver.js"></script>
 <script src="assets/manual.js"></script>
 <script>
+    const tourjs = driverJs()
     const mkd = markdownit({
                     html: true,
                     linkify: true,
                     typographer: true
                 })
-    mkd.use(window.markdownItAttrs)
+    mkd.use(markdownItAttrs)
     const sprintMenu = [
         {href: "#", title: "0.1.x"}
         ]
@@ -272,6 +275,14 @@
                         '<a href="#'+ app.prefix + app.next.slug+'" class="navigator-item next-item">' +
                             '<i class="bi bi-caret-right"></i>' + 
                         '</a>');
+                }
+            },
+            afterNavigate: function(){
+                app._afterNavigate()
+                if(app.current.tour)
+                {
+                    tourjs.setSteps(app.current.tour)
+                    tourjs.drive()
                 }
             }
         }
