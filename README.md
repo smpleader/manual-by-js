@@ -29,7 +29,7 @@ This is a html manual powered by javascript. For more details, run porject by op
 - ~~Use prefix to differ index table to page ~~
 - Support link when get translated by translate tools ( google translate, microsoft translate.. )
 - Load content and convert to javascript widget
-- Support markdown plugin, to run well with bootstrap layout
+- ~~Support markdown plugin, to run well with bootstrap layout~~
 - ~~Support layout template for menu, milestone, indextable~~
 - ~~Auto make index table ~~
 - Support search
