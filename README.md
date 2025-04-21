@@ -18,20 +18,43 @@ This is a html manual powered by javascript. For more details, run porject by op
 
 - ~~Support md file~~
 - ~~Auto add menu~~
-- Add active for index table
+- ~~Add active for index table~~
 - ~~Fix issue if hash not found~~
 - ~~Add menu link~~
-- Add footer
+- ~~Add footer~~
 - ~~Add milestone to the top ( sprint, version)~~
 - Support multilanguage
 - ~~Define elements of a content ( id of html tags, require: sidebarMenu & mainLayout )~~
 - ~~Support page parts so the content can be edited easier and share part of content~~
-- Create Manual preview script
+- ~~Use prefix to differ index table to page ~~
 - Support link when get translated by translate tools ( google translate, microsoft translate.. )
 - Load content and convert to javascript widget
-- Support markdown plugin, include bootstrap layout
+- ~~Support markdown plugin, to run well with bootstrap layout~~
+- ~~Support layout template for menu, milestone, indextable~~
+- ~~Auto make index table ~~
+- Support search
+- Support tag filter
 
 ## Log
+
+
+### 0.2.3
+- Apply markdown attributes plugin to support ID, class in markdown content
+
+### 0.2.2
+- Search pages
+
+### 0.2.1
+- Improve template
+
+### 0.2.0
+- Change hooks to support more place
+
+### 0.1.9
+- Use prefix to differ index table to page
+
+### 0.1.8
+- Support layout template for menu, milestone, indextable
 
 ### 0.1.7
 - Support md format

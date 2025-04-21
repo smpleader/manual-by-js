@@ -1,16 +1,15 @@
 function ManualByJs(options = {}){
-    this.version = '0.1.9'
+    this.version = '0.2.3'
     this.flag = options.flag || ''
     this.folderContent = options.folderContent || 'content'
     this.homePage = options.homePage || 'page-home'
+    this.searchInTableIndex = options.searchInTableIndex || true
     this.current = {}
     this.next = {}
     this.prev = {}
     this.menu = options.menu || []
     this.fileExt = options.fileExt ?? "html"
     this.prefix = options.prefix ?? "page-"
-
-    this.md = options.md || null
     
     this.ids = {
         menu: "mbj-menu",
@@ -28,15 +27,15 @@ function ManualByJs(options = {}){
         this.mbj[key] = document.getElementById(id)
     }
 
-    this.markdown = options.markdown || null
-
     this.hook = {
         createMenu: null,
         createMenuItem: null,
         createPageNav: null,
         createIndexTable: null,
         createIndexTableItem: null,
-        afterInit: null
+        afterInit: null,
+        afterRead: null,
+        afterNavigate: null
     }
 
     if(options.hook) this.hook = {...options.hook}
@@ -59,19 +58,20 @@ ManualByJs.prototype = {
             console.error('Error fetching the file  page', error);
         })
 
-        if(this.markdown && this.current.fileExt == "md")
+        if(this.hook.afterRead instanceof Function)
         {
-            content = this.md(content)
+            str = this.hook.afterRead(content)
+            if(null !== str) content = str
         }
 
         return content
     },
-    findPageByIndex: function(idx, step)
+    findPageByOrder: function(idx, step)
     {
         finder = idx + step
         if(finder < 0 || finder == this.menu.length ) return false
         test = this.menu[finder]
-        return test.slug ?  test : this.findPageByIndex(finder, step)
+        return test.slug ?  test : this.findPageByOrder(finder, step)
     },
     findPageByHash: function(hash)
     {
@@ -83,10 +83,16 @@ ManualByJs.prototype = {
             for(var ind = 0; ind < this.menu.length; ind++)
             {
                 item = this.menu[ind]
-                if( (item.slug && finder == item.slug) || 
-                    (item.index && item.index.includes(hash)) )
+                if( item.slug && finder == item.slug )
                 { 
                     item.ordering = ind
+                    item.foundByIndex = 0
+                    return item
+                }
+                else if(this.searchInTableIndex && item.index && item.index.includes(hash))
+                {
+                    item.ordering = ind
+                    item.foundByIndex = 1
                     return item
                 }
             }
@@ -186,25 +192,28 @@ ManualByJs.prototype = {
         }
         document.title = this.siteTitle  + " - " +  this.current.title
     },
-    _menuActivate: function(slug)
-    {   
-        const anchors = this.mbj.menu.getElementsByTagName('a')
-        for(const m of anchors)
-        {
-            if(m.classList.contains(slug))
+    _menuActivate: function()
+    {
+        if(this.mbj.menu)
+        {  
+            const anchors = this.mbj.menu.getElementsByTagName('a')
+            for(const m of anchors)
             {
-                m.classList.add("active")
+                if(m.classList.contains(this.current.slug))
+                {
+                    m.classList.add("active")
+                }
+                else
+                {
+                    m.classList.remove("active")
+                }
             }
-            else
-            {
-                m.classList.remove("active")
-            }
-        }
+        } 
     },
     _createDefaultPageNav: function(ordering)
     {
         this.mbj.pageNav.innerHTML = ""
-        this.prev = this.findPageByIndex(ordering, -1)
+        this.prev = this.findPageByOrder(ordering, -1)
         if(false == this.prev)
         {
             this.mbj.pageNav.insertAdjacentHTML("afterbegin", '<a class="invisible"><span>.</span></a>')
@@ -218,7 +227,7 @@ ManualByJs.prototype = {
                 '</a>');
         }
 
-        this.next = this.findPageByIndex(ordering, 1)
+        this.next = this.findPageByOrder(ordering, 1)
         if(false !==  this.next)
         {
             this.mbj.pageNav.insertAdjacentHTML("beforeend", 
@@ -228,17 +237,17 @@ ManualByJs.prototype = {
                 '</a>');
         }
     },
-    _createPageNav: function(ordering)
+    _createPageNav: function()
     {
         if(this.mbj.pageNav) // this element is optional
         {
             if(this.hook.createPageNav instanceof Function)
             {
-                this.hook.createPageNav(ordering)
+                this.hook.createPageNav(this.current.ordering)
             }
             else
             {
-                this._createDefaultPageNav(ordering)
+                this._createDefaultPageNav(this.current.ordering)
             }
         }
     },
@@ -249,6 +258,23 @@ ManualByJs.prototype = {
             this.hook.afterInit()
         }
     },
+    digContent: async function(item, ext = item.fileExt??this.fileExt)
+    {
+        let content = ''
+        
+        if(!item.parts)
+        {
+            item.parts = [] 
+            item.parts.push(item.alias ?? item.slug)
+        }
+
+        for(const part of item.parts)
+        {
+            link =  this.folderContent + '/' + part + '.' + ext
+            content += await this.read(link)
+        }
+        return content
+    },
     navigate: async function(hash)
     {
         let item = this.findPageByHash(hash);
@@ -257,24 +283,11 @@ ManualByJs.prototype = {
         {
             this.current = item
 
-            let content = '', ext = item.fileExt??this.fileExt
+            let content = ''//, ext = item.fileExt??
 
-            if(!this.current.fileExt) this.current.fileExt = ext
+            if(!this.current.fileExt) this.current.fileExt = this.fileExt
 
-           
-            if(item.parts)
-            {
-                for(const part of item.parts)
-                {
-                    link =  this.folderContent + '/' + part + '.' + ext
-                    content += await this.read(link)
-                }
-            }
-            else
-            {
-                link =  this.folderContent + '/' + (item.alias ?? item.slug) + '.' + ext
-                content = await this.read(link)
-            }
+           content = await this.digContent(item)
 
             if( true !== content)
             {
@@ -282,18 +295,28 @@ ManualByJs.prototype = {
                 this.mbj.page.insertAdjacentHTML("afterbegin", content)
             }
 
-            this._menuActivate(item.slug)
-            this._updateWindowTitle()
-            this._createIndexTable()
-            this._createPageNav(item.ordering)
-
-            // if item found by index, we won't scroll it
-            if(item.slug === hash)
+            if( this.hook.afterNavigate instanceof Function )
             {
-                window.scrollTo({ top: 0, behavior: 'smooth' })
+                this.hook.afterNavigate()
+            }
+            else
+            {
+                this._afterNavigate()
             }
         }
     }, 
+    _afterNavigate: function(){
+        this._menuActivate()
+        this._updateWindowTitle()
+        this._createIndexTable()
+        this._createPageNav()
+
+        // if item found by index, we won't scroll it
+        if(!this.current.foundByIndex)
+        {
+            window.scrollTo({ top: 0, behavior: 'smooth' })
+        }
+    },
     _init: async function()
     {
         if(this.menu.length == 0)
