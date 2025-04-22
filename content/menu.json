@@ -22,6 +22,7 @@
             { "element": "#deepseek", "popover": { "title": "Title 4", "description": "Description 44" } }
         ]
     },
+    {"slug": "example-iframe2", "iframe": "http://192.168.1.166/prototypes/dist/components.html", "title": "Other iframe"},
     {"slug": "example-iframe", "iframe": "http://192.168.1.166/prototypes/dist/landingpage.html", "title": "An iframe",
         "tour": [
             { "element": "#featured-services", "popover": { "title": "Feature services", "description": "Bla bla .." } },

@@ -141,7 +141,6 @@
 <script src="assets/customized_b5.js"></script>
 <script src="assets/markdown-it.min.js"></script>
 <script src="assets/bundle.min.js"></script>
-<script src="assets/driver.js"></script>
 <script src="assets/manual.js"></script>
 <script>
     const tourjs = driverJs()
@@ -164,8 +163,8 @@
     const app = new ManualByJs({
         homePage: "page-overview", 
         embedToIframe: [
-            //{src:"http://192.168.1.166/manual-by-js/assets/driver.js"},
-            //{href:"http://192.168.1.166/manual-by-js/assets/driver.css"},
+            {src:"http://192.168.1.166/manual-by-js/assets/driver.js"},
+            {href:"http://192.168.1.166/manual-by-js/assets/driver.css"},
             {src:"http://192.168.1.166/manual-by-js/assets/iframe.js"}
         ],
         hook: {
@@ -286,21 +285,21 @@
                 app._afterNavigate()
                 if(app.current.tour)
                 {
-                    if(app.current.iframe){
-
-                    }else{
+                    if(!app.current.iframe){
                         tourjs.setSteps(app.current.tour)
                         tourjs.drive()
                     }
                 }
-            },
-            onLoadIframe: function()
-            {
-                //console.log(window); 
+                else if(app.current.highlight)
+                {
+                    if(!app.current.iframe){
+                        tourjs.setSteps(app.current.tour)
+                        tourjs.drive()
+                    }
+                }
             }
         }
-    })
-    window.app = app // so iframe could work
+    }) 
     </script>
 </body>
 </html>

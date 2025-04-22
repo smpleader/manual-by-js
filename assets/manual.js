@@ -1,5 +1,5 @@
 function ManualByJs(options = {}){
-    this.version = '0.2.3'
+    this.version = '0.2.4'
     this.flag = options.flag || ''
     this.folderContent = options.folderContent || 'content'
     this.homePage = options.homePage || 'page-home'
@@ -265,21 +265,25 @@ ManualByJs.prototype = {
         this.mbj.page.innerHTML = ""
 
         wrpIframe = document.createElement("div")
-        wrpIframe.classList.add("ratio", "ratio-1x1") //
+        wrpIframe.classList.add("ratio") // , "ratio-1x1"
 
         Iframe = document.createElement("iframe")
         Iframe.id = "ifrmContent"
         Iframe.scrolling  = "no"
         Iframe.src = url
+        
         Iframe.addEventListener('load', () => {
             let frm = document.getElementById("ifrmContent")
-            frmDoc = frm.contentDocument || frm.contentWindow.document;
+            frmDoc = frm.contentDocument || frm.contentWindow.document; 
+            frmWin = frm.contentWindow || frm 
 
             let height = Math.max(frm.parentElement.clientHeight, frmDoc.body.scrollHeight) // frmDoc.body.offsetHeight, frmDoc.body.clientHeight,  frmDoc.body.scrollHeight
             if(height > frm.parentElement.clientHeight)
             {
                 frm.parentElement.style.height = height + "px"
             }
+             
+            frmWin.manualPage = this.current
 
             if(this.embedToIframe)
             {
@@ -299,6 +303,7 @@ ManualByJs.prototype = {
                     frmDoc.head.appendChild(afile)
                 }
             }
+
             if( this.hook.onLoadIframe instanceof Function )
             {
                 this.hook.onLoadIframe()
