@@ -1,5 +1,5 @@
 function ManualByJs(options = {}){
-    this.version = '0.2.3'
+    this.version = '0.2.4'
     this.flag = options.flag || ''
     this.folderContent = options.folderContent || 'content'
     this.homePage = options.homePage || 'page-home'
@@ -10,6 +10,7 @@ function ManualByJs(options = {}){
     this.menu = options.menu || []
     this.fileExt = options.fileExt ?? "html"
     this.prefix = options.prefix ?? "page-"
+    this.embedToIframe = options.embedToIframe || []
     
     this.ids = {
         menu: "mbj-menu",
@@ -35,7 +36,8 @@ function ManualByJs(options = {}){
         createIndexTableItem: null,
         afterInit: null,
         afterRead: null,
-        afterNavigate: null
+        afterNavigate: null,
+        onLoadIframe: null,
     }
 
     if(options.hook) this.hook = {...options.hook}
@@ -258,9 +260,66 @@ ManualByJs.prototype = {
             this.hook.afterInit()
         }
     },
+    _loadIframe: function(url)
+    {
+        this.mbj.page.innerHTML = ""
+
+        wrpIframe = document.createElement("div")
+        Iframe = document.createElement("iframe")
+        Iframe.id = "ifrmContent" 
+        Iframe.src = url
+        Iframe.width = "100%"
+        Iframe.height = "100%"
+        
+        Iframe.addEventListener('load', () => {
+            let frm = document.getElementById("ifrmContent")
+            frmDoc = frm.contentDocument || frm.contentWindow.document; 
+            frmWin = frm.contentWindow || frm 
+
+            /*let height = Math.max(frm.parentElement.clientHeight, frmDoc.body.scrollHeight) // frmDoc.body.offsetHeight, frmDoc.body.clientHeight,  frmDoc.body.scrollHeight
+            if(height > frm.parentElement.clientHeight)
+            {
+                frm.parentElement.style.height = height + "px"
+            }*/
+             
+            frmWin.manualPage = this.current
+
+            if(this.embedToIframe)
+            {
+                for(const file of this.embedToIframe)
+                {
+                    if(file.src)
+                    { 
+                        afile = frmDoc.createElement("script");
+                        afile.src = file.src
+                    }
+                    else
+                    {
+                        afile = frmDoc.createElement("link");
+                        afile.href = file.href
+                        afile.rel = "stylesheet"
+                    }
+                    frmDoc.head.appendChild(afile)
+                }
+            }
+
+            if( this.hook.onLoadIframe instanceof Function )
+            {
+                this.hook.onLoadIframe()
+            }
+        })
+
+        wrpIframe.appendChild(Iframe)
+        this.mbj.page.appendChild(wrpIframe)
+    },
     digContent: async function(item, ext = item.fileExt??this.fileExt)
     {
         let content = ''
+        if(item.iframe)
+        {   
+            this._loadIframe(item.iframe)
+            return true
+        }
         
         if(!item.parts)
         {
@@ -273,6 +332,7 @@ ManualByJs.prototype = {
             link =  this.folderContent + '/' + part + '.' + ext
             content += await this.read(link)
         }
+
         return content
     },
     navigate: async function(hash)

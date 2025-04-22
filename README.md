@@ -32,11 +32,14 @@ This is a html manual powered by javascript. For more details, run porject by op
 - ~~Support markdown plugin, to run well with bootstrap layout~~
 - ~~Support layout template for menu, milestone, indextable~~
 - ~~Auto make index table ~~
+- ~~Support iframe~~
 - Support search
 - Support tag filter
 
 ## Log
 
+### 0.2.4
+- Support iframe and add script, stylesheet
 
 ### 0.2.3
 - Apply markdown attributes plugin to support ID, class in markdown content
