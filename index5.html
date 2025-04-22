@@ -162,7 +162,12 @@
         {href: "#", title: "VI"},
         ]
     const app = new ManualByJs({
-        homePage: "page-overview",  
+        homePage: "page-overview", 
+        embedToIframe: [
+            //{src:"http://192.168.1.166/manual-by-js/assets/driver.js"},
+            //{href:"http://192.168.1.166/manual-by-js/assets/driver.css"},
+            {src:"http://192.168.1.166/manual-by-js/assets/iframe.js"}
+        ],
         hook: {
             afterRead: function (content){
                 return app.current.fileExt == "md" ? mkd.render(content) : null
@@ -281,12 +286,21 @@
                 app._afterNavigate()
                 if(app.current.tour)
                 {
-                    tourjs.setSteps(app.current.tour)
-                    tourjs.drive()
+                    if(app.current.iframe){
+
+                    }else{
+                        tourjs.setSteps(app.current.tour)
+                        tourjs.drive()
+                    }
                 }
+            },
+            onLoadIframe: function()
+            {
+                //console.log(window); 
             }
         }
     })
+    window.app = app // so iframe could work
     </script>
 </body>
 </html>
