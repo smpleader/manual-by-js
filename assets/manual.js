@@ -265,23 +265,22 @@ ManualByJs.prototype = {
         this.mbj.page.innerHTML = ""
 
         wrpIframe = document.createElement("div")
-        wrpIframe.classList.add("ratio") // , "ratio-1x1"
-
         Iframe = document.createElement("iframe")
-        Iframe.id = "ifrmContent"
-        Iframe.scrolling  = "no"
+        Iframe.id = "ifrmContent" 
         Iframe.src = url
+        Iframe.width = "100%"
+        Iframe.height = "100%"
         
         Iframe.addEventListener('load', () => {
             let frm = document.getElementById("ifrmContent")
             frmDoc = frm.contentDocument || frm.contentWindow.document; 
             frmWin = frm.contentWindow || frm 
 
-            let height = Math.max(frm.parentElement.clientHeight, frmDoc.body.scrollHeight) // frmDoc.body.offsetHeight, frmDoc.body.clientHeight,  frmDoc.body.scrollHeight
+            /*let height = Math.max(frm.parentElement.clientHeight, frmDoc.body.scrollHeight) // frmDoc.body.offsetHeight, frmDoc.body.clientHeight,  frmDoc.body.scrollHeight
             if(height > frm.parentElement.clientHeight)
             {
                 frm.parentElement.style.height = height + "px"
-            }
+            }*/
              
             frmWin.manualPage = this.current
 
