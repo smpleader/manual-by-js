@@ -1,5 +1,5 @@
 function ManualByJs(options = {}){
-    this.version = '0.2.4'
+    this.version = '0.2.5'
     this.flag = options.flag || ''
     this.folderContent = options.folderContent || 'content'
     this.homePage = options.homePage || 'page-home'
