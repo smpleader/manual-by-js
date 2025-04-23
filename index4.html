@@ -142,6 +142,12 @@
 <script src="assets/manual.js"></script>
 <script src="assets/search.js"></script>
 <script>
+const mdPage = new  bootstrap.Modal(document.getElementById("pageModal"))
+const addEventOpenPage = function() { 
+    document.querySelectorAll("a.openModal").forEach((item) => {
+        item.addEventListener('click', () => { app.navigate(item.href.split('#')[1] || '') })
+    }) 
+}
 const mkd = markdownit({
                 html: true,
                 linkify: true,
@@ -225,13 +231,7 @@ const app = new ManualByJs({
                 translatorMenu.insertAdjacentHTML("beforeend", 
                     '<li><a class="dropdown-item" href="' + item.href + '">'+ item.title +'</a></li>' )
             }
-            
-            document.querySelectorAll("a.openModal").forEach((item) => {
-                item.addEventListener('click', () => {
-                    let a = new  bootstrap.Modal( document.getElementById("pageModal"))
-                    a.show()
-                })
-            })
+            addEventOpenPage() 
         },
         createPageNav: function(ordering)
         {
@@ -277,18 +277,50 @@ const app = new ManualByJs({
         },
         afterNavigate: function()
         {
+            mdPage.show()
             app._createIndexTable()
             app._createPageNav()
             document.getElementById("page-title").innerText = app.current.title
         }
     }
 })
-const searcher = new SearchForManual(app)
+const searcher = new SearchForManual(app, {
+    hook: {
+        afterSearching: function(){   
+            searcher.sfm.prg.innerHTML = "<p class='mt-4 ms-2'>" + searcher.result.length +" found</p>"
+            if(searcher.result.length)
+            {   
+                let lst = '<div class="list-group">'
+                for(const item of searcher.result)
+                { 
+                     lst += `<a href="#${item.link}" class="list-group-item list-group-item-action openModal" data-bs-dismiss="modal">
+                            <div class="d-flex w-100 justify-content-between">
+                            <h5 class="mb-1">${item.title}</h5> 
+                            </div>
+                            <p class="mb-1">..${item.found}..</p>
+                        </a>`
+                }
+                lst += '</div>'
+                searcher.sfm.res.innerHTML = ''
+                searcher.sfm.res.insertAdjacentHTML("afterbegin", lst)
+                addEventOpenPage() 
+            }
+            else
+            {
+                searcher.sfm.res.innerHTML = ""
+            }
+        },
+        onSearching: function( i, page, found){
+            searcher.sfm.prg.innerHTML = "<p class='mt-4 ms-2'><i>" + 
+                ( i ? "searching " + i + "/" + searcher.manual.menu.length : "wait for your input" )
+                + "</i></p>"
+        }
+    }
+})
 document.getElementById("searchModal").addEventListener('shown.bs.modal', () => {
     document.getElementById("searcher-input").focus()
 })
-document.getElementById("searchModal").addEventListener('hidden.bs.modal', () => {
-    document.getElementById("searcher-input").value = ""
+document.getElementById("searchModal").addEventListener('hidden.bs.modal', () => { 
 })
 document.getElementById("pageModal").addEventListener('shown.bs.modal', () => {
     const scrollElem = document.querySelector(`[data-bs-spy="scroll"]`)

@@ -6,8 +6,9 @@ function SearchForManual( mbjInstance, options = {}){
     }
 
     this.version = '0.0.1'
+    this.numberOfWord = 4
     this.minPageAllowCache = options.minPageAllowCache || 50
-    this.maxPageAllowCache = options.maxPageAllowCache || 50
+    this.maxPageAllowCache = options.maxPageAllowCache || 200
     this.ids = {
         input: "searcher-input",
         opt: "searcher-option",
@@ -20,11 +21,11 @@ function SearchForManual( mbjInstance, options = {}){
 
     if(options.ids) this.ids = {...this.ids, ...options.ids}
 
-    this.schr = {}
+    this.sfm = {}
     
     for (let [key, id] of Object.entries(this.ids)) 
     {
-        this.schr[key] = document.getElementById(id)
+        this.sfm[key] = document.getElementById(id)
     }
 
     this.hook = {
@@ -38,22 +39,45 @@ function SearchForManual( mbjInstance, options = {}){
 }
 
 SearchForManual.prototype = {
+    _getSurroundingWords: function(sentence, targetWord, numWords = this.numberOfWord) {
+        const words = sentence.split(' ')
+        const targetIndex = words.indexOf(targetWord.replace(/[^a-zA-Z0-9]/g, ''))
+    
+        if (targetIndex === -1) {
+            return ""
+        }
+    
+        const start = Math.max(0, targetIndex - numWords);
+        const end = Math.min(words.length, targetIndex + numWords + 1)
+        
+        words[targetIndex] =  "<strong>" + words[targetIndex] + "</strong>"
+        const surroundingWords = words.slice(start, end)
+        return surroundingWords.join(' ')
+    },
     _search:  async function(txt)
     { // todo cache the data: compare  this.manual.menu.length
         this.result = [] 
-        let  i = 0, regex = new RegExp(txt, "i")
+        let  i = 0, regex = new RegExp(txt, "i"), idxSearch, page
+        //txt.replace(/[^a-zA-Z0-9 ]/g, '')) --> filter for options
 
-        while(page = this.manual.findPageByOrder(i, 1))
+        while( i < this.manual.menu.length)
         { 
+            page = this.manual.menu[i]
             i++ 
-            content = await this.manual.digContent(page)
-            //console.log(content);
-            noHTML = content.replace(/(<([^>]+)>)/ig, '')
-            if(regex.test(noHTML))
+            if(page.slug)
             {
-                this.result.push(page)
+                content = await this.manual.digContent(page)
+                noHTML = content.replace(/(<([^>]+)>)/ig, '')
+                idxSearch = regex.exec(noHTML) 
+                
+                if( idxSearch !== null)
+                {
+                    page.link = this.manual.prefix + page.slug
+                    page.found = this._getSurroundingWords(noHTML, txt) 
+                    this.result.push(page)
+                }
+                this._onSearching(page, i, idxSearch)
             }
-            this._onSearching(i, page)
         }
         this._afterSearching()
     },
@@ -63,41 +87,39 @@ SearchForManual.prototype = {
             this.hook.afterSearching()
             return
         }    
-        this.schr.prg.innerHTML = this.result.length +" found"
+        this.sfm.prg.innerHTML = this.result.length +" found"
         if(this.result.length)
         {
             
-            this.schr.res.innerHTML = "A list show here"  
+            this.sfm.res.innerHTML = "A list show here"  
         }
         else
         {
-            this.schr.res.innerHTML = ""
+            this.sfm.res.innerHTML = ""
         }
     },
-    _onSearching: function(i, page)
+    _onSearching: function(page = null, i = 0, found = 0)
     {
         if(this.hook.onSearching instanceof Function)
         {
-            this.hook.onSearching(i, page)
+            this.hook.onSearching(i, page, found)
             return
         }
 
-        this.schr.res.innerHTML = ""
-        this.schr.prg.innerHTML = i ? "<i>searching " + i + "/" + this.manual.menu.length + "</i>" : "<i>wait for your input</i>" 
-        
+        this.sfm.prg.innerHTML = i ? "<i>searching " + i + "/" + this.manual.menu.length + "</i>" : "<i>wait for your input</i>"       
     },
     _init: async function()
     {
-        if(this.schr.input)
+        if(this.sfm.input)
         {
             let delaySearch
-            this.schr.input.addEventListener('keyup', () => { 
-                this._onSearching(0, 0)
+            this.sfm.input.addEventListener('keyup', () => { 
+                this._onSearching(0)
                 clearTimeout(delaySearch)
-                if(this.schr.input.value.length > 2)
+                if(this.sfm.input.value.length > 2)
                 {
                     delaySearch = setTimeout(() => {
-                        this._search( this.schr.input.value); 
+                        this._search( this.sfm.input.value); 
                     }, 1000)
                      
                 }

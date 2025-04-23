@@ -315,11 +315,6 @@ ManualByJs.prototype = {
     digContent: async function(item, ext = item.fileExt??this.fileExt)
     {
         let content = ''
-        if(item.iframe)
-        {   
-            this._loadIframe(item.iframe)
-            return true
-        }
         
         if(!item.parts)
         {
@@ -346,13 +341,20 @@ ManualByJs.prototype = {
             let content = ''//, ext = item.fileExt??
 
             if(!this.current.fileExt) this.current.fileExt = this.fileExt
-
-           content = await this.digContent(item)
-
-            if( true !== content)
+            
+            if(item.iframe)
+            {   
+                this._loadIframe(item.iframe) 
+            }
+            else
             {
-                this.mbj.page.innerHTML = ""
-                this.mbj.page.insertAdjacentHTML("afterbegin", content)
+                content = await this.digContent(item)
+     
+                 if( true !== content)
+                 {
+                     this.mbj.page.innerHTML = ""
+                     this.mbj.page.insertAdjacentHTML("afterbegin", content)
+                 }
             }
 
             if( this.hook.afterNavigate instanceof Function )
