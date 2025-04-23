@@ -24,11 +24,11 @@
                         </div>
                     </nav>
                     <ul class="header-icons">
-                        <!--<li class="icon-btn">
+                        <li class="icon-btn">
                             <a href="#" data-bs-toggle="modal" data-bs-target="#searchModal">
                                 <i class="bi bi-search"></i>
                             </a>
-                        </li>-->
+                        </li>
                         <li class="icon-btn">
                             <a href="#" class="ps-0">
                                 <i class="bi bi-github"></i>
@@ -100,10 +100,16 @@
                 </a>
             </div> 
         </div>
-        <div class="modal fade search-modal" id="searchModal" tabindex="-1" aria-labelledby="searchModalLabel" aria-hidden="true">
+        <div class="modal fade search-modal" id="searchModal" tabindex="-1" aria-labelledby="searchModalLabel" >
             <div class="modal-dialog">
                 <div class="modal-content mt-5">
-                    <input type="text" class="form-control" id="searchModalLabel" placeholder="Type and hit enter..." aria-label="Type and hit enter...">
+                    <div class="d-flex">
+                        <input type="text" class="form-control shadow-none border-0 form-control-lg" id="searcher-input" placeholder="Type and hit enter..." aria-label="Type and hit enter...">
+                        <button type="reset" title="Clear the query" aria-label="Clear the query" class="btn-close mt-2 me-2  btn-lg" onClick="searcher.clear()"></button>
+                    </div>
+                    <div class="searcher-options"></div>
+                    <div class="" id="searcher-progress"></div>
+                    <div class="" id="searcher-result"></div>
                 </div>
             </div>
         </div>
@@ -116,176 +122,212 @@
 <script src="assets/customized_b5.js"></script>
 <script src="assets/markdown-it.min.js"></script>
 <script src="assets/bundle.min.js"></script>
+<script src="assets/search.js"></script>
 <script src="assets/manual.js"></script>
 <script>
-    const tourjs = driverJs()
-    const mkd = markdownit({
-                    html: true,
-                    linkify: true,
-                    typographer: true
-                })
-    mkd.use(markdownItAttrs)
-    const sprintMenu = [
-        {href: "#", title: "0.1.x"}
-        ]
-    const langMenu = [
-        {href: "#", title: "EN"},
-        {href: "#", title: "CN"},
-        {href: "#", title: "JP"},
-        {href: "#", title: "FR"},
-        {href: "#", title: "VI"},
-        ]
-    const app = new ManualByJs({
-        homePage: "page-overview", 
-        embedToIframe: [
-            {src:"http://192.168.1.166/manual-by-js/assets/driver.js"},
-            {href:"http://192.168.1.166/manual-by-js/assets/driver.css"},
-            {src:"http://192.168.1.166/manual-by-js/assets/iframe.js"}
-        ],
-        hook: {
-            afterRead: function (content){
-                return app.current.fileExt == "md" ? mkd.render(content) : null
-            },
-            createMenuItem: function(item) { 
-    
-                var str = ''
-                if(item.slug)
-                {
-                    str = '<li><a href="#'+ app.prefix + item.slug +'" class=" '+ item.slug +'">'+ item.title +'</a></li>'
-                    if(app.flag && app.counter == app.menu.length)
-                    {
-                        str += '</ul></li>'
-                    }
-                }
-                else if(item.href)
-                {
-                    str = '<li><a href="'+ item.href +'" class="" '+ (item.target?'target="'+item.target+'">':'>') + item.title +'</a></li>'
-                    if(app.flag && app.counter == app.menu.length)
-                    {
-                        str += '</ul></li>'
-                    }
-                }
-                else
-                {
-                    if(app.flag)
-                    {
-                        str += '</ul></li>'
-                    }
-                    
-                    str +=  '<li class="dropdown">'+
-                        '<a href="#"><span>' + item.title + '</span><i class="bi bi-chevron-down toggle-dropdown"></i></a>'+
-                        '<ul class="">'
-    
-                    app.flag = 1
-                }
-                
-                return str
-            },
-            afterInit: function()
-            { 
-                /* menu sprint
-                let milestoneMenu = document.getElementById("mbj-sprint")
-                milestoneMenu.innerHTML = ''
-                for(const item of sprintMenu)
-                {
-                milestoneMenu.insertAdjacentHTML("beforeend", 
-                        '<li><a class="dropdown-item" href="' + item.href + '">'+ item.title +'</a></li>' )
-                }
-                document.getElementById("mbj-sprint-label").innerHTML =  sprintMenu[0].title
-    
-                // menu translate
-                let translatorMenu = document.getElementById("mbj-translator")
-                for(const item of langMenu)
-                {
-                    translatorMenu.insertAdjacentHTML("beforeend", 
-                        '<li><a class="dropdown-item" href="' + item.href + '">'+ item.title +'</a></li>' )
-                }*/
-                document.querySelectorAll('.navmenu .dropdown').forEach(navmenu => {
-                    navmenu.addEventListener('click', function(e) {
-                        //e.preventDefault();
-                        this.querySelector('a').classList.toggle('active');
-                        this.querySelector('ul').classList.toggle('dropdown-active');
-                        //e.stopImmediatePropagation();
-                    });
-                });
-                return true
-            },
-            createIndexTable: function()
-            {   
-                if(app.current.index && app.current.index.length > 0)
-                {
-                    document.getElementById("mbj-page").parentElement.parentElement.parentElement.classList.remove('no-index-table')
-                    app._createDefaultIndexTable()
-                    new bootstrap.ScrollSpy(document.body, { target: "#mbj-page-index"})
-                    const textBtnToggle = bdTocToggle.querySelector('.selected-section');
-                    // const iconBtnToggle = bdTocToggle.querySelector('.bi');
-                    const firstScrollSpyEl = document.querySelector('[data-bs-spy="scroll"]');
-    
-                    window.addEventListener('activate.bs.scrollspy', () => {
-                        var activeLink = document.querySelector('.bd-toc-collapse a.active');
-                        if(window.pageYOffset === 0) textBtnToggle.innerHTML = 'On this page';
-                        else textBtnToggle.innerHTML = activeLink.innerHTML; 
-                    }) 
-                }
-                else
-                {
-                    document.getElementById("mbj-page").parentElement.parentElement.parentElement.classList.add('no-index-table')
-                }
-            },
-            createPageNav: function(ordering)
-            {
-                app.mbj.pageNav.innerHTML = ""
-                app.prev = app.findPageByOrder(ordering, -1)
-                if(false == app.prev)
-                {
-                    app.mbj.pageNav.insertAdjacentHTML("afterbegin", '<a class="invisible"><span>.</span></a>')
-                } 
-                else 
-                {
-                    app.mbj.pageNav.insertAdjacentHTML("afterbegin", 
-                        '<a href="#'+ app.prefix + app.prev.slug+'" class="navigator-item prev-item">' +
-                            '<i class="bi bi-caret-left"></i>'+
-                        '</a>');
-                }
+const tourjs = driverJs()
+const mkd = markdownit({
+                html: true,
+                linkify: true,
+                typographer: true
+            })
+mkd.use(markdownItAttrs)
+const sprintMenu = [
+    {href: "#", title: "0.1.x"}
+    ]
+const langMenu = [
+    {href: "#", title: "EN"},
+    {href: "#", title: "CN"},
+    {href: "#", title: "JP"},
+    {href: "#", title: "FR"},
+    {href: "#", title: "VI"},
+    ]
+const app = new ManualByJs({
+    homePage: "page-overview", 
+    embedToIframe: [
+        {src:"http://192.168.1.166/manual-by-js/assets/driver.js"},
+        {href:"http://192.168.1.166/manual-by-js/assets/driver.css"},
+        {src:"http://192.168.1.166/manual-by-js/assets/iframe.js"}
+    ],
+    hook: {
+        afterRead: function (content){
+            return app.current.fileExt == "md" ? mkd.render(content) : null
+        },
+        createMenuItem: function(item) { 
 
-                app.next = app.findPageByOrder(ordering, 1)
-                if(false !==  app.next)
+            var str = ''
+            if(item.slug)
+            {
+                str = '<li><a href="#'+ app.prefix + item.slug +'" class=" '+ item.slug +'">'+ item.title +'</a></li>'
+                if(app.flag && app.counter == app.menu.length)
                 {
-                    app.mbj.pageNav.insertAdjacentHTML("beforeend", 
-                        '<a href="#'+ app.prefix + app.next.slug+'" class="navigator-item next-item">' +
-                            '<i class="bi bi-caret-right"></i>' + 
-                        '</a>');
+                    str += '</ul></li>'
                 }
-            },
-            afterNavigate: function(){
-                app._afterNavigate()
-                if(app.current.tour)
-                {
-                    if(!app.current.iframe){
-                        tourjs.setSteps(app.current.tour)
-                        tourjs.drive()
-                    }
-                }
-                else if(app.current.highlight)
-                {
-                    if(!app.current.iframe){
-                        tourjs.setSteps(app.current.tour)
-                        tourjs.drive()
-                    }
-                }
-            },
-            onLoadIframe: function(){
-                let frm = document.getElementById("ifrmContent")
-                let hd = document.getElementById("header")
-                let foot = document.querySelector("div.copyright")
-                 
-                h = window.innerHeight - hd.clientHeight - foot.clientHeight - 125
-                console.log(window.innerHeight, hd.clientHeight , foot.clientHeight);
-                
-                frm.parentElement.style.height = h + "px"
             }
+            else if(item.href)
+            {
+                str = '<li><a href="'+ item.href +'" class="" '+ (item.target?'target="'+item.target+'">':'>') + item.title +'</a></li>'
+                if(app.flag && app.counter == app.menu.length)
+                {
+                    str += '</ul></li>'
+                }
+            }
+            else
+            {
+                if(app.flag)
+                {
+                    str += '</ul></li>'
+                }
+                
+                str +=  '<li class="dropdown">'+
+                    '<a href="#"><span>' + item.title + '</span><i class="bi bi-chevron-down toggle-dropdown"></i></a>'+
+                    '<ul class="">'
+
+                app.flag = 1
+            }
+            
+            return str
+        },
+        afterInit: function()
+        { 
+            /* menu sprint
+            let milestoneMenu = document.getElementById("mbj-sprint")
+            milestoneMenu.innerHTML = ''
+            for(const item of sprintMenu)
+            {
+            milestoneMenu.insertAdjacentHTML("beforeend", 
+                    '<li><a class="dropdown-item" href="' + item.href + '">'+ item.title +'</a></li>' )
+            }
+            document.getElementById("mbj-sprint-label").innerHTML =  sprintMenu[0].title
+
+            // menu translate
+            let translatorMenu = document.getElementById("mbj-translator")
+            for(const item of langMenu)
+            {
+                translatorMenu.insertAdjacentHTML("beforeend", 
+                    '<li><a class="dropdown-item" href="' + item.href + '">'+ item.title +'</a></li>' )
+            }*/
+            document.querySelectorAll('.navmenu .dropdown').forEach(navmenu => {
+                navmenu.addEventListener('click', function(e) {
+                    //e.preventDefault();
+                    this.querySelector('a').classList.toggle('active');
+                    this.querySelector('ul').classList.toggle('dropdown-active');
+                    //e.stopImmediatePropagation();
+                });
+            });
+            return true
+        },
+        createIndexTable: function()
+        {   
+            if(app.current.index && app.current.index.length > 0)
+            {
+                document.getElementById("mbj-page").parentElement.parentElement.parentElement.classList.remove('no-index-table')
+                app._createDefaultIndexTable()
+                new bootstrap.ScrollSpy(document.body, { target: "#mbj-page-index"})
+                const textBtnToggle = bdTocToggle.querySelector('.selected-section');
+                // const iconBtnToggle = bdTocToggle.querySelector('.bi');
+                const firstScrollSpyEl = document.querySelector('[data-bs-spy="scroll"]');
+
+                window.addEventListener('activate.bs.scrollspy', () => {
+                    var activeLink = document.querySelector('.bd-toc-collapse a.active');
+                    if(window.pageYOffset === 0) textBtnToggle.innerHTML = 'On this page';
+                    else textBtnToggle.innerHTML = activeLink.innerHTML; 
+                }) 
+            }
+            else
+            {
+                document.getElementById("mbj-page").parentElement.parentElement.parentElement.classList.add('no-index-table')
+            }
+        },
+        createPageNav: function(ordering)
+        {
+            app.mbj.pageNav.innerHTML = ""
+            app.prev = app.findPageByOrder(ordering, -1)
+            if(false == app.prev)
+            {
+                app.mbj.pageNav.insertAdjacentHTML("afterbegin", '<a class="invisible"><span>.</span></a>')
+            } 
+            else 
+            {
+                app.mbj.pageNav.insertAdjacentHTML("afterbegin", 
+                    '<a href="#'+ app.prefix + app.prev.slug+'" class="navigator-item prev-item">' +
+                        '<i class="bi bi-caret-left"></i>'+
+                    '</a>');
+            }
+
+            app.next = app.findPageByOrder(ordering, 1)
+            if(false !==  app.next)
+            {
+                app.mbj.pageNav.insertAdjacentHTML("beforeend", 
+                    '<a href="#'+ app.prefix + app.next.slug+'" class="navigator-item next-item">' +
+                        '<i class="bi bi-caret-right"></i>' + 
+                    '</a>');
+            }
+        },
+        afterNavigate: function(){
+            app._afterNavigate()
+            if(app.current.tour)
+            {
+                if(!app.current.iframe){
+                    tourjs.setSteps(app.current.tour)
+                    tourjs.drive()
+                }
+            }
+            else if(app.current.highlight)
+            {
+                if(!app.current.iframe){
+                    tourjs.setSteps(app.current.tour)
+                    tourjs.drive()
+                }
+            }
+        },
+        onLoadIframe: function(){
+            let frm = document.getElementById("ifrmContent")
+            let hd = document.getElementById("header")
+            let foot = document.querySelector("div.copyright")
+                
+            h = window.innerHeight - hd.clientHeight - foot.clientHeight - 125
+            console.log(window.innerHeight, hd.clientHeight , foot.clientHeight);
+            
+            frm.parentElement.style.height = h + "px"
         }
-    }) 
-    </script>
+    }
+}) 
+const searcher = new SearchForManual(app, {
+    hook: {
+        afterSearching: function(){   
+            searcher.sfm.prg.innerHTML = "<p class='ms-3'><i>" + searcher.result.length +" found</i></p>"
+            if(searcher.result.length)
+            {   
+                let lst = '<div class="list-group">'
+                for(const item of searcher.result)
+                { 
+                     lst += `<a href="#${item.link}" class="list-group-item list-group-item-action openModal" data-bs-dismiss="modal">
+                            <div class="d-flex w-100 justify-content-between">
+                            <h5 class="mb-1">${item.title}</h5> 
+                            </div>
+                            <p class="mb-1">..${item.found}..</p>
+                        </a>`
+                }
+                lst += '</div>'
+                searcher.sfm.res.innerHTML = ''
+                searcher.sfm.res.insertAdjacentHTML("afterbegin", lst)
+                document.querySelectorAll("a.openModal").forEach((item) => {
+                    item.addEventListener('click', () => {  document.location.href = item.href  })
+                }) 
+            }
+            else
+            {
+                searcher.sfm.res.innerHTML = ""
+            }
+        },
+        onSearching: function( i, page, found){
+            searcher.sfm.prg.innerHTML = "<p class='ms-3'><i>" + 
+                ( i ? "searching " + i + "/" + searcher.manual.menu.length : "wait for your input" )
+                + "</i></p>"
+        }
+    }
+})
+</script>
 </body>
 </html>
