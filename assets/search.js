@@ -108,6 +108,12 @@ SearchForManual.prototype = {
 
         this.sfm.prg.innerHTML = i ? "<i>searching " + i + "/" + this.manual.menu.length + "</i>" : "<i>wait for your input</i>"       
     },
+    clear: function()
+    {
+        this.sfm.res.innerHTML = ""
+        this.sfm.prg.innerHTML = ""
+        this.sfm.input.value = ""
+    },
     _init: async function()
     {
         if(this.sfm.input)
