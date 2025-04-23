@@ -134,6 +134,7 @@ SearchForManual.prototype = {
             })
             if(this.sfm.modal)
             {
+                // TODO: consider change this to hook
                 this.sfm.modal.addEventListener('shown.bs.modal', () => {
                     this.sfm.input.focus()
                 })

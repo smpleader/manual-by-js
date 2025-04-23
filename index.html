@@ -7,6 +7,7 @@
   <meta content="" name="keywords"> 
   <link href="assets/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
   <link href="assets/docs.css" rel="stylesheet">
+  <link href="assets/driver.css" rel="stylesheet">
 </head>
 <body data-bs-spy="scroll" data-bs-target="#mbj-page-index">
 <header class="navbar navbar-expand-lg bd-navbar sticky-top">
@@ -26,13 +27,12 @@
     </a>
 
     <div class="d-flex">
-      <!-- SEARCH
       <div class="bd-search" id="docsearch" data-bd-docs-version="5.3">
         <button type="button"class="DocSearch DocSearch-Button" data-bs-toggle="modal" data-bs-target="#searchModal"><span class="DocSearch-Button-Container">
             <svg width="20" height="20"  aria-hidden="true" class="DocSearch-Search-Icon"><use href="assets/icons.svg#search"></use></svg>
             <span class="DocSearch-Button-Placeholder">Search</span></span>
         </button>
-      </div>-->
+      </div>
 
       <button class="navbar-toggler d-flex d-lg-none order-3 p-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#bdNavbar" aria-controls="bdNavbar" aria-label="Toggle navigation">
         <svg class="bi" aria-hidden="true"><use xlink:href="assets/icons.svg#three-dots"></use></svg>
@@ -116,11 +116,6 @@
                   <svg class="bi ms-auto d-none"><use href="assets/icons.svg#check2"></use></svg>
                 </button>
               </li>
-              <li>
-                <button type="button" class="dropdown-item d-flex align-items-center" onclick="document.location.href='index2.html'" >
-                  Second template
-                </button>
-              </li>
             </ul>
           </li>
         </ul>
@@ -184,10 +179,16 @@
         </div>
     </main>
   </div>
-  <div class="modal fade search-modal" id="searchModal" tabindex="-1" aria-labelledby="searchModalLabel" aria-hidden="true">
+  <div class="modal fade search-modal" id="searchModal" tabindex="-1" aria-labelledby="searcher-input" aria-hidden="true">
       <div class="modal-dialog">
           <div class="modal-content mt-5">
-              <input type="text" class="form-control" id="searchModalLabel" placeholder="Type and hit enter..." aria-label="Type and hit enter...">
+            <div class="d-flex">
+            <input type="text" class="form-control shadow-none border-0 form-control-lg" id="searcher-input" placeholder="Type and hit enter..." aria-label="Type and hit enter...">
+            <button type="reset" title="Clear the query" aria-label="Clear the query" class="btn-close mt-2 me-2  btn-lg" onClick="searcher.clear()"></button>
+            </div>
+            <div class="searcher-options"></div>
+            <div class="" id="searcher-progress"></div>
+            <div class="" id="searcher-result"></div>
           </div>
       </div>
   </div>
@@ -203,13 +204,15 @@
 <script src="assets/markdown-it.min.js"></script>
 <script src="assets/bundle.min.js"></script>
 <script src="assets/manual.js"></script>
+<script src="assets/search.js"></script>
 <script>
+const tourjs = driverJs()
 const mkd = markdownit({
                 html: true,
                 linkify: true,
                 typographer: true
             })
-    mkd.use(window.markdownItAttrs)
+mkd.use(markdownItAttrs)
 const sprintMenu = [
     {href: "#", title: "0.1.x"}
   ]
@@ -221,8 +224,8 @@ const langMenu = [
     {href: "#", title: "VI"},
   ]
 const app = new ManualByJs({
-  homePage: "page-overview",
-  hook: {  
+  homePage: "page-overview",   
+  hook: {
     afterRead: function (content){
         return app.current.fileExt == "md" ? mkd.render(content) : null
     },
@@ -298,8 +301,51 @@ const app = new ManualByJs({
       {
         document.getElementById("mbj-page-index").parentElement.parentElement.classList.add('d-none', 'd-md-none', 'd-sm-none')
       }
+    },
+    afterNavigate: function(){
+        app._afterNavigate()
+        if(app.current.tour)
+        {
+            tourjs.setSteps(app.current.tour)
+            tourjs.drive()
+        }
     }
   }
+})
+const searcher = new SearchForManual(app, {
+    hook: {
+        afterSearching: function(){   
+            searcher.sfm.prg.innerHTML = "<p class='ms-3'><i>" + searcher.result.length +" found</i></p>"
+            if(searcher.result.length)
+            {   
+                let lst = '<div class="list-group">'
+                for(const item of searcher.result)
+                { 
+                     lst += `<a href="#${item.link}" class="list-group-item list-group-item-action openModal" data-bs-dismiss="modal">
+                            <div class="d-flex w-100 justify-content-between">
+                            <h5 class="mb-1">${item.title}</h5> 
+                            </div>
+                            <p class="mb-1">..${item.found}..</p>
+                        </a>`
+                }
+                lst += '</div>'
+                searcher.sfm.res.innerHTML = ''
+                searcher.sfm.res.insertAdjacentHTML("afterbegin", lst)
+                document.querySelectorAll("a.openModal").forEach((item) => {
+                    item.addEventListener('click', () => {  document.location.href = item.href  })
+                }) 
+            }
+            else
+            {
+                searcher.sfm.res.innerHTML = ""
+            }
+        },
+        onSearching: function( i, page, found){
+            searcher.sfm.prg.innerHTML = "<p class='ms-3'><i>" + 
+                ( i ? "searching " + i + "/" + searcher.manual.menu.length : "wait for your input" )
+                + "</i></p>"
+        }
+    }
 })
 </script>
 </body></html>
