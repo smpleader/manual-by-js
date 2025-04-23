@@ -124,7 +124,10 @@
         <div class="modal search-modal" id="searchModal" tabindex="-1" aria-labelledby="searcher-input" >
             <div class="modal-dialog">
                 <div class="modal-content mt-5">
-                    <input type="text" class="form-control" id="searcher-input" placeholder="Type and hit enter..." aria-label="Type and hit enter...">
+                    <div class="d-flex">
+                        <input type="text" class="form-control shadow-none border-0 form-control-lg" id="searcher-input" placeholder="Type and hit enter..." aria-label="Type and hit enter...">
+                        <button type="reset" title="Clear the query" aria-label="Clear the query" class="btn-close mt-2 me-2  btn-lg" onClick="searcher.clear()"></button>
+                    </div>
                     <div class="searcher-options"></div>
                     <div class="" id="searcher-progress"></div>
                     <div class="" id="searcher-result"></div>
@@ -287,7 +290,7 @@ const app = new ManualByJs({
 const searcher = new SearchForManual(app, {
     hook: {
         afterSearching: function(){   
-            searcher.sfm.prg.innerHTML = "<p class='mt-4 ms-2'>" + searcher.result.length +" found</p>"
+            searcher.sfm.prg.innerHTML = "<p class='ms-3'>" + searcher.result.length +" found</p>"
             if(searcher.result.length)
             {   
                 let lst = '<div class="list-group">'
@@ -311,7 +314,7 @@ const searcher = new SearchForManual(app, {
             }
         },
         onSearching: function( i, page, found){
-            searcher.sfm.prg.innerHTML = "<p class='mt-4 ms-2'><i>" + 
+            searcher.sfm.prg.innerHTML = "<p class='ms-3'><i>" + 
                 ( i ? "searching " + i + "/" + searcher.manual.menu.length : "wait for your input" )
                 + "</i></p>"
         }

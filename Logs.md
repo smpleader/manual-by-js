@@ -2,6 +2,10 @@
 
 Here  you can see what was changed
 
+
+### 0.2.6
+- Improve hook afterInit, support load or unload
+
 ### 0.2.5
 - Improve search, fix bug and modify hool
 

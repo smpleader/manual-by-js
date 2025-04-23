@@ -1,5 +1,5 @@
 function ManualByJs(options = {}){
-    this.version = '0.2.5'
+    this.version = '0.2.6'
     this.flag = options.flag || ''
     this.folderContent = options.folderContent || 'content'
     this.homePage = options.homePage || 'page-home'
@@ -255,9 +255,15 @@ ManualByJs.prototype = {
     },
     _afterInit: function()
     {
+        let isContinue = true
         if( this.hook.afterInit instanceof Function )
         {
-            this.hook.afterInit()
+            isContinue = this.hook.afterInit()
+        }
+
+        if(isContinue)
+        {
+            this.checkWindowLocation(this.homePage)
         }
     },
     _loadIframe: function(url)
@@ -379,6 +385,15 @@ ManualByJs.prototype = {
             window.scrollTo({ top: 0, behavior: 'smooth' })
         }
     },
+    checkWindowLocation: function(defaultHash = null)
+    {
+        let hash = window.location.hash.substring(1); // Remove the '#' character
+        if(hash.length == 0 && null != defaultHash)
+        {
+            hash = defaultHash
+        }
+        this.navigate(hash);
+    },
     _init: async function()
     {
         if(this.menu.length == 0)
@@ -393,20 +408,8 @@ ManualByJs.prototype = {
         }
         
         this._createMenu()
-            
-        let hash = window.location.hash.substring(1);
-        if(hash.length == 0) hash = this.homePage
-        
-        await this.navigate( hash )
- 
         this._afterInit()
-
-        // global event
-        that = this
     
-        window.addEventListener('hashchange', function() {
-            const hash = window.location.hash.substring(1); // Remove the '#' character
-            that.navigate(hash);
-        });
+        window.addEventListener('hashchange',  ()=>this.checkWindowLocation());
     }
 }
