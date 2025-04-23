@@ -27,13 +27,12 @@
     </a>
 
     <div class="d-flex">
-      <!-- SEARCH
       <div class="bd-search" id="docsearch" data-bd-docs-version="5.3">
         <button type="button"class="DocSearch DocSearch-Button" data-bs-toggle="modal" data-bs-target="#searchModal"><span class="DocSearch-Button-Container">
             <svg width="20" height="20"  aria-hidden="true" class="DocSearch-Search-Icon"><use href="assets/icons.svg#search"></use></svg>
             <span class="DocSearch-Button-Placeholder">Search</span></span>
         </button>
-      </div>-->
+      </div>
 
       <button class="navbar-toggler d-flex d-lg-none order-3 p-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#bdNavbar" aria-controls="bdNavbar" aria-label="Toggle navigation">
         <svg class="bi" aria-hidden="true"><use xlink:href="assets/icons.svg#three-dots"></use></svg>
@@ -180,10 +179,16 @@
         </div>
     </main>
   </div>
-  <div class="modal fade search-modal" id="searchModal" tabindex="-1" aria-labelledby="searchModalLabel" aria-hidden="true">
+  <div class="modal fade search-modal" id="searchModal" tabindex="-1" aria-labelledby="searcher-input" aria-hidden="true">
       <div class="modal-dialog">
           <div class="modal-content mt-5">
-              <input type="text" class="form-control" id="searchModalLabel" placeholder="Type and hit enter..." aria-label="Type and hit enter...">
+            <div class="d-flex">
+            <input type="text" class="form-control shadow-none border-0 form-control-lg" id="searcher-input" placeholder="Type and hit enter..." aria-label="Type and hit enter...">
+            <button type="reset" title="Clear the query" aria-label="Clear the query" class="btn-close mt-2 me-2  btn-lg" onClick="searcher.clear()"></button>
+            </div>
+            <div class="searcher-options"></div>
+            <div class="" id="searcher-progress"></div>
+            <div class="" id="searcher-result"></div>
           </div>
       </div>
   </div>
@@ -198,8 +203,8 @@
 <script src="assets/color-modes.js"></script>
 <script src="assets/markdown-it.min.js"></script>
 <script src="assets/bundle.min.js"></script>
-<script src="assets/driver.js"></script>
 <script src="assets/manual.js"></script>
+<script src="assets/search.js"></script>
 <script>
 const tourjs = driverJs()
 const mkd = markdownit({
@@ -305,6 +310,43 @@ const app = new ManualByJs({
         }
     }
   }
+})
+const searcher = new SearchForManual(app, {
+    hook: {
+        afterSearching: function(){   
+            searcher.sfm.prg.innerHTML = "<p class='ms-3'><i>" + searcher.result.length +" found</i></p>"
+            if(searcher.result.length)
+            {   
+                let lst = '<div class="list-group">'
+                for(const item of searcher.result)
+                { 
+                     lst += `<a href="#${item.link}" class="list-group-item list-group-item-action openModal" data-bs-dismiss="modal">
+                            <div class="d-flex w-100 justify-content-between">
+                            <h5 class="mb-1">${item.title}</h5> 
+                            </div>
+                            <p class="mb-1">..${item.found}..</p>
+                        </a>`
+                }
+                lst += '</div>'
+                searcher.sfm.res.innerHTML = ''
+                searcher.sfm.res.insertAdjacentHTML("afterbegin", lst)
+                document.querySelectorAll("a.openModal").forEach((item) => {
+                    item.addEventListener('click', () => { 
+                      app.navigate(item.href.split('#')[1] || '') 
+                    })
+                }) 
+            }
+            else
+            {
+                searcher.sfm.res.innerHTML = ""
+            }
+        },
+        onSearching: function( i, page, found){
+            searcher.sfm.prg.innerHTML = "<p class='ms-3'><i>" + 
+                ( i ? "searching " + i + "/" + searcher.manual.menu.length : "wait for your input" )
+                + "</i></p>"
+        }
+    }
 })
 </script>
 </body></html>
