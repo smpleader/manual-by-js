@@ -14,6 +14,7 @@ function SearchForManual( mbjInstance, options = {}){
         opt: "searcher-option",
         prg: "searcher-progress",
         res: "searcher-result",
+        modal: "searchModal"
     }
 
     this.manual = mbjInstance
@@ -113,6 +114,7 @@ SearchForManual.prototype = {
         this.sfm.res.innerHTML = ""
         this.sfm.prg.innerHTML = ""
         this.sfm.input.value = ""
+        this.sfm.input.focus()
     },
     _init: async function()
     {
@@ -130,6 +132,13 @@ SearchForManual.prototype = {
                      
                 }
             })
+            if(this.sfm.modal)
+            {
+                this.sfm.modal.addEventListener('shown.bs.modal', () => {
+                    this.sfm.input.focus()
+                })
+            }
+            
         }
     }
 }

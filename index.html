@@ -287,6 +287,7 @@ const app = new ManualByJs({
               '<li><a class="dropdown-item" href="' + item.href + '">'+ item.title +'</a></li>' )
       }
       document.getElementById("mbj-site-title").innerText =  "Manual By JS"
+      return true
     },
     createIndexTable: function()
     {
@@ -331,9 +332,7 @@ const searcher = new SearchForManual(app, {
                 searcher.sfm.res.innerHTML = ''
                 searcher.sfm.res.insertAdjacentHTML("afterbegin", lst)
                 document.querySelectorAll("a.openModal").forEach((item) => {
-                    item.addEventListener('click', () => { 
-                      app.navigate(item.href.split('#')[1] || '') 
-                    })
+                    item.addEventListener('click', () => {  document.location.href = item.href  })
                 }) 
             }
             else
