@@ -23,7 +23,7 @@ This is a html manual powered by javascript. For more details, run porject by op
 - ~~Add menu link~~
 - ~~Add footer~~
 - ~~Add milestone to the top ( sprint, version)~~
-- Support multilanguage
+- Support multilanguage by translator services
 - ~~Define elements of a content ( id of html tags, require: sidebarMenu & mainLayout )~~
 - ~~Support page parts so the content can be edited easier and share part of content~~
 - ~~Use prefix to differ index table to page ~~
@@ -33,6 +33,7 @@ This is a html manual powered by javascript. For more details, run porject by op
 - ~~Support layout template for menu, milestone, indextable~~
 - ~~Auto make index table ~~
 - ~~Support iframe~~
-- Support search
-- Support tag filter
-
+- ~~Support search~~
+- Support tag & tag filter
+- Re-arrange the folder structure to differ the demo and application
+- 
