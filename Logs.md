@@ -2,6 +2,8 @@
 
 Here  you can see what was changed
 
+### 0.2.7
+- Support filter by tag and search key with FilterForManual
 
 ### 0.2.6
 - Improve hook afterInit, support load or unload

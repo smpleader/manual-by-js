@@ -1,5 +1,5 @@
 function ManualByJs(options = {}){
-    this.version = '0.2.6'
+    this.version = '0.2.7'
     this.flag = options.flag || ''
     this.folderContent = options.folderContent || 'content'
     this.homePage = options.homePage || 'page-home'
@@ -101,6 +101,16 @@ ManualByJs.prototype = {
         }
 
         return false
+    },
+    getItems: function(){
+        let i =0, items = []
+        while( i < this.menu.length)
+        { 
+            page = this.menu[i]
+            i++ 
+            if(page.slug) items.push(page)
+        }
+        return items
     },
     _createDefaultMenu: function()
     {
