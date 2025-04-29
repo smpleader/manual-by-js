@@ -1,4 +1,5 @@
 function SearchForManual( mbjInstance, options = {}){
+
     if(Object.getPrototypeOf(mbjInstance) !== ManualByJs.prototype)
     {
         alert("Invalid MBJ instance")
@@ -55,11 +56,43 @@ SearchForManual.prototype = {
         const surroundingWords = words.slice(start, end)
         return surroundingWords.join(' ')
     },
+    search: async function(txt, wholeText = false, searchIframe = false)
+    {
+        let result = []
+        start = Date.now(), end = 0, timecost = 0
+        if(txt.length > 0)
+        {
+            let  i = 0, regex = new RegExp(txt, "i"), idxSearch, page 
+            while( i < this.manual.menu.length)
+            { 
+                page = this.manual.menu[i]
+                i++ 
+                if(page.slug)
+                {
+                    content = await this.manual.digContent(page)
+                    noHTML = content.replace(/(<([^>]+)>)/ig, '')
+                    idxSearch = regex.exec(noHTML) 
+                    
+                    if( idxSearch !== null)
+                    {
+                        result.push(page)
+                    } 
+                }
+                end = Date.now()
+            }
+        }
+
+        if(end)
+        {
+            timecost = start - end // milliseconds = Math.floor(timecost / 1000) seconds
+        }
+
+        return result
+    },
     _search:  async function(txt)
-    { // todo cache the data: compare  this.manual.menu.length
+    {
         this.result = [] 
-        let  i = 0, regex = new RegExp(txt, "i"), idxSearch, page
-        //txt.replace(/[^a-zA-Z0-9 ]/g, '')) --> filter for options
+        let  i = 0, regex = new RegExp(txt, "i"), idxSearch, page 
 
         while( i < this.manual.menu.length)
         { 

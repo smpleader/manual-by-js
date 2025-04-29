@@ -34,7 +34,7 @@ This is a html manual powered by javascript. For more details, run porject by op
 - ~~Auto make index table ~~
 - ~~Support iframe~~
 - ~~Support search~~
-- Support tag & tag filter
+- ~~Support tag & tag filter~~
 - Re-arrange the folder structure to differ the demo and application
 - Create manual.preview which works similar to htmlpreview
 - Convert application to ESM module
