@@ -288,6 +288,12 @@ const searcher = new SearchForManual(app, {
             searcher.sfm.prg.innerHTML = "<p class='ms-3'><i>" + 
                 ( i ? "searching " + i + "/" + searcher.manual.menu.length : "wait for your input" )
                 + "</i></p>"
+        },
+        afterInit: function()
+        { 
+             document.getElementById("searchModal").addEventListener('shown.bs.modal', () => {
+                searcher.sfm.input.focus()
+            })
         }
     }
 })
